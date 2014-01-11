@@ -1,0 +1,175 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="#e3e3e3"
+        android:orientation="horizontal" >
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/butSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:onClick="callSave"
+            android:text="@string/save" />
+
+        <com.call.tracker.customview.TextViewRoboto
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/add_contacts"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="#000" />
+    </RelativeLayout>
+
+    <com.call.tracker.customview.TextViewRoboto
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Name" />
+
+    <com.call.tracker.customview.EditTextRoboto
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true" />
+
+    <com.call.tracker.customview.TextViewRoboto
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <com.call.tracker.customview.EditTextRoboto
+            android:id="@+id/phoneNumber1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="Number1"
+            android:inputType="number"
+            android:singleLine="true" />
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/phoneNumber1selection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:onClick="selection"
+            android:text="Select type" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <com.call.tracker.customview.EditTextRoboto
+            android:id="@+id/phoneNumber2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="Number2"
+            android:inputType="number"
+            android:singleLine="true" />
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/phoneNumber2selection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:onClick="selection"
+            android:text="Select type" />
+    </LinearLayout>
+
+    <com.call.tracker.customview.TextViewRoboto
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Email" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <com.call.tracker.customview.EditTextRoboto
+            android:id="@+id/Email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" />
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/emailSelection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:onClick="forEmail"
+            android:text="Select type" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.call.tracker.customview.CheckBoxRoboto
+                android:id="@+id/checkRepeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/repeat" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <com.call.tracker.customview.TextViewRoboto
+                android:id="@+id/textDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Date" />
+
+            <com.call.tracker.customview.ButtonRoboto
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="callCalender"
+                android:text="Calender" />
+
+            <com.call.tracker.customview.TextViewRoboto
+                android:id="@+id/textTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Time"
+                android:visibility="gone" />
+
+            <com.call.tracker.customview.ButtonRoboto
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Repeat" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="#e3e3e3"
+        android:orientation="horizontal" >
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/butHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:onClick="callHome"
+            android:text="@string/home"
+            android:visibility="gone" />
+
+        <com.call.tracker.customview.TextViewRoboto
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/voice_notes_details"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="#000" />
+    </RelativeLayout>
+
+    <com.call.tracker.customview.TextViewRoboto
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tap_to_play_voice_note"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <com.call.tracker.customview.ButtonRoboto
+        android:id="@+id/buttonPlaySound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/semiTransparent"
+        android:drawableLeft="@drawable/media_play"
+        android:onClick="callPlaySound"
+        android:text="Date" />
+
+    <com.call.tracker.customview.TextViewRoboto
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <com.call.tracker.customview.TextViewRoboto
+            android:id="@+id/textViewUr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mark this VoiceNote as Urgent?"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/butUrgent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/icon_alert_grey" />
+    </LinearLayout>
+
+    <com.call.tracker.customview.ButtonRoboto
+        android:id="@+id/butAssigncontact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="callAssigncontact"
+        android:text="@string/assign_to_contact" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/butMess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="callMess"
+            android:text="Message" />
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/butMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="callMail"
+            android:text="Mail" />
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/butDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="callDelete"
+            android:text="Delete" />
+    </LinearLayout>
+
+    <com.call.tracker.customview.ButtonRoboto
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="callSave"
+        android:text="Save" />
+
+</LinearLayout>

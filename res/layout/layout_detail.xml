@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main_background"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="#e3e3e3"
+        android:orientation="horizontal" >
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/butEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:onClick="callEdit"
+            android:text="Edit" />
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/butHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/butEdit"
+            android:onClick="callHome"
+            android:text="Home" />
+    </RelativeLayout>
+
+    <com.call.tracker.customview.TextViewRoboto
+        android:id="@+id/textViewCallerName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/listCall"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <com.call.tracker.customview.ButtonRoboto
+                    android:id="@+id/butSms"
+                    android:layout_width="@dimen/button_width_small"
+                    android:layout_height="@dimen/button_width_small"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:onClick="callAlert"
+                    android:background="@drawable/ic_red"/>
+
+                <com.call.tracker.customview.ButtonRoboto
+                    android:id="@+id/butMail"
+                    android:layout_width="@dimen/button_width_small"
+                    android:layout_height="@dimen/button_width_small"
+                    android:layout_centerInParent="true"
+                    android:onClick="callMail"
+                    android:background="@drawable/ic_mail"/>
+
+                <com.call.tracker.customview.ButtonRoboto
+                    android:id="@+id/butAlert"
+                    android:layout_width="@dimen/button_width_small"
+                    android:layout_height="@dimen/button_width_small"
+                    android:layout_alignParentLeft="true"
+                    android:onClick="callSMS"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/ic_sms" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <com.call.tracker.customview.TextViewRoboto
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/last_called" />
+
+                <com.call.tracker.customview.TextViewRoboto
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

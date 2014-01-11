@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="#e3e3e3"
+        android:orientation="horizontal" >
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/butHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:onClick="callHome"
+            android:text="@string/home" />
+
+        <com.call.tracker.customview.TextViewRoboto
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/add_contacts"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="#000" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <com.call.tracker.customview.TextViewRoboto
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/what_list_would_you_like_to_populate_from_the_contacts_you_are_about_to_select_from_your_phone_" />
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:onClick="callChoose"
+            android:text="@string/choose_a_list_from_the_menu" />
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginRight="10dp"
+            android:onClick="callJustPopulate"
+            android:text="@string/just_populate_the_overall_call_list" />
+    </LinearLayout>
+
+</LinearLayout>

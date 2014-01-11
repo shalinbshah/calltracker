@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="stroke_color">#FF725336</color>
+    <color name="tabMedium">#1B1B1B</color>
+    <color name="tabDark">#000000</color>
+    <color name="tabTransparent">#20ffffff</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="semiTransparent">#ACACACAC</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#D00A0A</color>
+    <color name="shadow_start">#80000000</color>
+    <color name="shadow_end">#00000000</color>
+    <color name="pink">#FF66CC</color>
+    <color name="black">#000000</color>
+    <color name="blue">#3157B0</color>
+    <color name="blue_bg">#d7deef</color>
+    <color name="textColor">#DFC8AD</color>
+    <color name="image_border_start">#40990000</color>
+    <color name="image_border_end">#FF660000</color>
+    <color name="image_border_center">#FFFF3333</color>
+
+</resources>
