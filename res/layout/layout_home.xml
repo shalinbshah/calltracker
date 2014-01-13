@@ -2,13 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_main_background"
+    android:background="@drawable/menu_bg"
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:layout_weight="0.4"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="225dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@drawable/menu_title" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal" >
 
         <LinearLayout
@@ -21,13 +36,9 @@
             <ImageView
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_width"
-                android:background="@drawable/icon_call_list_new"
-                android:onClick="callCallList" />
-
-            <com.call.tracker.customview.TextViewRoboto
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/call_list" />
+                android:layout_margin="10dp"
+                android:onClick="callCallList"
+                android:src="@drawable/menu_call_list" />
         </LinearLayout>
 
         <LinearLayout
@@ -45,21 +56,18 @@
                 <ImageView
                     android:layout_width="@dimen/button_width"
                     android:layout_height="@dimen/button_width"
+                    android:layout_margin="10dp"
                     android:background="@drawable/icon_contact_new"
-                    android:onClick="callContact" />
-
-                <com.call.tracker.customview.TextViewRoboto
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Contact Manager" />
+                    android:onClick="callContact"
+                    android:src="@drawable/menu_contact_manager" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
 
         <LinearLayout
             android:layout_width="0dp"
@@ -71,13 +79,9 @@
             <ImageView
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_width"
-                android:background="@drawable/icon_list_new"
-                android:onClick="callListManage" />
-
-            <com.call.tracker.customview.TextViewRoboto
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="List Manager" />
+                android:layout_margin="10dp"
+                android:onClick="callListManage"
+                android:src="@drawable/menu_list_manager" />
         </LinearLayout>
 
         <LinearLayout
@@ -95,21 +99,17 @@
                 <ImageView
                     android:layout_width="@dimen/button_width"
                     android:layout_height="@dimen/button_width"
-                    android:background="@drawable/icon_report_new"
-                    android:onClick="callReport" />
-
-                <com.call.tracker.customview.TextViewRoboto
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Reports" />
+                    android:layout_margin="10dp"
+                    android:onClick="callReport"
+                    android:src="@drawable/menu_report" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
 
         <LinearLayout
             android:layout_width="0dp"
@@ -121,13 +121,9 @@
             <ImageView
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_width"
-                android:background="@drawable/icon_voice_new"
-                android:onClick="callVoice" />
-
-            <com.call.tracker.customview.TextViewRoboto
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Voice Notes" />
+                android:layout_margin="10dp"
+                android:onClick="callVoice"
+                android:src="@drawable/menu_voice_note" />
         </LinearLayout>
 
         <LinearLayout
@@ -145,13 +141,9 @@
                 <ImageView
                     android:layout_width="@dimen/button_width"
                     android:layout_height="@dimen/button_width"
-                    android:background="@drawable/icon_setting_new"
-                    android:onClick="callSetting" />
-
-                <com.call.tracker.customview.TextViewRoboto
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Setting" />
+                    android:layout_margin="10dp"
+                    android:onClick="callSetting"
+                    android:src="@drawable/menu_settings" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -159,7 +151,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_weight="0.4" >
 
         <LinearLayout
             android:layout_width="0dp"
@@ -169,10 +161,10 @@
             android:orientation="vertical" >
 
             <ImageView
-                android:layout_width="@dimen/button_width_small"
-                android:layout_height="@dimen/button_width_small"
-                android:background="@drawable/icon_like_new"
-                android:onClick="callLikeus" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:onClick="callLikeus"
+                android:src="@drawable/menu_facebook" />
 
             <com.call.tracker.customview.TextViewRoboto
                 android:layout_width="wrap_content"
@@ -193,9 +185,9 @@
                 android:orientation="vertical" >
 
                 <ImageView
-                    android:layout_width="@dimen/button_width"
-                    android:layout_height="@dimen/button_width"
-                    android:background="@drawable/icon_pro_new"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/menu_in_app"
                     android:onClick="callBecomePro" />
 
                 <com.call.tracker.customview.TextViewRoboto
@@ -218,10 +210,10 @@
                 android:orientation="vertical" >
 
                 <ImageView
-                    android:layout_width="@dimen/button_width_small"
-                    android:layout_height="@dimen/button_width_small"
-                    android:background="@drawable/icon_help_new"
-                    android:onClick="callHelp" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:onClick="callHelp"
+                    android:src="@drawable/menu_help" />
 
                 <com.call.tracker.customview.TextViewRoboto
                     android:layout_width="wrap_content"

@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -27,7 +25,6 @@ import android.widget.ListView;
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
 import com.call.tracker.adapter.CallListAdapter;
-import com.call.tracker.contactmanager.ContactManagerMainActivity;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.CallListModel;
 import com.call.tracker.model.CallUserModel;
@@ -46,6 +43,8 @@ public class CallListActivity extends BaseActivity {
 	private ArrayList<VoiceNotesModel> mVoiceArrayList = new ArrayList<VoiceNotesModel>();
 	private ArrayList<ListManagerModel> mListManagerModels = new ArrayList<ListManagerModel>();
 	private Button butContactList;
+	private boolean isCallerContactManager = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -57,29 +56,18 @@ public class CallListActivity extends BaseActivity {
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
 			int val = bundle.getInt("key");
-			if (val == 1)
+			if (val == 1) {
+				isCallerContactManager = true;
 				butAdd.setVisibility(View.VISIBLE);
+			}
 		}
 	}
-
-	// public void startApp() {
-	// // TODO Auto-generated method stub
-	// final Handler handler = new Handler();
-	// handler.postDelayed(new Runnable() {
-	// @Override
-	// public void run() {
-	// readContacts("");
-	// initControl();
-	// }
-	// }, 1000);
-	//
-	// }
 
 	private void initControl() {
 		// TODO Auto-generated method stub
 		updatePref(CURRENT_LIST, "0");
 
-		butContactList = (Button)findViewById(R.id.butContactList);
+		butContactList = (Button) findViewById(R.id.butContactList);
 		butContactList.setText("All contacts");
 		butAdd = (Button) findViewById(R.id.butAdd);
 
@@ -130,6 +118,87 @@ public class CallListActivity extends BaseActivity {
 			public void afterTextChanged(Editable arg0) {
 			}
 		});
+	}
+
+	private void generateContactsList(String string, int listId) {
+		// TODO Auto-generated method stub
+
+		StringBuffer sb = new StringBuffer();
+		Cursor managedCursor = getContentResolver().query(
+				CallLog.Calls.CONTENT_URI, null, null, null, null);
+		int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
+		int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
+		int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
+		int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
+		int nameVal = managedCursor.getColumnIndex(CallLog.Calls.CACHED_NAME);
+		int id = managedCursor.getColumnIndex(CallLog.Calls._ID);
+		// int nameValM = managedCursor.getColumnIndex(CallLog.Calls.);
+
+		sb.append("Call Details :");
+
+		arrayList.clear();
+		while (managedCursor.moveToNext()) {
+			String phNumber = managedCursor.getString(number);
+			String callType = managedCursor.getString(type);
+			String callDate = managedCursor.getString(date);
+			Date callDayTime = new Date(Long.valueOf(callDate));
+			String callDuration = managedCursor.getString(duration);
+			String name = managedCursor.getString(nameVal);
+			String contactId = managedCursor.getString(id);
+			if (name == null)
+				name = "";
+			String dir = null;
+			int dircode = Integer.parseInt(callType);
+			switch (dircode) {
+
+			case CallLog.Calls.OUTGOING_TYPE:
+				dir = "OUTGOING";
+				break;
+
+			case CallLog.Calls.INCOMING_TYPE:
+				dir = "INCOMING";
+				break;
+
+			case CallLog.Calls.MISSED_TYPE:
+				dir = "MISSED";
+				break;
+			}
+			sb.append("\nPhone Number:--- " + phNumber + " \nCall Type:--- "
+					+ dir + " \nCall Date:--- " + callDayTime
+					+ " \nCall duration in sec :--- " + callDuration);
+			sb.append("\n----------------------------------");
+
+			CallListModel callListModel = new CallListModel();
+			callListModel.setId(contactId);
+			callListModel.setName(name);
+			callListModel.setDate(callDayTime.toString());
+			callListModel.setDuration(callDuration);
+			callListModel.setNumber(phNumber);
+			callListModel.setType(callType);
+
+			if (name.toUpperCase().contains(string.toUpperCase())
+					|| phNumber.contains(string))
+
+				for (int i = 0; i < mVoiceArrayList.size(); i++) {
+					if (PhoneNumberUtils.compare(phNumber,
+							mVoiceArrayList.get(i).getContact_number()))
+						if (listId == -1)
+							arrayList.add(callListModel);
+						else if (mVoiceArrayList.get(i).getGroupId()
+								.equals(String.valueOf(listId)))
+							arrayList.add(callListModel);
+						else {
+
+						}
+				}
+		}
+		managedCursor.close();
+		Collections.reverse(arrayList);
+		Set<String> set = new HashSet(arrayList);
+		Log.d(TAG, "---->Data->      " + set.size());
+		adapter = new CallListAdapter(this, arrayList);
+		listContact.setAdapter(adapter);
+
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -213,50 +282,6 @@ public class CallListActivity extends BaseActivity {
 		adapter = new CallListAdapter(this, arrayList);
 		listContact.setAdapter(adapter);
 
-	}
-
-	public void callAdd(View view) {
-		startActivity(new Intent(getApplicationContext(),
-				ContactManagerMainActivity.class));
-	}
-
-	public void callContactList(View view) {
-		//
-		int currentVal = Integer.valueOf(preferences.getString(CURRENT_LIST,
-				"0"));
-		AlertDialog.Builder builderListChoiceDialog = new AlertDialog.Builder(
-				this);
-		final String[] strings = new String[mListManagerModels.size() + 1];
-		for (int i = 0; i < mListManagerModels.size(); i++) {
-			if (i == 0)
-				strings[0] = "All contacts";
-			strings[i + 1] = mListManagerModels.get(i).getName();
-		}
-
-		// final CharSequence[] array = { "All contacts", "FSBO list",
-		// "Open House Guest", "Expired List", "Other" };
-		builderListChoiceDialog.setTitle(R.string.select_call_list)
-				.setSingleChoiceItems(strings, currentVal,
-						new DialogInterface.OnClickListener() {
-
-							public void onClick(DialogInterface dialog,
-									int position) {
-								updatePref(CURRENT_LIST,
-										String.valueOf(position));
-								dialog.dismiss();
-								int val = position;
-								if (position == 0) {
-									val = -1;
-								} else
-									val = Integer.valueOf(mListManagerModels
-											.get(position - 1).getId());
-								generateCallList("", val);
-								butContactList.setText(strings[position]);
-							}
-						});
-		AlertDialog listChoiceDialog = builderListChoiceDialog.create();
-		listChoiceDialog.setCanceledOnTouchOutside(true);
-		listChoiceDialog.show();
 	}
 
 	// @SuppressLint("InlinedApi")

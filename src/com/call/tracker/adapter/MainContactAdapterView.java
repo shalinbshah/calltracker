@@ -12,16 +12,16 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.call.tracker.R;
-import com.call.tracker.model.ContactData;
+import com.call.tracker.model.ContactModel;
 import com.call.tracker.voicenotes.MainContactActivity;
 
 public class MainContactAdapterView extends BaseAdapter {
 
-	public ArrayList<ContactData> mListManagerModels = new ArrayList<ContactData>();
+	public ArrayList<ContactModel> mListManagerModels = new ArrayList<ContactModel>();
 	private MainContactActivity activity;
 
 	public MainContactAdapterView(MainContactActivity mActivity,
-			ArrayList<ContactData> callList) {
+			ArrayList<ContactModel> callList) {
 		this.activity = mActivity;
 		this.mListManagerModels = callList;
 	}
@@ -92,7 +92,7 @@ public class MainContactAdapterView extends BaseAdapter {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				int id = v.getId();
-				ContactData dataView = (ContactData) getItem(id);
+				ContactModel dataView = (ContactModel) getItem(id);
 				boolean b = mListManagerModels.get(id).isCheck();
 				dataView.setCheck(!b);
 				mListManagerModels.set(id, dataView);

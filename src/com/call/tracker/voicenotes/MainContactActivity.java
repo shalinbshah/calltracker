@@ -4,22 +4,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import android.content.ContentResolver;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
 import com.call.tracker.adapter.MainContactAdapterView;
 import com.call.tracker.database.DBAdapter;
-import com.call.tracker.model.ContactData;
+import com.call.tracker.model.ContactModel;
 import com.call.tracker.model.ListManagerModel;
 import com.call.tracker.model.VoiceNotesModel;
 
@@ -27,8 +25,8 @@ public class MainContactActivity extends BaseActivity {
 
 	TextView textType;
 	ListView listContact;
-	private ArrayList<ContactData> arrayListContactDatas = new ArrayList<ContactData>();
-	private ArrayList<ContactData> mainListContactDatas = new ArrayList<ContactData>();
+	private ArrayList<ContactModel> arrayListContactDatas = new ArrayList<ContactModel>();
+	private ArrayList<ContactModel> mainListContactDatas = new ArrayList<ContactModel>();
 	private MainContactAdapterView mAdapter;
 	private EditText editTextSearch;
 	private String typeString;
@@ -62,11 +60,12 @@ public class MainContactActivity extends BaseActivity {
 		listContact = (ListView) findViewById(R.id.listContact);
 
 		startDialogBar();
-		getNumber(this.getContentResolver());
+		getNumbers(modelList);
 
 		ContactLoadingAsync loadingAsync = new ContactLoadingAsync(
 				getApplicationContext(), new ContactLoadingCompletedListener() {
-					public void onCompleted(ArrayList<ContactData> contactDatas1) {
+					public void onCompleted(
+							ArrayList<ContactModel> contactDatas1) {
 						Collections.sort(arrayListContactDatas);
 						assignSeparatorPositions(arrayListContactDatas);
 						Collections.sort(mainListContactDatas);
@@ -87,7 +86,6 @@ public class MainContactActivity extends BaseActivity {
 			public void onTextChanged(CharSequence cs, int arg1, int arg2,
 					int arg3) {
 				setdataToAdapter(cs.toString());
-
 			}
 
 			@Override
@@ -112,7 +110,7 @@ public class MainContactActivity extends BaseActivity {
 	}
 
 	private void updateListView(String string) {
-		ArrayList<ContactData> backupArray = new ArrayList<ContactData>();
+		ArrayList<ContactModel> backupArray = new ArrayList<ContactModel>();
 		// backupArray.addAll(arrayListContactDatas);
 
 		for (int i = 0; i < mainListContactDatas.size(); i++) {
@@ -126,7 +124,7 @@ public class MainContactActivity extends BaseActivity {
 		arrayListContactDatas.addAll(backupArray);
 	}
 
-	private void assignSeparatorPositions(ArrayList<ContactData> items) {
+	private void assignSeparatorPositions(ArrayList<ContactModel> items) {
 		boolean[] separatorAtIndex = new boolean[items.size()];
 		char currentChar = 0;
 		for (int i = 0; i < items.size(); i++) {
@@ -141,35 +139,32 @@ public class MainContactActivity extends BaseActivity {
 		}
 	}
 
-	public void getNumber(ContentResolver cr) {
+	public void getNumbers(ArrayList<ListManagerModel> modelList2) {
+		openDB();
+		dbAdapter.openDataBase();
 
-		Cursor phones = cr.query(
-				ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null,
-				null, null);
-		// use the cursor to access the contacts
-		arrayListContactDatas.clear();
-		while (phones.moveToNext()) {
-			ContactData contactData = new ContactData();
-			String name = phones
-					.getString(phones
-							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-			// get display name
-			String phoneNumber = phones
-					.getString(phones
-							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-
-			String id = phones.getString(phones
-					.getColumnIndex(ContactsContract.Contacts._ID));
-			contactData.setContactId(id);
-			contactData.setName(name);
-			contactData.setCheck(false);
-			contactData.setNumber1(phoneNumber);
-			// get phone number
-			System.out.println(".................." + name + "---> "
-					+ phoneNumber);
-			arrayListContactDatas.add(contactData);
-			mainListContactDatas.add(contactData);
+		for (int j = 0; j < modelList2.size(); j++) {
+			if (modelList2.get(j).getIsCheck().equalsIgnoreCase("1")) {
+				Toast.makeText(
+						this,
+						"List contacts of group " + modelList2.get(j).getName(),
+						Toast.LENGTH_LONG).show();
+				ArrayList<ContactModel> a = dbAdapter.getContactsOfGroup();
+				for (int i = 0; i < a.size(); i++) {
+					String name = a.get(i).getName();
+					// get display name
+					String phoneNumber = a.get(i).getNumber1();
+					String id = a.get(i).getContactId();
+					a.get(i).setCheck(false);
+					// get phone number
+					System.out.println(".................." + name + "---> "
+							+ phoneNumber);
+					arrayListContactDatas.add(a.get(i));
+					mainListContactDatas.add(a.get(i));
+				}
+			}
 		}
+		dbAdapter.close();
 	}
 
 	public void callSave(View view) {
@@ -177,13 +172,8 @@ public class MainContactActivity extends BaseActivity {
 		openDB();
 		dbAdapter.openDataBase();
 
-		// String query = "select * from tbl_group";
-		// dbAdapter.insertVoiceNote(voice_path, group_name, contact_name,
-		// contact_number, contact_id, urgent);
-		// dbAdapter.insertVoiceNote("", model.getName(), contact_name,
-		// contact_number, contact_id, urgent);
 		ArrayList<VoiceNotesModel> voiceNotesModels = new ArrayList<VoiceNotesModel>();
-		ArrayList<ContactData> mArrayList = mAdapter.mListManagerModels;
+		ArrayList<ContactModel> mArrayList = mAdapter.mListManagerModels;
 
 		for (int index = 0; index < modelList.size(); index++) {
 			if (modelList.get(index).getIsCheck().equals("1")) {

@@ -4,30 +4,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/FrameLayout1"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="#e3e3e3"
-        android:orientation="horizontal" >
+        android:layout_height="44dip"
+        android:background="@drawable/menu_bg" >
 
-        <com.call.tracker.customview.ButtonRoboto
-            android:id="@+id/butHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+        <ImageButton
+            android:id="@+id/ImageButton01"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="right|center_vertical"
             android:layout_marginRight="10dp"
+            android:background="@drawable/home"
             android:onClick="callHome"
-            android:text="@string/home" />
+            android:scaleType="fitCenter" />
 
-        <com.call.tracker.customview.TextViewRoboto
+        <TextView
+            android:id="@+id/TextView1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
             android:text="@string/lists"
-            android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="#000" />
-    </RelativeLayout>
+            android:textColor="@color/white"
+            android:textSize="24dp" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -38,10 +41,12 @@
         <com.call.tracker.customview.TextViewRoboto
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#d4d4d4"
+            android:layout_margin="5dp"
+            android:background="@color/theme_color"
             android:gravity="center|left"
             android:text="@string/list_manager_details"
-            android:textAppearance="@android:style/TextAppearance.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,8 +67,10 @@
         <com.call.tracker.customview.ButtonRoboto
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@color/theme_color"
             android:onClick="callGot"
-            android:text="@string/got_it" />
+            android:text="@string/got_it"
+            android:textColor="@color/white" />
 
         <com.call.tracker.customview.CheckBoxRoboto
             android:id="@+id/checkdontshow"

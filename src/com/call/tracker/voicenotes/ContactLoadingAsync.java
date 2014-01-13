@@ -9,11 +9,11 @@ import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-import com.call.tracker.model.ContactData;
+import com.call.tracker.model.ContactModel;
 
 public class ContactLoadingAsync extends
-		AsyncTask<String, String, ArrayList<ContactData>> {
-	private ArrayList<ContactData> arrayListContactDatas;
+		AsyncTask<String, String, ArrayList<ContactModel>> {
+	private ArrayList<ContactModel> arrayListContactDatas;
 	private Context mContext;
 	private ContactLoadingCompletedListener listener;
 
@@ -33,11 +33,11 @@ public class ContactLoadingAsync extends
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		arrayListContactDatas = new ArrayList<ContactData>();
+		arrayListContactDatas = new ArrayList<ContactModel>();
 	}
 
 	@Override
-	protected void onPostExecute(ArrayList<ContactData> result) {
+	protected void onPostExecute(ArrayList<ContactModel> result) {
 		super.onPostExecute(result);
 		// mProgressDialog.dismiss();
 		if (listener != null) {
@@ -46,7 +46,7 @@ public class ContactLoadingAsync extends
 	}
 
 	@Override
-	protected ArrayList<ContactData> doInBackground(String... params) {
+	protected ArrayList<ContactModel> doInBackground(String... params) {
 		readContacts();
 		return null;
 	}
@@ -59,7 +59,7 @@ public class ContactLoadingAsync extends
 		if (cur.getCount() > 0) {
 			while (cur.moveToNext()) {
 
-				ContactData contactData = new ContactData();
+				ContactModel contactData = new ContactModel();
 				String[] phoneNumber = new String[10000];
 
 				String id = cur.getString(cur

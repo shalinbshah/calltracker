@@ -7,7 +7,6 @@ import android.widget.CheckBox;
 
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
-import com.call.tracker.calllist.CallListActivity;
 
 public class ContactGuideActivity extends BaseActivity {
 
@@ -29,8 +28,7 @@ public class ContactGuideActivity extends BaseActivity {
 				String.valueOf(checkdontshow.isChecked()));
 
 		Intent intent = new Intent(getApplicationContext(),
-				CallListActivity.class);
-		intent.putExtra("key", 1);
+				ContactManagerLandingActivity.class);
 		startActivity(intent);
 	}
 }

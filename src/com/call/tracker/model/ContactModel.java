@@ -1,6 +1,8 @@
 package com.call.tracker.model;
 
-public class ContactData implements Comparable<ContactData> {
+import java.util.ArrayList;
+
+public class ContactModel implements Comparable<ContactModel> {
 
 	private String contactId;
 	private String name;
@@ -8,9 +10,10 @@ public class ContactData implements Comparable<ContactData> {
 	private String number2;
 	private String number3;
 	private String number4;
-	private boolean isCheck;
+	private ArrayList<String> groups = new ArrayList<String>();;
+	private boolean isCheck = false;
 
-	public ContactData() {
+	public ContactModel() {
 	}
 
 	public String getName() {
@@ -19,6 +22,16 @@ public class ContactData implements Comparable<ContactData> {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public ArrayList<String> getGroup() {
+		return groups;
+	}
+
+	public void addGroup(String name) {
+		if (null == this.groups)
+			this.groups = new ArrayList<String>();
+		this.groups.add(name);
 	}
 
 	public String getNumber1() {
@@ -53,7 +66,7 @@ public class ContactData implements Comparable<ContactData> {
 		this.number4 = number4;
 	}
 
-	public int compareTo(ContactData another) {
+	public int compareTo(ContactModel another) {
 		// TODO Auto-generated method stub
 		int res = String.CASE_INSENSITIVE_ORDER.compare(this.getName(),
 				another.getName());

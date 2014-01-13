@@ -30,7 +30,7 @@
     <string name="export_contacts_as_csv">Export Contacts as CSV</string>
     <string name="sales_goals">Sales Goals</string>
     <string name="facebook_contact_us">Facebook / Contact us</string>
-    <string name="you_have_everything_you_need_to_nbuild_something_for_bigger_than_nyourself_nseth_godin">You have everything you need to\nbuild something for bigger than\nyourself.\nSeth Godin</string>
+    <string name="you_have_everything_you_need_to_nbuild_something_for_bigger_than_nyourself_nseth_godin">You have everything you need to\nbuild something for bigger than yourself.\n\nSeth Godin</string>
     <string name="help">Help</string>
     <string name="here_apos_s_a_few_options_to_help_familiarize_yourself_with_the_app_or_answer_any_question_you_may_have">Here\'s a few options to help familiarize yourself with the app, or answer any question you may have</string>
     <string name="contact_the_brains_of_this_operation">Contact the brains of this \noperation</string>
@@ -48,81 +48,44 @@
     <string name="list_manager">List Manager</string>
     <string name="add_new">Add New</string>
     <string name="tap_for_additional_options">Tap for additional options</string>
-
-    
     <string name="sync_text_1">This is one of those buttons you don\'t want to press until you know what is\'s going to do, so...</string>
     <string name="sync_text_2">I figured as much. So by selecting "Sync Contacts," you will update the contact information in the app, based on the latest contact information your phone</string>
     <string name="sync_text_3">Would you like to update the contacts in this app based on changes to the contacts in you phone?</string>
-    
     <string name="sync_help">Periodically, you\'ll update a contact in your phone, but who wants to do that twice?</string>
-    
     <string name="not_me">Not me</string>
-    
     <string name="export_contacts_to_csv">Export Contacts to CSV</string>
-    
     <string name="save_as">Save as</string>
-    
     <string name="send_to_dropbox">Send to Dropbox</string>
-    
     <string name="send_to_evernote">Send to Evernote</string>
-    
     <string name="sales_text">You know the drill - if you\'re not writing your goals down, what you really have is a wish. Here\'s a good way to hold yourself accountable for your phone calls</string>
-    
     <string name="sales_below">"An average person with average talent, ambition and education can outstrip the most brilliant genius in our society, if that person has clear, focused goals." Brian Tracy</string>
-    
     <string name="mission_statement">Mission Statement</string>
-    
     <string name="email_us">Email Us</string>
-    
     <string name="visit">Visit Our Facebook Page</string>
-    
     <string name="post_review">Post a Review</string>
-    
     <string name="select_choice">Select Choice</string>
-    
     <string name="view_list">View List</string>
-    
     <string name="voice_notes">Voice Notes</string>
-    
     <string name="voice_notes_details">Voice notes details</string>
-    
     <string name="tap_to_play_voice_note">Tap to play voice note</string>
-    
     <string name="assign_to_contact">Assign to Contact</string>
-    
     <string name="contact_manager">Your contact manager will allow you to import some or all of the contacts directly from your phone, or you have the option to manually enter contacts that you don\'t keep in your phone </string>
-    
     <string name="add_contacts">Add Contacts</string>
-    
     <string name="add_existing_contact_s_from_my_phone">Add existing contact (s) from my phone</string>
-    
     <string name="add_a_new_contact">Add a new contact</string>
-    
     <string name="how_would_you_like_to_add_contacts_">How would you like to add contacts?</string>
-    
     <string name="con_list1">Lists help you organize the calls you make. Focus on friends, open house guests, FSBOs, vendors, or make your own list to suit your needs.</string>
-    
     <string name="what_list_would_you_like_to_populate_from_the_contacts_you_are_about_to_select_from_your_phone_">What list would you like to populate from the contacts you are about to select from your phone?</string>
-    
     <string name="choose_a_list_from_the_menu">Choose a list from the menu</string>
-    
     <string name="just_populate_the_overall_call_list">Just populate the overall call list</string>
-    
     <string name="ready">Ready</string>
-    
     <string name="save">Save</string>
-    
     <string name="repeat">Repeat</string>
-    
     <string name="date_recorded">Date Recorded</string>
-    
     <string name="urgent">Urgent</string>
-    
     <string name="name">Name</string>
-    
     <string name="no_data_found">No Data Found</string>
-    
     <string name="this_voice_note_is_marked_as_urgent">This Voice Note is marked as Urgent</string>
-    
     <string name="this_voice_note_has_not_been_marked_as_urgent">This Voice Note has not been marked as Urgent</string>
+
 </resources>

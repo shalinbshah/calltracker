@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.call.tracker.calllist.CallListActivity;
 import com.call.tracker.contactmanager.ContactGuideActivity;
+import com.call.tracker.contactmanager.ContactManagerLandingActivity;
 import com.call.tracker.help.HelpActivity;
 import com.call.tracker.listmanager.ListManagerDetails;
 import com.call.tracker.listmanager.ListmanagerActivity;
@@ -42,7 +43,7 @@ public class HomeActivity extends BaseActivity {
 					ContactGuideActivity.class));
 		} else {
 			Intent intent = new Intent(getApplicationContext(),
-					CallListActivity.class);
+					ContactManagerLandingActivity.class);
 			intent.putExtra("key", 1);
 			startActivity(intent);
 		}

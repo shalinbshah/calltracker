@@ -17,6 +17,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.call.tracker.model.ContactModel;
 import com.call.tracker.model.ListManagerModel;
 import com.call.tracker.model.VoiceNotesModel;
 
@@ -46,6 +47,10 @@ public class DBAdapter extends SQLiteOpenHelper {
 		// "/data/data/mypackagename/databases/"
 	}
 
+	public SQLiteDatabase getMyDatabase() {
+		return myDataBase;
+	}
+
 	/**
 	 * getting Instance
 	 * 
@@ -69,10 +74,6 @@ public class DBAdapter extends SQLiteOpenHelper {
 		if (dbExist) {
 			// do nothing - database already exist
 		} else {
-			// By calling following method
-			// 1) an empty database will be created into the default system path
-			// of your application
-			// 2) than we overwrite that database with our database.
 			this.getReadableDatabase();
 			try {
 				copyDataBase();
@@ -263,7 +264,6 @@ public class DBAdapter extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put("group_id", mName);
 		values.put("user_id", imagePath);
-
 		return myDataBase.insert("tbl_User_list", null, values);
 	}
 
@@ -278,7 +278,6 @@ public class DBAdapter extends SQLiteOpenHelper {
 	}
 
 	public long insertNotification(String message) {
-		// TODO Auto-generated method stub
 		String currentDateTimeString = DateFormat.getDateTimeInstance().format(
 				new Date());
 		ContentValues values = new ContentValues();
@@ -286,7 +285,6 @@ public class DBAdapter extends SQLiteOpenHelper {
 		values.put("isClick", "false");
 		values.put("isView", "false");
 		values.put("dateVal", currentDateTimeString);
-
 		return myDataBase.insert("tbl_notification", null, values);
 	}
 
@@ -409,6 +407,48 @@ public class DBAdapter extends SQLiteOpenHelper {
 				model.setDateTime(cursor.getString(8));
 				model.setIsVisible(cursor.getString(9));
 				model.setVoice_time(cursor.getString(10));
+				arrayList.add(model);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return arrayList;
+	}
+
+	public ArrayList<ContactModel> getContacts() {
+		String query = "select * from tbl_contacts";
+		Cursor cursor = selectRecordsFromDB(query, null);
+		ArrayList<ContactModel> arrayList = new ArrayList<ContactModel>();
+		arrayList.clear();
+		if (cursor.moveToFirst()) {
+			do {
+				ContactModel model = new ContactModel();
+				model.setContactId(cursor.getString(cursor
+						.getColumnIndex("contact_id")));
+				model.setName(cursor.getString(cursor
+						.getColumnIndex("contact_name")));
+				model.setNumber1(cursor.getString(cursor
+						.getColumnIndex("contact_number")));
+				arrayList.add(model);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return arrayList;
+	}
+
+	public ArrayList<ContactModel> getContactsOfGroup() {
+		String query = "select * from tbl_contacts";
+		Cursor cursor = selectRecordsFromDB(query, null);
+		ArrayList<ContactModel> arrayList = new ArrayList<ContactModel>();
+		arrayList.clear();
+		if (cursor.moveToFirst()) {
+			do {
+				ContactModel model = new ContactModel();
+				model.setContactId(cursor.getString(cursor
+						.getColumnIndex("contact_id")));
+				model.setName(cursor.getString(cursor
+						.getColumnIndex("contact_name")));
+				model.setNumber1(cursor.getString(cursor
+						.getColumnIndex("contact_number")));
 				arrayList.add(model);
 			} while (cursor.moveToNext());
 		}
