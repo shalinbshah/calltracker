@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_main_background"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/FrameLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="44dip"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/menu_bg" >
+
+        <TextView
+            android:id="@+id/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="Select Group"
+            android:textColor="@color/white"
+            android:textSize="24dp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutListContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="10dip"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/listbox_deals"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="#FFF"
+            android:clickable="true"
+            android:padding="10dip"
+            android:scrollbarFadeDuration="1"
+            android:scrollbars="none" />
+    </LinearLayout>
+
+</LinearLayout>
