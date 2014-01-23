@@ -1,5 +1,6 @@
 package com.call.tracker.voicenotes;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
 import com.call.tracker.customview.ButtonRoboto;
+import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.VoiceNotesModel;
 
 public class VoiceDetailsActivity extends BaseActivity {
@@ -100,7 +102,7 @@ public class VoiceDetailsActivity extends BaseActivity {
 
 	public void callAssigncontact(View v) {
 		Intent intent = new Intent(getApplicationContext(),
-				VoiceDetailsListActivity.class);
+				AssignContactToVoiceNoteActivity.class);
 		intent.putExtra("type", "voice");
 		updatePref(FILEPATH, path);
 		updatePref(VOICE_TIME, voiceTime);
@@ -112,7 +114,17 @@ public class VoiceDetailsActivity extends BaseActivity {
 	}
 
 	public void callSave(View v) {
-		gotoHome();
+		// Update voice note
+		DBAdapter adapter = new DBAdapter(getApplicationContext());
+		adapter.openDB(getApplicationContext());
+		adapter.openDataBase();
+		ContentValues values = new ContentValues();
+		values.put("urgent", butUrgent.getTag().toString());
+		Bundle bundle = getIntent().getExtras();
+		VoiceNotesModel note = (VoiceNotesModel) bundle.get("data");
+		adapter.getMyDatabase().update("weight", values,
+				"id='" + note.getId() + "'", null);
+		adapter.close();
 	}
 
 	public void callPlaySound(View v) {

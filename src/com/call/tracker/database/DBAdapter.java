@@ -8,7 +8,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -36,8 +35,7 @@ public class DBAdapter extends SQLiteOpenHelper {
 	 * 
 	 * @param context
 	 */
-	@SuppressLint("SdCardPath")
-	private DBAdapter(Context context) {
+	public DBAdapter(Context context) {
 		super(context, DB_NAME, null, 1);
 		this.myContext = context;
 		DB_PATH = "/data/data/"
@@ -362,7 +360,7 @@ public class DBAdapter extends SQLiteOpenHelper {
 	}
 
 	public void insertVoiceNote(ArrayList<VoiceNotesModel> notesModels) {
-		// TODO Auto-generated method stub
+		openDataBase();
 		String currentDateTimeString = DateFormat.getDateTimeInstance().format(
 				new Date());
 		for (int i = 0; i < notesModels.size(); i++) {
@@ -380,6 +378,8 @@ public class DBAdapter extends SQLiteOpenHelper {
 
 			myDataBase.insert("tbl_voice_note", null, values);
 		}
+		close();
+
 	}
 
 	public void deleteTableContact() {
@@ -448,9 +448,20 @@ public class DBAdapter extends SQLiteOpenHelper {
 		return arrayList;
 	}
 
-	public ArrayList<ContactModel> getContactsOfGroup() {
+	public void openDB(Context mContext) {
+		DBAdapter dbAdapter = DBAdapter.getDBAdapterInstance(mContext);
+		try {
+			dbAdapter.createDataBase();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public ArrayList<ContactModel> getContactsOfGroup(String grpID) {
 		// TODO change query to include group name
-		String query = "select * from tbl_contacts";
+		String query = "select * from tbl_contacts where grp_id = '" + grpID
+				+ "'";
 		Cursor cursor = selectRecordsFromDB(query, null);
 		ArrayList<ContactModel> arrayList = new ArrayList<ContactModel>();
 		arrayList.clear();
@@ -463,6 +474,9 @@ public class DBAdapter extends SQLiteOpenHelper {
 						.getColumnIndex("contact_name")));
 				model.setNumber1(cursor.getString(cursor
 						.getColumnIndex("contact_number")));
+				String grps = cursor.getString(cursor.getColumnIndex("grp_id"));
+				for (String grp : grps.split(";"))
+					model.addGroup(grp);
 				arrayList.add(model);
 			} while (cursor.moveToNext());
 		}

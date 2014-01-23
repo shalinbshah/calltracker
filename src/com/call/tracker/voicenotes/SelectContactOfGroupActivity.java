@@ -1,6 +1,5 @@
 package com.call.tracker.voicenotes;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -21,7 +20,7 @@ import com.call.tracker.model.ContactModel;
 import com.call.tracker.model.ListManagerModel;
 import com.call.tracker.model.VoiceNotesModel;
 
-public class MainContactActivity extends BaseActivity {
+public class SelectContactOfGroupActivity extends BaseActivity {
 
 	TextView textType;
 	ListView listContact;
@@ -48,6 +47,7 @@ public class MainContactActivity extends BaseActivity {
 	@SuppressWarnings("unchecked")
 	private void initControl() {
 		// TODO Auto-generated method stub
+		dbAdapter = new DBAdapter(getApplicationContext());
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
 			typeString = bundle.getString("type");
@@ -71,7 +71,6 @@ public class MainContactActivity extends BaseActivity {
 						Collections.sort(mainListContactDatas);
 						assignSeparatorPositions(mainListContactDatas);
 						setdataToAdapter("");
-						// }
 					}
 				});
 		loadingAsync.execute("");
@@ -140,7 +139,7 @@ public class MainContactActivity extends BaseActivity {
 	}
 
 	public void getNumbers(ArrayList<ListManagerModel> modelList2) {
-		openDB();
+		dbAdapter.openDB(getApplicationContext());
 		dbAdapter.openDataBase();
 
 		for (int j = 0; j < modelList2.size(); j++) {
@@ -149,7 +148,8 @@ public class MainContactActivity extends BaseActivity {
 						this,
 						"List contacts of group " + modelList2.get(j).getName(),
 						Toast.LENGTH_LONG).show();
-				ArrayList<ContactModel> a = dbAdapter.getContactsOfGroup();
+				ArrayList<ContactModel> a = dbAdapter
+						.getContactsOfGroup(modelList2.get(j).getId());
 				for (int i = 0; i < a.size(); i++) {
 					String name = a.get(i).getName();
 					// get display name
@@ -169,8 +169,7 @@ public class MainContactActivity extends BaseActivity {
 
 	public void callSave(View view) {
 		// typeString
-		openDB();
-		dbAdapter.openDataBase();
+		dbAdapter.openDB(getApplicationContext());
 
 		ArrayList<VoiceNotesModel> voiceNotesModels = new ArrayList<VoiceNotesModel>();
 		ArrayList<ContactModel> mArrayList = mAdapter.mListManagerModels;
@@ -200,7 +199,6 @@ public class MainContactActivity extends BaseActivity {
 			}
 		}
 		dbAdapter.insertVoiceNote(voiceNotesModels);
-		dbAdapter.close();
 
 		if (typeString.equals("voice"))
 			preToast("Voice-note recorded");
@@ -210,13 +208,4 @@ public class MainContactActivity extends BaseActivity {
 		gotoHome();
 	}
 
-	public void openDB() {
-		dbAdapter = DBAdapter.getDBAdapterInstance(this);
-		try {
-			dbAdapter.createDataBase();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
 }

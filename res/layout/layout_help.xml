@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/intro_white_bg"
+    android:background="@drawable/bg_main_background"
     android:orientation="vertical" >
 
     <FrameLayout
@@ -19,6 +19,7 @@
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="10dp"
             android:background="@drawable/home"
+            android:onClick="callHome"
             android:scaleType="fitCenter" />
 
         <TextView
@@ -43,7 +44,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/white"
             android:gravity="center|left"
             android:padding="5dp"
             android:text="@string/here_apos_s_a_few_options_to_help_familiarize_yourself_with_the_app_or_answer_any_question_you_may_have"

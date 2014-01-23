@@ -19,7 +19,7 @@ import com.call.tracker.adapter.ListAdapterView;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ListManagerModel;
 
-public class VoiceDetailsListActivity extends BaseActivity {
+public class AssignContactToVoiceNoteActivity extends BaseActivity {
 	private ListView listManager;
 	private ListAdapterView adapter;
 	private DBAdapter dbAdapter;
@@ -110,20 +110,21 @@ public class VoiceDetailsListActivity extends BaseActivity {
 
 	public void callReady(View view) {
 		ArrayList<ListManagerModel> mArrayList = adapter.mArrayList;
-
+		ArrayList<ListManagerModel> groupsSelected = new ArrayList<ListManagerModel>();
 		int countVal = 0;
 		for (int i = 0; i < mArrayList.size(); i++) {
 			if (mArrayList.get(i).getIsCheck().equals("1")) {
 				countVal++;
+				groupsSelected.add(mArrayList.get(i));
 			}
 		}
 		if (countVal == 0) {
 			alertBox("Please select any contact group");
 		} else {
 			Intent intents = new Intent(getApplicationContext(),
-					MainContactActivity.class);
+					SelectContactOfGroupActivity.class);
 			intents.putExtra("type", typeString);
-			intents.putExtra("listdata", mArrayList);
+			intents.putExtra("listdata", groupsSelected);
 			String alldata = "";
 			if (checkAll.isChecked())
 				alldata = "yes";

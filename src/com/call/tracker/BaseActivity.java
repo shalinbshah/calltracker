@@ -1,6 +1,5 @@
 package com.call.tracker;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -61,13 +60,18 @@ public class BaseActivity extends Activity implements Constants {
 			progress.dismiss();
 	}
 
-	@SuppressLint("InlinedApi")
 	public void gotoHome() {
 		Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
+	}
 
+	public void callHome() {
+		Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
 	}
 
 	public void alertBox(String message) {

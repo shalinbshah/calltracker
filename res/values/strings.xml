@@ -47,7 +47,7 @@
     <string name="got_it">Got it!</string>
     <string name="list_manager">List Manager</string>
     <string name="add_new">Add New</string>
-    <string name="tap_for_additional_options">Tap for additional options</string>
+    <string name="tap_for_additional_options">Tap and Hold for additional options</string>
     <string name="sync_text_1">This is one of those buttons you don\'t want to press until you know what is\'s going to do, so...</string>
     <string name="sync_text_2">I figured as much. So by selecting "Sync Contacts," you will update the contact information in the app, based on the latest contact information your phone</string>
     <string name="sync_text_3">Would you like to update the contacts in this app based on changes to the contacts in you phone?</string>
@@ -85,7 +85,7 @@
     <string name="urgent">Urgent</string>
     <string name="name">Name</string>
     <string name="no_data_found">No Data Found</string>
-    <string name="this_voice_note_is_marked_as_urgent">This Voice Note is marked as Urgent</string>
-    <string name="this_voice_note_has_not_been_marked_as_urgent">This Voice Note has not been marked as Urgent</string>
+    <string name="this_voice_note_is_marked_as_urgent">Is VoiceNote Important?</string>
+    <string name="this_voice_note_has_not_been_marked_as_urgent">Is VoiceNote Important?</string>
 
 </resources>

@@ -13,14 +13,14 @@ import android.widget.TextView;
 
 import com.call.tracker.R;
 import com.call.tracker.model.ListManagerModel;
-import com.call.tracker.voicenotes.VoiceDetailsListActivity;
+import com.call.tracker.voicenotes.AssignContactToVoiceNoteActivity;
 
 public class ListAdapterView extends BaseAdapter {
 
 	public ArrayList<ListManagerModel> mArrayList = new ArrayList<ListManagerModel>();
-	private VoiceDetailsListActivity activity;
+	private AssignContactToVoiceNoteActivity activity;
 
-	public ListAdapterView(VoiceDetailsListActivity mActivity,
+	public ListAdapterView(AssignContactToVoiceNoteActivity mActivity,
 			ArrayList<ListManagerModel> callList) {
 		this.activity = mActivity;
 		this.mArrayList = callList;

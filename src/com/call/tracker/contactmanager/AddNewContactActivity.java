@@ -21,7 +21,7 @@ public class AddNewContactActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_contact_main);
+		setContentView(R.layout.add_contact_ways);
 	}
 
 	public void callAddExisting(View v) {

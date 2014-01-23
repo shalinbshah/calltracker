@@ -15,7 +15,7 @@
         android:id="@+id/butNext"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:background="@drawable/bg_next"
+        android:background="@color/theme_color"
         android:onClick="callNext"
         android:text="Next"
         android:textColor="#fff" />

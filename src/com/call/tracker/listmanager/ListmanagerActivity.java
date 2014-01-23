@@ -16,7 +16,7 @@ public class ListmanagerActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.layout_list_manager);
+		setContentView(R.layout.list_manager_guide);
 
 		intiControl();
 	}

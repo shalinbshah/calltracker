@@ -1,7 +1,10 @@
 package com.call.tracker.contactmanager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract.Contacts;
 import android.util.Log;
 import android.view.View;
@@ -18,13 +21,20 @@ public class SelectExistingContact extends BaseActivity {
 	public static final int CONTACT_PICKER_RESULT = 1001;
 	public static final int GRP_PICKER_RESULT = 1002;
 	Intent pickedContact;
+	public SharedPreferences preferences;
+	public SharedPreferences.Editor editor;
+	public ProgressDialog progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		preferences = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
 
-		setContentView(R.layout.layout_con_list1);
+		if (preferences.getString(IS_CONTACT_LIST1, "true").equalsIgnoreCase(
+				"true"))
+			setContentView(R.layout.layout_con_list1);
 		checkdontshow = (CheckBox) findViewById(R.id.checkdontshow);
 
 	}

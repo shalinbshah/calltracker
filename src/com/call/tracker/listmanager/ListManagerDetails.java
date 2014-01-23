@@ -5,28 +5,22 @@ import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
-import com.call.tracker.adapter.ListManagerAdapter;
-import com.call.tracker.contactmanager.SelectExistingContact;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ListManagerModel;
 
 public class ListManagerDetails extends BaseActivity {
-	private RelativeLayout layoutAddNew;
-	private ListView listviewList;
+	private ListView listViewContactsAndGroup;
 	private DBAdapter dbAdapter;
 	public final static String GROUP_ID_KEY = "contactGrpID";
 	private ArrayList<ListManagerModel> arrayList = new ArrayList<ListManagerModel>();
@@ -35,9 +29,7 @@ public class ListManagerDetails extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.layout_list_manager_details);
-
 		openDB();
 		initControl();
 	}
@@ -45,16 +37,18 @@ public class ListManagerDetails extends BaseActivity {
 	private void initControl() {
 		// TODO Auto-generated method stub
 
-		listviewList = (ListView) findViewById(R.id.listviewList);
-		listviewList.setAdapter(null);
-
-		layoutAddNew = (RelativeLayout) findViewById(R.id.layoutAddNew);
-		layoutAddNew.setOnClickListener(new OnClickListener() {
+		listViewContactsAndGroup = (ListView) findViewById(R.id.listviewList);
+		// listViewContactsAndGroup.setAdapter( new ListManagerAdapter(this,
+		// listCollectionDetails);
+		listViewContactsAndGroup.setAdapter(null);
+		final Button btnAddMore = new Button(this);
+		btnAddMore.setText("Add New Group");
+		listViewContactsAndGroup.addFooterView(btnAddMore);
+		btnAddMore.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				openDialog(getStringFromXml(R.string.add_new), 0, "", 0);
+				openDialog("Add New Group", 0, "", 0);
 			}
 		});
 
@@ -83,30 +77,18 @@ public class ListManagerDetails extends BaseActivity {
 		dbAdapter.close();
 
 		ListManagerAdapter adapter = new ListManagerAdapter(this, arrayList);
-		listviewList.setAdapter(adapter);
+		listViewContactsAndGroup.setAdapter(adapter);
 
-		listviewList.setOnItemClickListener(new OnItemClickListener() {
+		listViewContactsAndGroup
+				.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent();
-				intent.putExtra(GROUP_ID_KEY, "901");
-				setResult(SelectExistingContact.GRP_PICKER_RESULT,
-						intent);
-				finish();
-			}
-		});
-
-		listviewList.setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View v) {
-				deleteUpdateListItem(Integer.parseInt((String) v.getTag()));
-				return false;
-			}
-		});
+					@Override
+					public boolean onLongClick(View v) {
+						deleteUpdateListItem(Integer.parseInt((String) v
+								.getTag()));
+						return false;
+					}
+				});
 	}
 
 	protected void deleteUpdateListItem(final int pos) {

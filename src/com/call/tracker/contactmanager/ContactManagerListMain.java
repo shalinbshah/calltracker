@@ -12,8 +12,8 @@ import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ListManagerModel;
-import com.call.tracker.voicenotes.MainContactActivity;
-import com.call.tracker.voicenotes.VoiceDetailsListActivity;
+import com.call.tracker.voicenotes.AssignContactToVoiceNoteActivity;
+import com.call.tracker.voicenotes.SelectContactOfGroupActivity;
 
 public class ContactManagerListMain extends BaseActivity {
 	private DBAdapter dbAdapter;
@@ -32,7 +32,7 @@ public class ContactManagerListMain extends BaseActivity {
 
 	public void callChoose(View v) {
 		Intent intent = new Intent(getApplicationContext(),
-				VoiceDetailsListActivity.class);
+				AssignContactToVoiceNoteActivity.class);
 		intent.putExtra("type", "contact");
 		intent.putExtra("listdata", arrayList);
 		startActivity(intent);
@@ -40,7 +40,7 @@ public class ContactManagerListMain extends BaseActivity {
 
 	public void callJustPopulate(View v) {
 		Intent intents = new Intent(getApplicationContext(),
-				MainContactActivity.class);
+				SelectContactOfGroupActivity.class);
 		intents.putExtra("type", "contact");
 		intents.putExtra("alldata", "yes");
 		startActivity(intents);
