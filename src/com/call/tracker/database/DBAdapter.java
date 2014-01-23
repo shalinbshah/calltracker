@@ -428,6 +428,19 @@ public class DBAdapter extends SQLiteOpenHelper {
 						.getColumnIndex("contact_name")));
 				model.setNumber1(cursor.getString(cursor
 						.getColumnIndex("contact_number")));
+				//
+				query = "select name from list_manager where id = " + "'"
+						+ cursor.getString(cursor.getColumnIndex("grp_id"))
+						+ "'";
+				Cursor cursor2 = selectRecordsFromDB(query, null);
+				String grpName = null;
+				if (cursor2.moveToFirst()) {
+					do {
+						grpName = cursor2.getString(cursor2
+								.getColumnIndex("name"));
+					} while (cursor2.moveToNext());
+				}
+				model.addGroup(grpName);
 				arrayList.add(model);
 			} while (cursor.moveToNext());
 		}
@@ -436,6 +449,7 @@ public class DBAdapter extends SQLiteOpenHelper {
 	}
 
 	public ArrayList<ContactModel> getContactsOfGroup() {
+		// TODO change query to include group name
 		String query = "select * from tbl_contacts";
 		Cursor cursor = selectRecordsFromDB(query, null);
 		ArrayList<ContactModel> arrayList = new ArrayList<ContactModel>();

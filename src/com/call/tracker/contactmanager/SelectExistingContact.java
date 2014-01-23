@@ -10,11 +10,14 @@ import android.widget.Toast;
 
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
+import com.call.tracker.listmanager.ListManagerDetails;
 
-public class ContactManagerAddExistingContact extends BaseActivity {
+public class SelectExistingContact extends BaseActivity {
 
 	CheckBox checkdontshow;
-	private static final int CONTACT_PICKER_RESULT = 1001;
+	public static final int CONTACT_PICKER_RESULT = 1001;
+	public static final int GRP_PICKER_RESULT = 1002;
+	Intent pickedContact;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,19 @@ public class ContactManagerAddExistingContact extends BaseActivity {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 			case CONTACT_PICKER_RESULT:
+				pickedContact = data;
+				Intent intent = new Intent(this, AlbumsListPopUp.class);
+				startActivityForResult(intent, GRP_PICKER_RESULT);
+				break;
+			case GRP_PICKER_RESULT:
 				ContactManagerUtility utility = new ContactManagerUtility();
-				if (utility.addContactInDB(this, data)) {
+				Log.d("CallTracker", "On Grp Selection " + data);
+				Log.d("CallTracker",
+						"On Grp Selection "
+								+ data.getExtras().getString(
+										ListManagerDetails.GROUP_ID_KEY));
+				if (utility.addContactInDB(this,
+						pickedContact.putExtras(data.getExtras()))) {
 					Toast.makeText(getApplicationContext(),
 							"Contact Added Successfully !!!",
 							Toast.LENGTH_SHORT).show();

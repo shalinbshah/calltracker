@@ -12,6 +12,7 @@ import android.provider.ContactsContract;
 import android.widget.Toast;
 
 import com.call.tracker.database.DBAdapter;
+import com.call.tracker.listmanager.ListManagerDetails;
 import com.call.tracker.model.ContactModel;
 
 public class ContactManagerUtility {
@@ -51,10 +52,11 @@ public class ContactManagerUtility {
 				contactModel.setContactId(id);
 				contactModel.setName(nameContact);
 				contactModel.setNumber1(cNumber);
+				contactModel.addGroup(data.getExtras().getString(
+						ListManagerDetails.GROUP_ID_KEY));
 				openDB(activity);
 				insertNewContact(contactModel);
-				// contact number = cNumber
-				// contact name = nameContact
+				isSuccess = true;
 			}
 		}
 		return isSuccess;
@@ -69,6 +71,7 @@ public class ContactManagerUtility {
 		values.put("contact_id", contactModel.getContactId());
 		values.put("contact_name", contactModel.getName());
 		values.put("contact_number", contactModel.getNumber1());
+		values.put("grp_id", contactModel.getGroup().get(0));
 		mDbAdapter.getMyDatabase().insert("tbl_contacts", null, values);
 		mDbAdapter.close();
 

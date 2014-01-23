@@ -90,13 +90,13 @@
             android:name="com.call.tracker.contactmanager.ContactGuideActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.call.tracker.contactmanager.ContactManagerMainActivity"
+            android:name="com.call.tracker.contactmanager.AddNewContactActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.call.tracker.contactmanager.ContactManagerListMain"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.call.tracker.contactmanager.ContactManagerAddExistingContact"
+            android:name="com.call.tracker.contactmanager.SelectExistingContact"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.call.tracker.voicenotes.VoiceDetailsListActivity"
@@ -113,6 +113,11 @@
         <activity
             android:name="com.call.tracker.contactmanager.ContactManagerLandingActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.call.tracker.contactmanager.AlbumsListPopUp"
+            android:label="Select Group"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
     </application>
 
 </manifest>

@@ -47,7 +47,7 @@ public class ContactManagerLandingActivity extends BaseActivity {
 
 	public void callAdd(View view) {
 		startActivity(new Intent(getApplicationContext(),
-				ContactManagerMainActivity.class));
+				AddNewContactActivity.class));
 	}
 
 	public void openDB() {
