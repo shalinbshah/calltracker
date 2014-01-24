@@ -154,7 +154,7 @@ public class SelectContactOfGroupActivity extends BaseActivity {
 					String name = a.get(i).getName();
 					// get display name
 					String phoneNumber = a.get(i).getNumber1();
-					String id = a.get(i).getContactId();
+					// String id = a.get(i).getContactId();
 					a.get(i).setCheck(false);
 					// get phone number
 					System.out.println(".................." + name + "---> "

@@ -2,31 +2,29 @@ package com.call.tracker.contactmanager;
 
 import java.io.IOException;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.provider.ContactsContract;
-import android.widget.Toast;
 
 import com.call.tracker.database.DBAdapter;
-import com.call.tracker.listmanager.ListManagerDetails;
 import com.call.tracker.model.ContactModel;
 
 public class ContactManagerUtility {
 
 	private DBAdapter mDbAdapter;
+	public SharedPreferences preferences;
 
-	public boolean addContactInDB(Activity activity, Uri contactData,
-			Intent intent) {
+	public boolean addContactInDB(Context context, Intent contactData) {
 		ContactModel contactModel = new ContactModel();
 		boolean isSuccess = false;
 		// Process Data
 		// Uri contactData = data.getData();
-		ContentResolver cr = activity.getContentResolver();
-		Cursor c = cr.query(contactData, null, null, null, null);
+		ContentResolver cr = context.getContentResolver();
+		Cursor c = cr.query(contactData.getData(), null, null, null, null);
 		if (c.moveToFirst()) {
 			String id = c.getString(c
 					.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
@@ -36,37 +34,34 @@ public class ContactManagerUtility {
 							.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
 
 			if (hasPhone.equalsIgnoreCase("1")) {
-				Cursor phones = activity.getContentResolver().query(
+				Cursor phones = cr.query(
 						ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-						null,
-						ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+						null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID
 								+ " = " + id, null, null);
 				phones.moveToFirst();
 				String cNumber = phones
 						.getString(phones
 								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-				Toast.makeText(activity, cNumber, Toast.LENGTH_SHORT).show();
-
 				String nameContact = c
 						.getString(c
 								.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
 				contactModel.setContactId(id);
 				contactModel.setName(nameContact);
 				contactModel.setNumber1(cNumber);
-				contactModel.addGroup(intent.getExtras().getString(
-						ListManagerDetails.GROUP_ID_KEY));
-				openDB(activity);
+				contactModel.addGroup(TempHolder.selectedGroup);
+				openDB(context);
 				insertNewContact(contactModel);
 				isSuccess = true;
+				phones.close();
 			}
 		}
+		c.close();
 		return isSuccess;
 	}
 
 	private void insertNewContact(ContactModel contactModel) {
 		// TODO Auto-generated method stub
 		mDbAdapter.openDataBase();
-
 		// String query = "select * from tbl_group";
 		ContentValues values = new ContentValues();
 		values.put("contact_id", contactModel.getContactId());
@@ -78,8 +73,8 @@ public class ContactManagerUtility {
 
 	}
 
-	private void openDB(Activity activity) {
-		mDbAdapter = DBAdapter.getDBAdapterInstance(activity);
+	private void openDB(Context context) {
+		mDbAdapter = DBAdapter.getDBAdapterInstance(context);
 		try {
 			mDbAdapter.createDataBase();
 		} catch (IOException e) {

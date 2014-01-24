@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -80,12 +82,23 @@ public class ListManagerDetails extends BaseActivity {
 		listViewContactsAndGroup.setAdapter(adapter);
 
 		listViewContactsAndGroup
+				.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+					@Override
+					public boolean onItemLongClick(AdapterView<?> arg0,
+							View arg1, int arg2, long arg3) {
+						deleteUpdateListItem(Integer.parseInt(arg1.getTag()
+								.toString()));
+						return false;
+					}
+				});
+		listViewContactsAndGroup
 				.setOnLongClickListener(new OnLongClickListener() {
 
 					@Override
 					public boolean onLongClick(View v) {
-						deleteUpdateListItem(Integer.parseInt((String) v
-								.getTag()));
+						deleteUpdateListItem(Integer.parseInt(v.getTag()
+								.toString()));
 						return false;
 					}
 				});

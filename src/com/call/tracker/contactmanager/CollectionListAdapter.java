@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -91,14 +90,11 @@ public class CollectionListAdapter extends BaseAdapter {
 						Intent intent = new Intent();
 						intent.putExtra(ListManagerDetails.GROUP_ID_KEY, view
 								.getTag().toString());
+						TempHolder.selectedGroup = view.getTag().toString();
 						// case GRP_PICKER_RESULT:
 						ContactManagerUtility utility = new ContactManagerUtility();
-						Log.d("CallTracker", "On Grp Selection " + data);
-						Log.d("CallTracker", "On Grp Selection "
-								+ view.getTag().toString());
 						if (utility.addContactInDB(activity,
-								TempHolder.pickedContact.getData(),
-								(TempHolder.pickedContact.putExtras(intent)))) {
+								TempHolder.pickedContact)) {
 							Toast.makeText(activity,
 									"Contact Added Successfully !!!",
 									Toast.LENGTH_SHORT).show();

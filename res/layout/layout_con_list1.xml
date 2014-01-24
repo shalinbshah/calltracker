@@ -14,9 +14,8 @@
         <com.call.tracker.customview.TextViewRoboto
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:text="@string/con_list1" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -30,18 +29,22 @@
             android:id="@+id/butNext"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
+            android:layout_margin="10dp"
             android:background="@color/theme_color"
             android:onClick="callGot"
             android:text="Got it"
             android:textColor="#fff" />
 
-        <com.call.tracker.customview.CheckBoxRoboto
+        <!--
+             <com.call.tracker.customview.CheckBoxRoboto
             android:id="@+id/checkdontshow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/don_t_show_again"
-            android:textColor="@color/theme_color" />
+            
+            android:textColor="@color/theme_color" />
+        -->
     </LinearLayout>
 
 </LinearLayout>

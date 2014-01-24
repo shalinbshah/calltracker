@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.call.tracker.interfaces.Constants;
@@ -21,24 +20,26 @@ public class BaseActivity extends Activity implements Constants {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+		// this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		preferences = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
 	}
 
 	public String getStringFromXml(int actionSettings) {
-		// TODO Auto-generated method stub
-
 		return getResources().getString(actionSettings);
 	}
 
 	public void updatePref(String key, String value) {
+		preferences = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
 		editor = preferences.edit();
 		editor.putString(key, value);
 		editor.commit();
+	}
+
+	public void callHome(View v) {
+		gotoHome();
 	}
 
 	public void preToast(String string) {
@@ -88,7 +89,4 @@ public class BaseActivity extends Activity implements Constants {
 						}).show();
 	}
 
-	public void callHome(View v) {
-		gotoHome();
-	}
 }

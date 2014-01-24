@@ -10,7 +10,6 @@ import com.call.tracker.model.ContactModel;
 public class ContactLoadingAsync extends
 		AsyncTask<String, String, ArrayList<ContactModel>> {
 	private ArrayList<ContactModel> arrayListContactDatas;
-	private Context mContext;
 	private ContactLoadingCompletedListener listener;
 	public String groupID;
 
@@ -31,7 +30,6 @@ public class ContactLoadingAsync extends
 	public ContactLoadingAsync(Context mContext,
 			ContactLoadingCompletedListener listener) {
 		super();
-		this.mContext = mContext;
 		this.listener = listener;
 	}
 

@@ -25,6 +25,7 @@ public class ListManagerAdapter extends BaseAdapter {
 		data = listCollectionDetails;
 		inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
 	}
 
 	@Override
@@ -44,27 +45,19 @@ public class ListManagerAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
+		View view = convertView;
+		convertView = null;
+		ListMangerViewHolder viewHolder = new ListMangerViewHolder();
+		if (convertView == null) {
+			view = inflater.inflate(R.layout.listmanagerlist_cell, null);
+			viewHolder.textName = (TextView) view
+					.findViewById(R.id.tvAlbumName);
 
-		View mView = convertView;
-		ListMangerViewHolder holder = null;
-		if (mView == null) {
-			mView = inflater.inflate(R.layout.listmanagerlist_cell, parent,
-					false);
-			holder = new ListMangerViewHolder();
-
-			holder.textName = (TextView) mView.findViewById(R.id.tvAlbumName);
-			// if (position % 2 == 0)
-			// mView.setBackgroundColor(activity.getResources().getColor(
-			// R.color.theme_color));
-			mView.setTag(holder);
-		} else
-			holder = (ListMangerViewHolder) mView.getTag();
-		if (position < data.size()) {
-			String name = data.get(position).getName();
-			holder.textName.setText(name);
-		} else
-			holder.textName.setText("Add New Group");
-		return mView;
+		}
+		// Bind the data with the holder.
+		view.setTag(position);
+		viewHolder.textName.setText(data.get(position).getName());
+		return view;
 	}
 
 	public class ListMangerViewHolder {

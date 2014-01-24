@@ -115,8 +115,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.call.tracker.contactmanager.AlbumsListPopUp"
-            android:label="Select Group"
-            android:theme="@android:style/Theme.Black" >
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" >
         </activity>
     </application>
 

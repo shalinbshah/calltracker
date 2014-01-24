@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
@@ -30,19 +31,27 @@ public class SelectExistingContact extends BaseActivity {
 		preferences = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
 
-		if (preferences.getString(IS_CONTACT_LIST1, "true").equalsIgnoreCase(
-				"true"))
+		if (preferences.getString(BaseActivity.IS_CONTACT_LIST1, "true")
+				.equalsIgnoreCase("true")) {
 			setContentView(R.layout.layout_con_list1);
-		checkdontshow = (CheckBox) findViewById(R.id.checkdontshow);
+			checkdontshow = (CheckBox) findViewById(R.id.checkdontshow);
+		} else {
+			Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+					ContactsContract.Contacts.CONTENT_URI);
+			startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
+		}
 
 	}
 
 	public void callGot(View v) {
-		updatePref(IS_CONTACT_LIST1, String.valueOf(checkdontshow.isSelected()));
+		preferences = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
+		editor = preferences.edit();
+		editor.putString(BaseActivity.IS_CONTACT_LIST1,
+				String.valueOf(checkdontshow.isSelected()));
+		editor.commit();
 		Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
-				Contacts.CONTENT_URI);
-		contactPickerIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		contactPickerIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				ContactsContract.Contacts.CONTENT_URI);
 		startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
 	}
 
@@ -51,36 +60,35 @@ public class SelectExistingContact extends BaseActivity {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 			case CONTACT_PICKER_RESULT:
+
 				pickedContact = data;
 				Intent intent = new Intent(this, AlbumsListPopUp.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.putExtra("selectedContact", data.getData());
 				TempHolder.pickedContact = data;
 				startActivity(intent);
 				finish();
 				break;
-			// case GRP_PICKER_RESULT:
-			// ContactManagerUtility utility = new ContactManagerUtility();
-			// Log.d("CallTracker", "On Grp Selection " + data);
-			// Log.d("CallTracker",
-			// "On Grp Selection "
-			// + data.getExtras().getString(
-			// ListManagerDetails.GROUP_ID_KEY));
-			// if (utility.addContactInDB(this,
-			// pickedContact.putExtras(data.getExtras()))) {
-			// Toast.makeText(getApplicationContext(),
-			// "Contact Added Successfully !!!",
-			// Toast.LENGTH_SHORT).show();
-			// finish();
-			// } else {
-			// Toast.makeText(getApplicationContext(),
-			// "Contact Add UnSuccessfull !!!", Toast.LENGTH_SHORT)
-			// .show();
-			// finish();
-			// }
-			// break;
+			case GRP_PICKER_RESULT:
+				ContactManagerUtility utility = new ContactManagerUtility();
+				if (utility.addContactInDB(this,
+						pickedContact.putExtras(data.getExtras()))) {
+					Toast.makeText(getApplicationContext(),
+							"Contact Added Successfully !!!",
+							Toast.LENGTH_SHORT).show();
+					finish();
+				} // else {
+					// Toast.makeText(getApplicationContext(),
+					// "Contact Add UnSuccessfull !!!", Toast.LENGTH_SHORT)
+					// .show();
+					// finish();
+					// }
+					// break;
 			}
 		} else {
+			Toast.makeText(getApplicationContext(),
+					"Warning: activity result not ok", Toast.LENGTH_SHORT)
+					.show();
+			finish();
 			Log.w("CallTracker", "Warning: activity result not ok");
 		}
 	}

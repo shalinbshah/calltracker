@@ -25,6 +25,7 @@ import android.widget.ListView;
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
 import com.call.tracker.adapter.CallListAdapter;
+import com.call.tracker.contactmanager.AlbumsListPopUp;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.CallListModel;
 import com.call.tracker.model.CallUserModel;
@@ -61,6 +62,12 @@ public class CallListActivity extends BaseActivity {
 				butAdd.setVisibility(View.VISIBLE);
 			}
 		}
+	}
+
+	public void callContactList() {
+		Intent intent = new Intent(getApplicationContext(),
+				AlbumsListPopUp.class);
+		startActivity(intent);
 	}
 
 	private void initControl() {
