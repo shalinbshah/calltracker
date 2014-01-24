@@ -3,7 +3,6 @@ package com.call.tracker.contactmanager;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -13,12 +12,13 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
 import com.call.tracker.adapter.MyProgressDialog;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ListManagerModel;
 
-public class AlbumsListPopUp extends Activity {
+public class AlbumsListPopUp extends BaseActivity {
 
 	public static String colID;
 	public static String collectionName;
@@ -100,6 +100,7 @@ public class AlbumsListPopUp extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		// requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setTitle("Select Group");
 		View viewToLoad = LayoutInflater.from(this).inflate(
@@ -109,7 +110,7 @@ public class AlbumsListPopUp extends Activity {
 		listCollectionDetails = new ArrayList<ListManagerModel>();
 		listCollectionDetails.clear();
 
-		albumsListAdapter = new CollectionListAdapter(this,
+		albumsListAdapter = new CollectionListAdapter(this, getIntent(),
 				listCollectionDetails);
 		listView = (ListView) findViewById(R.id.listbox_deals);
 		listView.setAdapter(albumsListAdapter);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.call.tracker.R;
 import com.call.tracker.listmanager.ListManagerDetails;
@@ -25,13 +27,15 @@ public class CollectionListAdapter extends BaseAdapter {
 	private static LayoutInflater inflater = null;
 	static int addCOllectionSuccess = 123;
 	static int posToDelete;
+	Intent callingIntent;
 
-	public CollectionListAdapter(Activity mainActivity,
+	public CollectionListAdapter(Activity mainActivity, Intent intent,
 			ArrayList<ListManagerModel> listCollectionDetails) {
 		activity = mainActivity;
 		data = listCollectionDetails;
 		inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.callingIntent = intent;
 	}
 
 	@Override
@@ -64,9 +68,9 @@ public class CollectionListAdapter extends BaseAdapter {
 
 			viewHolder.llCellClickableList = (LinearLayout) view
 					.findViewById(R.id.llCellClickableList);
-			if (position % 2 == 0)
-				view.setBackgroundColor(activity.getResources().getColor(
-						R.color.theme_color));
+			// if (position % 2 == 0)
+			// view.setBackgroundColor(activity.getResources().getColor(
+			// R.color.theme_color));
 			ListManagerModel collection = new ListManagerModel();
 			collection = data.get(position);
 			viewHolder.llCellClickableList.setTag(collection.getId());
@@ -87,7 +91,22 @@ public class CollectionListAdapter extends BaseAdapter {
 						Intent intent = new Intent();
 						intent.putExtra(ListManagerDetails.GROUP_ID_KEY, view
 								.getTag().toString());
-						activity.setResult(Activity.RESULT_OK, intent);
+						// case GRP_PICKER_RESULT:
+						ContactManagerUtility utility = new ContactManagerUtility();
+						Log.d("CallTracker", "On Grp Selection " + data);
+						Log.d("CallTracker", "On Grp Selection "
+								+ view.getTag().toString());
+						if (utility.addContactInDB(activity,
+								TempHolder.pickedContact.getData(),
+								(TempHolder.pickedContact.putExtras(intent)))) {
+							Toast.makeText(activity,
+									"Contact Added Successfully !!!",
+									Toast.LENGTH_SHORT).show();
+						} else {
+							Toast.makeText(activity,
+									"Contact Add UnSuccessfull !!!",
+									Toast.LENGTH_SHORT).show();
+						}
 						activity.finish();
 					}
 				});

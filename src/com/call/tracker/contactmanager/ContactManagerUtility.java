@@ -19,11 +19,12 @@ public class ContactManagerUtility {
 
 	private DBAdapter mDbAdapter;
 
-	public boolean addContactInDB(Activity activity, Intent data) {
+	public boolean addContactInDB(Activity activity, Uri contactData,
+			Intent intent) {
 		ContactModel contactModel = new ContactModel();
 		boolean isSuccess = false;
 		// Process Data
-		Uri contactData = data.getData();
+		// Uri contactData = data.getData();
 		ContentResolver cr = activity.getContentResolver();
 		Cursor c = cr.query(contactData, null, null, null, null);
 		if (c.moveToFirst()) {
@@ -52,7 +53,7 @@ public class ContactManagerUtility {
 				contactModel.setContactId(id);
 				contactModel.setName(nameContact);
 				contactModel.setNumber1(cNumber);
-				contactModel.addGroup(data.getExtras().getString(
+				contactModel.addGroup(intent.getExtras().getString(
 						ListManagerDetails.GROUP_ID_KEY));
 				openDB(activity);
 				insertNewContact(contactModel);

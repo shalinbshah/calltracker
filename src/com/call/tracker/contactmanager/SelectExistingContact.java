@@ -9,11 +9,9 @@ import android.provider.ContactsContract.Contacts;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.Toast;
 
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
-import com.call.tracker.listmanager.ListManagerDetails;
 
 public class SelectExistingContact extends BaseActivity {
 
@@ -43,6 +41,8 @@ public class SelectExistingContact extends BaseActivity {
 		updatePref(IS_CONTACT_LIST1, String.valueOf(checkdontshow.isSelected()));
 		Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
 				Contacts.CONTENT_URI);
+		contactPickerIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		contactPickerIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
 	}
 
@@ -53,28 +53,32 @@ public class SelectExistingContact extends BaseActivity {
 			case CONTACT_PICKER_RESULT:
 				pickedContact = data;
 				Intent intent = new Intent(this, AlbumsListPopUp.class);
-				startActivityForResult(intent, GRP_PICKER_RESULT);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				TempHolder.pickedContact = data;
+				startActivity(intent);
+				finish();
 				break;
-			case GRP_PICKER_RESULT:
-				ContactManagerUtility utility = new ContactManagerUtility();
-				Log.d("CallTracker", "On Grp Selection " + data);
-				Log.d("CallTracker",
-						"On Grp Selection "
-								+ data.getExtras().getString(
-										ListManagerDetails.GROUP_ID_KEY));
-				if (utility.addContactInDB(this,
-						pickedContact.putExtras(data.getExtras()))) {
-					Toast.makeText(getApplicationContext(),
-							"Contact Added Successfully !!!",
-							Toast.LENGTH_SHORT).show();
-					finish();
-				} else {
-					Toast.makeText(getApplicationContext(),
-							"Contact Add UnSuccessfull !!!", Toast.LENGTH_SHORT)
-							.show();
-					finish();
-				}
-				break;
+			// case GRP_PICKER_RESULT:
+			// ContactManagerUtility utility = new ContactManagerUtility();
+			// Log.d("CallTracker", "On Grp Selection " + data);
+			// Log.d("CallTracker",
+			// "On Grp Selection "
+			// + data.getExtras().getString(
+			// ListManagerDetails.GROUP_ID_KEY));
+			// if (utility.addContactInDB(this,
+			// pickedContact.putExtras(data.getExtras()))) {
+			// Toast.makeText(getApplicationContext(),
+			// "Contact Added Successfully !!!",
+			// Toast.LENGTH_SHORT).show();
+			// finish();
+			// } else {
+			// Toast.makeText(getApplicationContext(),
+			// "Contact Add UnSuccessfull !!!", Toast.LENGTH_SHORT)
+			// .show();
+			// finish();
+			// }
+			// break;
 			}
 		} else {
 			Log.w("CallTracker", "Warning: activity result not ok");

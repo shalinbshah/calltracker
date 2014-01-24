@@ -116,7 +116,7 @@
         <activity
             android:name="com.call.tracker.contactmanager.AlbumsListPopUp"
             android:label="Select Group"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@android:style/Theme.Black" >
         </activity>
     </application>
 

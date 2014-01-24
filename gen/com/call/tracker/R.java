@@ -130,19 +130,19 @@ public final class R {
         public static final int SwitchToDate=0x7f090011;
         public static final int SwitchToTime=0x7f090012;
         public static final int TextView1=0x7f090002;
-        public static final int TimePicker=0x7f090068;
+        public static final int TimePicker=0x7f090066;
         public static final int ViewSwitchButtons=0x7f090010;
-        public static final int action_settings=0x7f090069;
+        public static final int action_settings=0x7f090067;
         public static final int butAdd=0x7f09001c;
         public static final int butAlert=0x7f090031;
-        public static final int butAssigncontact=0x7f090054;
-        public static final int butCall=0x7f09005b;
+        public static final int butAssigncontact=0x7f090052;
+        public static final int butCall=0x7f090059;
         public static final int butContactList=0x7f09001b;
-        public static final int butDelete=0x7f090056;
+        public static final int butDelete=0x7f090054;
         public static final int butEdit=0x7f09002c;
         public static final int butHome=0x7f090001;
         public static final int butMail=0x7f090030;
-        public static final int butMess=0x7f090055;
+        public static final int butMess=0x7f090053;
         public static final int butNext=0x7f09001e;
         public static final int butNotNow=0x7f090045;
         public static final int butOk=0x7f09003f;
@@ -150,19 +150,17 @@ public final class R {
         public static final int butSearch=0x7f09001a;
         public static final int butSms=0x7f09002f;
         public static final int butSync=0x7f090046;
-        public static final int butUrgent=0x7f090053;
-        public static final int button1=0x7f090049;
-        public static final int button2=0x7f090048;
-        public static final int button7=0x7f090057;
-        public static final int buttonNew=0x7f090047;
-        public static final int buttonPlaySound=0x7f090050;
-        public static final int checkAll=0x7f090058;
-        public static final int checkBox=0x7f090061;
+        public static final int butUrgent=0x7f090051;
+        public static final int button1=0x7f090047;
+        public static final int button7=0x7f090055;
+        public static final int buttonPlaySound=0x7f09004e;
+        public static final int checkAll=0x7f090056;
+        public static final int checkBox=0x7f09005f;
         public static final int checkRepeat=0x7f090029;
-        public static final int checkboxList=0x7f09005f;
+        public static final int checkboxList=0x7f09005d;
         public static final int checkdontshow=0x7f09001f;
         public static final int chronometerTime=0x7f09003b;
-        public static final int chronometerTimer=0x7f09004c;
+        public static final int chronometerTimer=0x7f09004a;
         public static final int editText1=0x7f090014;
         public static final int editTextMessage=0x7f090018;
         public static final int editTextNumber=0x7f090017;
@@ -171,23 +169,23 @@ public final class R {
         public static final int helpsFrame=0x7f090033;
         public static final int imageView1=0x7f090037;
         public static final int imageViewPager=0x7f090032;
-        public static final int imgViewRecord=0x7f09004d;
+        public static final int imgViewRecord=0x7f09004b;
         public static final int ivInsideFolder=0x7f090006;
-        public static final int layoutBelowSync=0x7f090067;
+        public static final int layoutBelowSync=0x7f090065;
         public static final int layoutCSV=0x7f090041;
         public static final int layoutFeedback=0x7f090043;
         public static final int layoutSalesGoals=0x7f090042;
         public static final int layoutSync=0x7f090040;
         public static final int layout_root=0x7f090015;
-        public static final int layoutguideBelow=0x7f090064;
+        public static final int layoutguideBelow=0x7f090062;
         public static final int linearLayout1=0x7f090004;
         public static final int linearLayoutListContainer=0x7f090007;
         public static final int listCall=0x7f09002e;
         public static final int listContact=0x7f09001d;
         public static final int listContactManagerContacts=0x7f090020;
-        public static final int listManager=0x7f090059;
-        public static final int listVoice=0x7f09004f;
-        public static final int listVoiceList=0x7f09004a;
+        public static final int listManager=0x7f090057;
+        public static final int listVoice=0x7f09004d;
+        public static final int listVoiceList=0x7f090048;
         public static final int listbox_deals=0x7f090008;
         public static final int listviewList=0x7f090038;
         public static final int llCellClickableList=0x7f090003;
@@ -200,25 +198,25 @@ public final class R {
         public static final int phoneNumber2selection=0x7f090026;
         public static final int textContact=0x7f090036;
         public static final int textDate=0x7f09002a;
-        public static final int textGroup=0x7f090060;
-        public static final int textLast=0x7f09005d;
-        public static final int textName=0x7f09005c;
-        public static final int textNext=0x7f09005e;
-        public static final int textNodata=0x7f09004b;
-        public static final int textNum=0x7f09005a;
+        public static final int textGroup=0x7f09005e;
+        public static final int textLast=0x7f09005b;
+        public static final int textName=0x7f09005a;
+        public static final int textNext=0x7f09005c;
+        public static final int textNodata=0x7f090049;
+        public static final int textNum=0x7f090058;
         public static final int textPost=0x7f090035;
-        public static final int textSync=0x7f090066;
+        public static final int textSync=0x7f090064;
         public static final int textTime=0x7f09002b;
         public static final int textTurn=0x7f090034;
         public static final int textType=0x7f090039;
-        public static final int textUrgent=0x7f090062;
+        public static final int textUrgent=0x7f090060;
         public static final int textView1=0x7f090016;
         public static final int textViewCallerName=0x7f09002d;
-        public static final int textViewHistory=0x7f09004e;
-        public static final int textViewTime=0x7f090051;
-        public static final int textViewUr=0x7f090052;
-        public static final int textguide=0x7f090063;
-        public static final int textguideBelow=0x7f090065;
+        public static final int textViewHistory=0x7f09004c;
+        public static final int textViewTime=0x7f09004f;
+        public static final int textViewUr=0x7f090050;
+        public static final int textguide=0x7f090061;
+        public static final int textguideBelow=0x7f090063;
         public static final int tvAlbumName=0x7f090005;
     }
     public static final class layout {
@@ -251,24 +249,23 @@ public final class R {
         public static final int layout_setting=0x7f03001a;
         public static final int layout_splash=0x7f03001b;
         public static final int layout_sync=0x7f03001c;
-        public static final int layout_voice=0x7f03001d;
-        public static final int layout_voice_activity_list=0x7f03001e;
-        public static final int layout_voice_call=0x7f03001f;
-        public static final int layout_voice_details=0x7f030020;
-        public static final int layout_voice_list=0x7f030021;
-        public static final int list_call_detail_list=0x7f030022;
-        public static final int list_call_list=0x7f030023;
-        public static final int list_check_data=0x7f030024;
-        public static final int list_contact=0x7f030025;
-        public static final int list_contact_list=0x7f030026;
-        public static final int list_list_manager=0x7f030027;
-        public static final int list_main_contact=0x7f030028;
-        public static final int list_manager_guide=0x7f030029;
-        public static final int list_voice_main_list=0x7f03002a;
-        public static final int listmanagerlist_cell=0x7f03002b;
-        public static final int pager_guide=0x7f03002c;
-        public static final int pager_sync=0x7f03002d;
-        public static final int timepicker=0x7f03002e;
+        public static final int layout_voice_activity_list=0x7f03001d;
+        public static final int layout_voice_call=0x7f03001e;
+        public static final int layout_voice_details=0x7f03001f;
+        public static final int layout_voice_list=0x7f030020;
+        public static final int list_call_detail_list=0x7f030021;
+        public static final int list_call_list=0x7f030022;
+        public static final int list_check_data=0x7f030023;
+        public static final int list_contact=0x7f030024;
+        public static final int list_contact_list=0x7f030025;
+        public static final int list_list_manager=0x7f030026;
+        public static final int list_main_contact=0x7f030027;
+        public static final int list_manager_guide=0x7f030028;
+        public static final int list_voice_main_list=0x7f030029;
+        public static final int listmanagerlist_cell=0x7f03002a;
+        public static final int pager_guide=0x7f03002b;
+        public static final int pager_sync=0x7f03002c;
+        public static final int timepicker=0x7f03002d;
     }
     public static final class menu {
         public static final int splash=0x7f080000;
@@ -363,27 +360,6 @@ public final class R {
     }
     public static final class style {
         /** 
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-
-
-
-
-
-
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-
-
-
-
-
-
-        
-
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     
@@ -395,10 +371,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f070001;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f070000;
     }
 }

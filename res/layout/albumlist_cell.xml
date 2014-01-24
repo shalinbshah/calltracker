@@ -28,7 +28,7 @@
                 android:singleLine="true"
                 android:text="Album Name"
                 android:textColor="@color/theme_color"
-                android:textSize="18.0dip"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <ImageView

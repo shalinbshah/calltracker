@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_main_background"
     android:orientation="vertical" >
 
     <FrameLayout
@@ -41,12 +42,11 @@
         <com.call.tracker.customview.TextViewRoboto
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@color/theme_color"
+            android:layout_margin="10dp"
             android:gravity="center|left"
             android:text="@string/list_manager_details"
             android:textAppearance="@android:style/TextAppearance.Medium"
-            android:textColor="@color/white" />
+            android:textColor="@color/theme_color" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,6 +60,7 @@
         <com.call.tracker.customview.ButtonRoboto
             android:layout_width="fill_parent"
             android:layout_height="40dp"
+            android:layout_margin="10dp"
             android:background="@color/theme_color"
             android:onClick="callGot"
             android:text="@string/got_it"

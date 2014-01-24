@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
-import com.call.tracker.listmanager.ListManagerDetails;
 
 public class AddNewContactActivity extends BaseActivity {
 	private static final int ADD_NEW_CONTACT = 2001;
@@ -44,26 +42,26 @@ public class AddNewContactActivity extends BaseActivity {
 				Intent intent = new Intent(this, AlbumsListPopUp.class);
 				startActivityForResult(intent, GRP_PICKER_RESULT);
 				break;
-			case GRP_PICKER_RESULT:
-				ContactManagerUtility utility = new ContactManagerUtility();
-				Log.d("CallTracker", "On Grp Selection " + data);
-				Log.d("CallTracker",
-						"On Grp Selection "
-								+ data.getExtras().getString(
-										ListManagerDetails.GROUP_ID_KEY));
-				if (utility.addContactInDB(this,
-						pickedContact.putExtras(data.getExtras()))) {
-					Toast.makeText(getApplicationContext(),
-							"Contact Added Successfully !!!",
-							Toast.LENGTH_SHORT).show();
-					finish();
-				} else {
-					Toast.makeText(getApplicationContext(),
-							"Contact Add UnSuccessfull !!!", Toast.LENGTH_SHORT)
-							.show();
-					finish();
-				}
-				break;
+			// case GRP_PICKER_RESULT:
+			// ContactManagerUtility utility = new ContactManagerUtility();
+			// Log.d("CallTracker", "On Grp Selection " + data);
+			// Log.d("CallTracker",
+			// "On Grp Selection "
+			// + data.getExtras().getString(
+			// ListManagerDetails.GROUP_ID_KEY));
+			// if (utility.addContactInDB(this,
+			// pickedContact.putExtras(data.getExtras()))) {
+			// Toast.makeText(getApplicationContext(),
+			// "Contact Added Successfully !!!",
+			// Toast.LENGTH_SHORT).show();
+			// finish();
+			// } else {
+			// Toast.makeText(getApplicationContext(),
+			// "Contact Add UnSuccessfull !!!", Toast.LENGTH_SHORT)
+			// .show();
+			// finish();
+			// }
+			// break;
 			}
 		} else {
 			Log.w("CallTracker", "Warning: activity result not ok");

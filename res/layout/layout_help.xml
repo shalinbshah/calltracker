@@ -68,7 +68,8 @@
             android:gravity="center|right"
             android:paddingRight="66dp"
             android:text="@string/turn_on_the_in_app_help_dialogue"
-            android:textAppearance="@android:style/TextAppearance.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/white" />
 
         <com.call.tracker.customview.TextViewRoboto
             android:id="@+id/textPost"
@@ -79,7 +80,8 @@
             android:gravity="center|right"
             android:paddingRight="66dp"
             android:text="@string/post_a_question_to_our_facebook_page"
-            android:textAppearance="@android:style/TextAppearance.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/white" />
 
         <com.call.tracker.customview.TextViewRoboto
             android:id="@+id/textContact"
@@ -90,7 +92,8 @@
             android:gravity="center|right"
             android:paddingRight="66dp"
             android:text="@string/contact_the_brains_of_this_operation"
-            android:textAppearance="@android:style/TextAppearance.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

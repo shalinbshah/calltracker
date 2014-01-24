@@ -5,6 +5,35 @@
     android:background="@drawable/bg_main_background"
     android:orientation="vertical" >
 
+    <FrameLayout
+        android:id="@+id/FrameLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="44dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/menu_bg" >
+
+        <ImageButton
+            android:id="@+id/butHome"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/home"
+            android:onClick="callHome"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="Preferences"
+            android:textColor="@color/white"
+            android:textSize="24dp" />
+    </FrameLayout>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -29,6 +58,7 @@
             android:id="@+id/butNext"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
+            android:layout_margin="10dp"
             android:background="@color/theme_color"
             android:onClick="callGo"
             android:text="Go"
@@ -41,7 +71,6 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/don_t_show_again"
             android:textColor="@color/theme_color" />
-
     </LinearLayout>
 
 </LinearLayout>
