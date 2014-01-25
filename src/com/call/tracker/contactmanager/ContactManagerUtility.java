@@ -28,11 +28,9 @@ public class ContactManagerUtility {
 		if (c.moveToFirst()) {
 			String id = c.getString(c
 					.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-
 			String hasPhone = c
 					.getString(c
 							.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
-
 			if (hasPhone.equalsIgnoreCase("1")) {
 				Cursor phones = cr.query(
 						ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -49,6 +47,7 @@ public class ContactManagerUtility {
 				contactModel.setName(nameContact);
 				contactModel.setNumber1(cNumber);
 				contactModel.addGroup(TempHolder.selectedGroup);
+				contactModel.setUri(contactData.getData());
 				openDB(context);
 				insertNewContact(contactModel);
 				isSuccess = true;
@@ -67,6 +66,7 @@ public class ContactManagerUtility {
 		values.put("contact_id", contactModel.getContactId());
 		values.put("contact_name", contactModel.getName());
 		values.put("contact_number", contactModel.getNumber1());
+		values.put("contact_uri", contactModel.getNumber1());
 		values.put("grp_id", contactModel.getGroup().get(0));
 		mDbAdapter.getMyDatabase().insert("tbl_contacts", null, values);
 		mDbAdapter.close();

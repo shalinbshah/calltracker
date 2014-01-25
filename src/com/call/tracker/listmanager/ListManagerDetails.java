@@ -44,7 +44,7 @@ public class ListManagerDetails extends BaseActivity {
 		// listCollectionDetails);
 		listViewContactsAndGroup.setAdapter(null);
 		final Button btnAddMore = new Button(this);
-		btnAddMore.setText("Add New Group");
+		btnAddMore.setText("Add New List");
 		listViewContactsAndGroup.addFooterView(btnAddMore);
 		btnAddMore.setOnClickListener(new OnClickListener() {
 

@@ -1,9 +1,9 @@
 package com.call.tracker.contactmanager;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
 import com.call.tracker.adapter.ContactManagerListAdapter;
+import com.call.tracker.adapter.MyProgressDialog;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ContactModel;
 
@@ -20,6 +21,7 @@ public class ContactManagerLandingActivity extends BaseActivity {
 	private ContactManagerListAdapter adapter;
 	private ListView listContact;
 	private DBAdapter dbAdapter;
+	private MyProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +32,16 @@ public class ContactManagerLandingActivity extends BaseActivity {
 	}
 
 	private void initControl() {
-		openDB();
-		getdataFromDb();
 		adapter = new ContactManagerListAdapter(this, arrayList);
 		listContact = (ListView) findViewById(R.id.listContactManagerContacts);
 		listContact.setAdapter(adapter);
 	}
 
 	private void getdataFromDb() {
-		// TODO Auto-generated method stub
+		dbAdapter = new DBAdapter(getApplicationContext());
 		dbAdapter.openDataBase();
-		arrayList = dbAdapter.getContacts();
+		arrayList.addAll(dbAdapter.getContacts());
 		dbAdapter.close();
-
 	}
 
 	public void callAdd(View view) {
@@ -50,19 +49,34 @@ public class ContactManagerLandingActivity extends BaseActivity {
 				AddNewContactActivity.class));
 	}
 
-	public void openDB() {
-		// dbAdapter =
+	public class GetContactsFromDB extends AsyncTask<Void, Void, String[]> {
 
-		dbAdapter = DBAdapter.getDBAdapterInstance(this);
-		try {
-			dbAdapter.createDataBase();
-		} catch (IOException e) {
+		@Override
+		protected void onPreExecute() {
+			arrayList.clear();
+			progressDialog = new MyProgressDialog(
+					ContactManagerLandingActivity.this);
+			progressDialog.show();
 		}
+
+		@Override
+		protected String[] doInBackground(Void... params) {
+			getdataFromDb();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String[] result) {
+			super.onPostExecute(result);
+			adapter.notifyDataSetChanged();
+			progressDialog.dismiss();
+		}
+
 	}
 
 	@Override
 	protected void onResume() {
-		initControl();
+		new GetContactsFromDB().execute();
 		super.onResume();
 	}
 

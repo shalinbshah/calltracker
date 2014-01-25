@@ -82,54 +82,14 @@
         android:layout_marginBottom="5dp"
         android:background="#666666" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="25dp"
-        android:gravity="bottom"
-        android:orientation="horizontal" >
-
-        <com.call.tracker.customview.TextViewRoboto
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Name"
-            android:textSize="16sp" />
-
-        <View
-            android:layout_width="2dp"
-            android:layout_height="25dp"
-            android:layout_marginRight="5dp"
-            android:background="#000" />
-
-        <com.call.tracker.customview.TextViewRoboto
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Last Call"
-            android:textSize="16sp" />
-
-        <View
-            android:layout_width="2dp"
-            android:layout_height="25dp"
-            android:layout_marginRight="5dp"
-            android:background="#000" />
-
-        <com.call.tracker.customview.TextViewRoboto
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Next Call"
-            android:textSize="16sp" />
-    </LinearLayout>
-
     <ListView
         android:id="@+id/listContact"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="10dp"
-        android:cacheColorHint="#00000000"
-        android:fadeScrollbars="false"
-        android:fastScrollEnabled="true"
-        android:scrollbarFadeDuration="0" />
+        android:cacheColorHint="#FFF"
+        android:clickable="true"
+        android:padding="10dip"
+        android:scrollbarFadeDuration="1"
+        android:scrollbars="none" />
 
 </LinearLayout>

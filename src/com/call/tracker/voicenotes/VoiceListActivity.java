@@ -31,8 +31,14 @@ public class VoiceListActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_voice_activity_list);
-
 		initControl();
+	}
+
+	@Override
+	protected void onResume() {
+		openDB();
+		getdataFromDbAndCloseDb();
+		super.onResume();
 	}
 
 	public void callNewNote(View v) {
@@ -44,12 +50,11 @@ public class VoiceListActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		listVoiceList = (ListView) findViewById(R.id.listVoiceList);
 		textViewNodata = (TextView) findViewById(R.id.textNodata);
-
 		openDB();
-		getdataFromDb();
+		getdataFromDbAndCloseDb();
 	}
 
-	private void getdataFromDb() {
+	private void getdataFromDbAndCloseDb() {
 		// TODO Auto-generated method stub
 		dbAdapter.openDataBase();
 
@@ -101,8 +106,6 @@ public class VoiceListActivity extends BaseActivity {
 	}
 
 	public void openDB() {
-		// dbAdapter =
-
 		dbAdapter = DBAdapter.getDBAdapterInstance(this);
 		try {
 			dbAdapter.createDataBase();

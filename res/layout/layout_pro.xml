@@ -2,34 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_main_background"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/FrameLayout1"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="#e3e3e3"
-        android:orientation="horizontal" >
+        android:layout_height="44dip"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/menu_bg" >
 
-        <com.call.tracker.customview.ButtonRoboto
+        <ImageButton
             android:id="@+id/butHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="right|center_vertical"
             android:layout_marginRight="10dp"
+            android:background="@drawable/home"
             android:onClick="callHome"
-            android:text="@string/home" />
+            android:scaleType="fitCenter" />
 
-        <com.call.tracker.customview.TextViewRoboto
+        <TextView
+            android:id="@+id/TextView1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/butHome"
-            android:layout_alignBottom="@+id/butHome"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="5dp"
-            android:text="@string/become_a_pro"
-            android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="#000" />
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="Become A Pro"
+            android:textColor="@color/white"
+            android:textSize="24dp" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -40,10 +43,11 @@
         <com.call.tracker.customview.TextViewRoboto
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#d4d4d4"
+            android:layout_margin="10dp"
             android:gravity="center|left"
             android:text="@string/become_pro_text"
-            android:textAppearance="@android:style/TextAppearance.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/theme_color" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,10 +60,11 @@
             android:id="@+id/textContact"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#d4d4d4"
+            android:layout_margin="10dp"
             android:gravity="center|right"
             android:text="@string/contact_the_brains_of_this_operation"
-            android:textAppearance="@android:style/TextAppearance.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/theme_color" />
     </LinearLayout>
 
     <LinearLayout
@@ -88,6 +93,7 @@
         <com.call.tracker.customview.ButtonRoboto
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:onClick="callContinue"
             android:text="@string/continue_t" />
     </LinearLayout>

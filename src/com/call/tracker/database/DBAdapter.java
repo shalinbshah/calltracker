@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,6 +16,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
+import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.call.tracker.model.ContactModel;
 import com.call.tracker.model.ListManagerModel;
@@ -38,9 +42,7 @@ public class DBAdapter extends SQLiteOpenHelper {
 	public DBAdapter(Context context) {
 		super(context, DB_NAME, null, 1);
 		this.myContext = context;
-		DB_PATH = "/data/data/"
-				+ context.getApplicationContext().getPackageName()
-				+ "/databases/";
+		DB_PATH = context.getDir("databases", Context.MODE_PRIVATE).getPath();
 		// The Android's default system path of your application database is
 		// "/data/data/mypackagename/databases/"
 	}
@@ -93,7 +95,6 @@ public class DBAdapter extends SQLiteOpenHelper {
 			String myPath = DB_PATH + DB_NAME;
 			checkDB = SQLiteDatabase.openDatabase(myPath, null,
 					SQLiteDatabase.NO_LOCALIZED_COLLATORS);
-
 		} catch (SQLiteException e) {
 			// database does't exist yet.
 		}
@@ -441,6 +442,10 @@ public class DBAdapter extends SQLiteOpenHelper {
 					} while (cursor2.moveToNext());
 				}
 				model.addGroup(grpName);
+				Uri uri = getContactUriWithPhoneNumber(cursor.getString(cursor
+						.getColumnIndex("contact_number")));
+				model.setUri(uri);
+				Log.e("CallTracker", "Uri of contact: " + uri);
 				arrayList.add(model);
 			} while (cursor.moveToNext());
 		}
@@ -456,6 +461,47 @@ public class DBAdapter extends SQLiteOpenHelper {
 			e.printStackTrace();
 		}
 
+	}
+
+	public Uri getContactUriWithPhoneNumber(String pNumber) {
+		ContentResolver cr = myContext.getContentResolver();
+		Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null,
+				null, null, null);
+		Log.d("callTracker", "Finding uri of contact : " + pNumber);
+		if (cur.getCount() > 0) {
+			while (cur.moveToNext()) {
+				String id = cur.getString(cur
+						.getColumnIndex(ContactsContract.Contacts._ID));
+				if (Integer
+						.parseInt(cur.getString(cur
+								.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
+					Cursor pCur = cr.query(
+							ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+							null,
+							ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+									+ " = ?", new String[] { id }, null);
+					while (pCur.moveToNext()) {
+						String phoneNo = pCur
+								.getString(pCur
+										.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+						if (phoneNo.toUpperCase().trim()
+								.contains(pNumber.toUpperCase().trim())) {
+							Uri my_contact_Uri = Uri.withAppendedPath(
+									ContactsContract.Contacts.CONTENT_URI,
+									String.valueOf(id));
+							if (null != my_contact_Uri) {
+								cur.close();
+								pCur.close();
+							}
+							return my_contact_Uri;
+						}
+					}
+					pCur.close();
+				}
+			}
+			cur.close();
+		}
+		return null;
 	}
 
 	public ArrayList<ContactModel> getContactsOfGroup(String grpID) {

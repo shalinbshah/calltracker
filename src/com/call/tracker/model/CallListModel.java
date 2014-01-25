@@ -2,10 +2,21 @@ package com.call.tracker.model;
 
 import java.io.Serializable;
 
+import android.net.Uri;
+
 @SuppressWarnings("serial")
 public class CallListModel implements Serializable {
 
 	private String id, name, number, date, type, duration;
+	private Uri uri;
+
+	public Uri getUri() {
+		return uri;
+	}
+
+	public void setUri(Uri uri) {
+		this.uri = uri;
+	}
 
 	public String getNumber() {
 		return number;

@@ -87,21 +87,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:gravity="center" >
-
-        <com.call.tracker.customview.ButtonRoboto
-            android:id="@+id/butMess"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="callMess"
-            android:text="Message" />
 
         <com.call.tracker.customview.ButtonRoboto
             android:id="@+id/butMail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="callMail"
-            android:text="Mail" />
+            android:onClick="callShare"
+            android:text="Share" />
+
+        <com.call.tracker.customview.ButtonRoboto
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="callSave"
+            android:text="Save" />
 
         <com.call.tracker.customview.ButtonRoboto
             android:id="@+id/butDelete"
@@ -110,12 +111,5 @@
             android:onClick="callDelete"
             android:text="Delete" />
     </LinearLayout>
-
-    <com.call.tracker.customview.ButtonRoboto
-        android:id="@+id/button7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="callSave"
-        android:text="Save" />
 
 </LinearLayout>

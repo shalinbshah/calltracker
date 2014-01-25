@@ -1,44 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal" >
 
-    <com.call.tracker.customview.TextViewRoboto
-        android:id="@+id/textName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:singleLine="true"
-        android:text="Name"
-        android:textSize="14sp" />
+    <LinearLayout
+        android:id="@+id/cellLayout"
+        android:layout_width="match_parent"
+        android:layout_height="66dp" >
 
-    <View
-        android:layout_width="2dp"
-        android:layout_height="25dp"
-        android:layout_marginRight="5dp" />
+        <QuickContactBadge
+            android:id="@+id/quickContactBadge1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:src="@drawable/man" />
 
-    <com.call.tracker.customview.TextViewRoboto
-        android:id="@+id/textLast"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:singleLine="true"
-        android:text="Last Call"
-        android:textSize="14sp" />
+        <LinearLayout
+            android:id="@+id/CallInfo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
-    <View
-        android:layout_width="2dp"
-        android:layout_height="25dp"
-        android:layout_marginRight="5dp" />
+            <com.call.tracker.customview.TextViewRoboto
+                android:id="@+id/textName"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:fadeScrollbars="true"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="Name"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-    <com.call.tracker.customview.TextViewRoboto
-        android:id="@+id/textNext"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:singleLine="true"
-        android:text="Next Call"
-        android:textSize="14sp" />
+            <com.call.tracker.customview.TextViewRoboto
+                android:id="@+id/textLast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadeScrollbars="true"
+                android:singleLine="true"
+                android:text="Last Call"
+                android:textColor="@color/tabMedium"
+                android:textSize="14sp" />
+
+            <com.call.tracker.customview.TextViewRoboto
+                android:id="@+id/textNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadeScrollbars="true"
+                android:singleLine="true"
+                android:text="Next Call"
+                android:textColor="@color/tabMedium"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

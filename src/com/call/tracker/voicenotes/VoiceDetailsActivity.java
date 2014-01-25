@@ -1,8 +1,11 @@
 package com.call.tracker.voicenotes;
 
+import java.io.File;
+
 import android.content.ContentValues;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -94,10 +97,13 @@ public class VoiceDetailsActivity extends BaseActivity {
 
 	}
 
-	public void callMess(View v) {
-	}
-
-	public void callMail(View v) {
+	public void callShare(View v) {
+		String fileName = path;
+		Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		shareIntent.setType("audio/mp3");
+		shareIntent.putExtra(Intent.EXTRA_STREAM,
+				Uri.fromFile(new File(fileName)));
+		startActivity(Intent.createChooser(shareIntent, "Share File"));
 	}
 
 	public void callAssigncontact(View v) {
@@ -111,6 +117,17 @@ public class VoiceDetailsActivity extends BaseActivity {
 	}
 
 	public void callDelete(View v) {
+		DBAdapter adapter = new DBAdapter(getApplicationContext());
+		adapter.openDB(getApplicationContext());
+		adapter.openDataBase();
+		ContentValues values = new ContentValues();
+		values.put("urgent", butUrgent.getTag().toString());
+		Bundle bundle = getIntent().getExtras();
+		VoiceNotesModel note = (VoiceNotesModel) bundle.get("data");
+		adapter.getMyDatabase().delete("tbl_voice_note", "id=?",
+				new String[] { Integer.toString(note.getId()) });
+		adapter.close();
+		finish();
 	}
 
 	public void callSave(View v) {
@@ -122,9 +139,10 @@ public class VoiceDetailsActivity extends BaseActivity {
 		values.put("urgent", butUrgent.getTag().toString());
 		Bundle bundle = getIntent().getExtras();
 		VoiceNotesModel note = (VoiceNotesModel) bundle.get("data");
-		adapter.getMyDatabase().update("weight", values,
+		adapter.getMyDatabase().update("tbl_voice_note", values,
 				"id='" + note.getId() + "'", null);
 		adapter.close();
+		finish();
 	}
 
 	public void callPlaySound(View v) {

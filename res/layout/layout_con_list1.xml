@@ -35,16 +35,13 @@
             android:text="Got it"
             android:textColor="#fff" />
 
-        <!--
-             <com.call.tracker.customview.CheckBoxRoboto
+        <com.call.tracker.customview.CheckBoxRoboto
             android:id="@+id/checkdontshow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/don_t_show_again"
-            
-            android:textColor="@color/theme_color" />
-        -->
+            android:textColor="@color/theme_color" />
     </LinearLayout>
 
 </LinearLayout>

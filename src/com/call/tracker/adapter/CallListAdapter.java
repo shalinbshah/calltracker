@@ -1,12 +1,16 @@
 package com.call.tracker.adapter;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import com.call.tracker.R;
@@ -26,20 +30,17 @@ public class CallListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return callListModels.size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
 		return callListModels.get(arg0);
 	}
 
 	@Override
 	public long getItemId(int arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+		return arg0;
 	}
 
 	@Override
@@ -56,35 +57,38 @@ public class CallListAdapter extends BaseAdapter {
 			holder.textName = (TextView) mView.findViewById(R.id.textName);
 			holder.textLast = (TextView) mView.findViewById(R.id.textLast);
 			holder.textNext = (TextView) mView.findViewById(R.id.textNext);
+			holder.uri_badge = (QuickContactBadge) mView
+					.findViewById(R.id.quickContactBadge1);
+			holder.uri_badge.setMode(ContactsContract.QuickContact.MODE_LARGE);
 
 			mView.setTag(holder);
 		} else
 			holder = (ViewHolder) mView.getTag();
 
 		String name = callListModels.get(position).getName();
-
-		// if(name)
+		holder.uri_badge.assignContactFromPhone(callListModels.get(position)
+				.getNumber(), true);
+		try {
+			InputStream input = ContactsContract.Contacts
+					.openContactPhotoInputStream(activity.getContentResolver(),
+							callListModels.get(position).getUri());
+			holder.uri_badge.setImageBitmap(BitmapFactory.decodeStream(input));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		if (name.length() == 0)
 			name = callListModels.get(position).getNumber();
-		// String mNumber = callListModels.get(position).getNumber();
-		// for (int i = 0; i < userListModels.size(); i++) {
-		// if (mNumber.contains(userListModels.get(i).getNumber())
-		// || userListModels.get(i).getNumber().contains(mNumber)) {
-		// name = userListModels.get(i).getName();
-		// break;
-		// } else {
-		// name = callListModels.get(position).getNumber();
-		// }
-		// }
-
 		holder.textName.setText(name);
-		holder.textLast.setText(callListModels.get(position).getDate());
-		holder.textNext.setText("0");
+		holder.textLast.setText("Last Call : "
+				+ callListModels.get(position).getDate());
+		holder.textNext.setText("Next Call : "
+				+ callListModels.get(position).getDate());
 
 		return mView;
 	}
 
 	public class ViewHolder {
+		private QuickContactBadge uri_badge;
 		private TextView textName;
 		private TextView textLast;
 		private TextView textNext;

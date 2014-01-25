@@ -100,7 +100,7 @@ public class CollectionListAdapter extends BaseAdapter {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							Toast.makeText(activity,
-									"Contact Add UnSuccessfull !!!",
+									"Add Contact UnSuccessfull !!!",
 									Toast.LENGTH_SHORT).show();
 						}
 						activity.finish();

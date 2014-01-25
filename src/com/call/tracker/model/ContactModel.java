@@ -2,6 +2,8 @@ package com.call.tracker.model;
 
 import java.util.ArrayList;
 
+import android.net.Uri;
+
 public class ContactModel implements Comparable<ContactModel> {
 
 	private String contactId;
@@ -10,6 +12,16 @@ public class ContactModel implements Comparable<ContactModel> {
 	private String number2;
 	private String number3;
 	private String number4;
+	private Uri uri;
+
+	public Uri getUri() {
+		return uri;
+	}
+
+	public void setUri(Uri uri) {
+		this.uri = uri;
+	}
+
 	private ArrayList<String> groups = new ArrayList<String>();;
 	private boolean isCheck = false;
 
