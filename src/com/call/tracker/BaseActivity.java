@@ -11,12 +11,14 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bugsense.trace.BugSenseHandler;
 import com.call.tracker.interfaces.Constants;
 
 public class BaseActivity extends Activity implements Constants {
 	public SharedPreferences preferences;
 	public SharedPreferences.Editor editor;
 	public ProgressDialog progress;
+	public static String BUG_SENSE_KEY = "cc936a56";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class BaseActivity extends Activity implements Constants {
 		// this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		preferences = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
+		BugSenseHandler.initAndStartSession(BaseActivity.this, BUG_SENSE_KEY);
 	}
 
 	public String getStringFromXml(int actionSettings) {
@@ -63,14 +66,12 @@ public class BaseActivity extends Activity implements Constants {
 
 	public void gotoHome() {
 		Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 	}
 
 	public void callHome() {
 		Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 	}

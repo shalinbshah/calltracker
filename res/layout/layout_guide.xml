@@ -29,7 +29,8 @@
             android:id="@+id/checkdontshow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/don_t_show_again" />
+            android:text="@string/don_t_show_again"
+            android:textColor="@color/theme_color" />
     </LinearLayout>
 
 </LinearLayout>

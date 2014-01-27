@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+import com.bugsense.trace.BugSenseHandler;
 import com.call.tracker.calllist.CallListActivity;
 import com.call.tracker.contactmanager.ContactGuideActivity;
 import com.call.tracker.contactmanager.ContactManagerLandingActivity;
@@ -16,12 +17,13 @@ import com.call.tracker.setting.SettingActivity;
 import com.call.tracker.voicenotes.VoiceListActivity;
 
 public class HomeActivity extends BaseActivity {
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		BugSenseHandler.initAndStartSession(HomeActivity.this,
+				BaseActivity.BUG_SENSE_KEY);
 		setContentView(R.layout.layout_home);
-
 	}
 
 	@Override

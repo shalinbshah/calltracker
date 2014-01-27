@@ -1,5 +1,7 @@
 package com.call.tracker;
 
+import com.bugsense.trace.BugSenseHandler;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +13,9 @@ public class SplashActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		BugSenseHandler.initAndStartSession(SplashActivity.this,
+				BaseActivity.BUG_SENSE_KEY);
 		setContentView(R.layout.layout_splash);
-
 		initControl();
 	}
 

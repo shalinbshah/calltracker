@@ -7,77 +7,101 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import com.bugsense.trace.BugSenseHandler;
 import com.call.tracker.adapter.GuidePagerAdapter;
 
 import java.util.ArrayList;
 
 public class GuideActivity extends BaseActivity {
-    // private static final String TAG = "GuideAtivity";
-    public GuidePagerAdapter pagerAdapter;
-    private ViewPager myPager;
-    private ArrayList<String> arrayList = new ArrayList<String>();
-    private Button butNext;
-    private int currntPos;
-    private CheckBox checkdontshow;
+	// private static final String TAG = "GuideAtivity";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_guide);
+	// Drawable customdrawablecheckbox.xml:
+	//
+	// <?xml version="1.0" encoding="utf-8"?>
+	// <selector xmlns:android="http://schemas.android.com/apk/res/android">
+	// <item android:state_checked="false"
+	// android:drawable="@drawable/yourdrawable1" />
+	// <item android:state_checked="true"
+	// android:drawable="@drawable/yourdrawable2" />
+	// <item android:drawable="@drawable/yourdrawable1" /> <!-- default -->
+	// </selector>
+	//
+	// yourcheckbox xml:
+	//
+	// <CheckBox
+	// android:id="@+id/chk"
+	// android:button=“@drawable/customdrawablecheckbox”
+	// android:layout_alignParentLeft="true"
+	// android:layout_width="wrap_content"
+	// android:layout_height="wrap_content" />
+	//
 
-        initControl();
-    }
+	public GuidePagerAdapter pagerAdapter;
+	private ViewPager myPager;
+	private ArrayList<String> arrayList = new ArrayList<String>();
+	private Button butNext;
+	private int currntPos;
+	private CheckBox checkdontshow;
 
-    public void callNext(View v) {
-        int currentVal = myPager.getCurrentItem() + 1;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		BugSenseHandler.initAndStartSession(GuideActivity.this,
+				BaseActivity.BUG_SENSE_KEY);
+		setContentView(R.layout.layout_guide);
+		initControl();
+	}
 
-        if (currntPos == 4) {
-            updatePref(IS_GUIDE, String.valueOf(checkdontshow.isChecked()));
-            startHomeActivity();
-        } else {
-            butNext.setText(getStringFromXml(R.string.next));
-            myPager.setCurrentItem(currentVal);
-        }
-    }
+	public void callNext(View v) {
+		int currentVal = myPager.getCurrentItem() + 1;
 
-    private void initControl() {
-        myPager = (ViewPager) findViewById(R.id.imageViewPager);
+		if (currntPos == 4) {
+			updatePref(IS_GUIDE, String.valueOf(checkdontshow.isChecked()));
+			startHomeActivity();
+		} else {
+			butNext.setText(getStringFromXml(R.string.next));
+			myPager.setCurrentItem(currentVal);
+		}
+	}
 
-        butNext = (Button) findViewById(R.id.butNext);
+	private void initControl() {
+		myPager = (ViewPager) findViewById(R.id.imageViewPager);
 
-        checkdontshow = (CheckBox) findViewById(R.id.checkdontshow);
-        checkdontshow.setVisibility(View.INVISIBLE);
+		butNext = (Button) findViewById(R.id.butNext);
 
-        arrayList.add(getStringFromXml(R.string.guide_1));
-        arrayList.add(getStringFromXml(R.string.guide_2));
-        arrayList.add(getStringFromXml(R.string.guide_3));
-        arrayList.add(getStringFromXml(R.string.guide_4));
-        arrayList.add(getStringFromXml(R.string.guide_5));
+		checkdontshow = (CheckBox) findViewById(R.id.checkdontshow);
+		checkdontshow.setVisibility(View.INVISIBLE);
 
-        pagerAdapter = new GuidePagerAdapter(this, arrayList);
-        myPager.setAdapter(pagerAdapter);
-        myPager.setCurrentItem(0);
-        myPager.setOnPageChangeListener(new MyPageChangeListener());
-    }
+		arrayList.add(getStringFromXml(R.string.guide_1));
+		arrayList.add(getStringFromXml(R.string.guide_2));
+		arrayList.add(getStringFromXml(R.string.guide_3));
+		arrayList.add(getStringFromXml(R.string.guide_4));
+		arrayList.add(getStringFromXml(R.string.guide_5));
 
-    private class MyPageChangeListener extends
-            ViewPager.SimpleOnPageChangeListener {
-        @Override
-        public void onPageSelected(int position) {
-            currntPos = position;
-            if (currntPos == 4) {
-                butNext.setText(getStringFromXml(R.string.let_go));
-                checkdontshow.setVisibility(View.VISIBLE);
-            } else {
-                butNext.setText(getStringFromXml(R.string.next));
-                checkdontshow.setVisibility(View.INVISIBLE);
-            }
-        }
-    }
+		pagerAdapter = new GuidePagerAdapter(this, arrayList);
+		myPager.setAdapter(pagerAdapter);
+		myPager.setCurrentItem(0);
+		myPager.setOnPageChangeListener(new MyPageChangeListener());
+	}
 
-    public void startHomeActivity() {
-        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-        finish();
-    }
+	private class MyPageChangeListener extends
+			ViewPager.SimpleOnPageChangeListener {
+		@Override
+		public void onPageSelected(int position) {
+			currntPos = position;
+			if (currntPos == 4) {
+				butNext.setText(getStringFromXml(R.string.let_go));
+				checkdontshow.setVisibility(View.VISIBLE);
+			} else {
+				butNext.setText(getStringFromXml(R.string.next));
+				checkdontshow.setVisibility(View.INVISIBLE);
+			}
+		}
+	}
+
+	public void startHomeActivity() {
+		startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+		finish();
+	}
 }
