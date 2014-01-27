@@ -50,13 +50,14 @@ public class DetailActivity extends BaseActivity {
 
 		Bundle bundle = getIntent().getExtras();
 
-		if (bundle != null) {
-			setContentView(R.layout.layout_detail);
-			callUserModel = (CallListModel) bundle.getSerializable("callData");
-			initControl();
-		} else {
-			alertBox("No Data Found");
-		}
+		// if (bundle != null) {
+		setContentView(R.layout.layout_detail);
+		// callUserModel = (CallListModel)
+		// bundle.getSerializable("callData");
+		initControl();
+		// } else {
+		// alertBox("No Data Found");
+		// }
 	}
 
 	public void callEdit(View v) {
@@ -190,25 +191,26 @@ public class DetailActivity extends BaseActivity {
 
 	private void initControl() {
 		// TODO Auto-generated method stub
-		textViewCallerName = (TextView) findViewById(R.id.textViewCallerName);
-
-		callListView = (ListView) findViewById(R.id.listCall);
-		String name = callUserModel.getName();
-
-		callNumberModels.clear();
-
-		if (name.length() == 0) {
-			name = "No Contact Found";
-			CallNumberModel callNumberModel = new CallNumberModel();
-			callNumberModel.setNumber(callUserModel.getNumber());
-			callNumberModel.setNumberType("Other");
-			callNumberModels.add(callNumberModel);
-
-			setListAdapter();
-		} else {
-			getDetails(callUserModel.getNumber());
-		}
-		textViewCallerName.setText(name);
+		// textViewCallerName = (TextView)
+		// findViewById(R.id.textViewCallerName);
+		//
+		// callListView = (ListView) findViewById(R.id.listCall);
+		// String name = callUserModel.getName();
+		//
+		// callNumberModels.clear();
+		//
+		// if (name.length() == 0) {
+		// name = "No Contact Found";
+		// CallNumberModel callNumberModel = new CallNumberModel();
+		// callNumberModel.setNumber(callUserModel.getNumber());
+		// callNumberModel.setNumberType("Other");
+		// callNumberModels.add(callNumberModel);
+		//
+		// setListAdapter();
+		// } else {
+		// getDetails(callUserModel.getNumber());
+		// }
+		// textViewCallerName.setText(name);
 	}
 
 	@SuppressLint("InlinedApi")
