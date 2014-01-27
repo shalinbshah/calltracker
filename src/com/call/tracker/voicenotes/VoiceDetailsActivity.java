@@ -1,7 +1,5 @@
 package com.call.tracker.voicenotes;
 
-import java.io.File;
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -17,6 +15,8 @@ import com.call.tracker.R;
 import com.call.tracker.customview.ButtonRoboto;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.VoiceNotesModel;
+
+import java.io.File;
 
 public class VoiceDetailsActivity extends BaseActivity {
 	String voiceTime = "", path = "";

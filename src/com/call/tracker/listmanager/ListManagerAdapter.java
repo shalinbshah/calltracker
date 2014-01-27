@@ -1,7 +1,5 @@
 package com.call.tracker.listmanager;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +10,8 @@ import android.widget.TextView;
 
 import com.call.tracker.R;
 import com.call.tracker.model.ListManagerModel;
+
+import java.util.ArrayList;
 
 public class ListManagerAdapter extends BaseAdapter {
 

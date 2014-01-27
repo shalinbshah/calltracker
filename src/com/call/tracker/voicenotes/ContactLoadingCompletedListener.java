@@ -1,9 +1,9 @@
 package com.call.tracker.voicenotes;
 
-import java.util.ArrayList;
-
 import com.call.tracker.model.ContactModel;
 
+import java.util.ArrayList;
+
 public interface ContactLoadingCompletedListener {
-	public void onCompleted(ArrayList<ContactModel> contactDatas);
+    public void onCompleted(ArrayList<ContactModel> contactDatas);
 }
