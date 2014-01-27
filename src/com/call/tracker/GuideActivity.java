@@ -47,8 +47,7 @@ public class GuideActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		BugSenseHandler.initAndStartSession(GuideActivity.this,
-				BaseActivity.BUG_SENSE_KEY);
+		BugSenseHandler.startSession(this);
 		setContentView(R.layout.layout_guide);
 		initControl();
 	}

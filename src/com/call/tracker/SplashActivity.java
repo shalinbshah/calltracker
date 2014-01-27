@@ -13,8 +13,7 @@ public class SplashActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		BugSenseHandler.initAndStartSession(SplashActivity.this,
-				BaseActivity.BUG_SENSE_KEY);
+		BugSenseHandler.startSession(this);
 		setContentView(R.layout.layout_splash);
 		initControl();
 	}

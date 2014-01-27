@@ -3,8 +3,10 @@ package com.call.tracker.calllist;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,11 +19,16 @@ import android.provider.ContactsContract.PhoneLookup;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.call.tracker.BaseActivity;
+import com.call.tracker.DateTimePicker;
 import com.call.tracker.R;
 import com.call.tracker.adapter.CallListDetailsAdapter;
 import com.call.tracker.model.CallListModel;
@@ -59,6 +66,104 @@ public class DetailActivity extends BaseActivity {
 	public void callSMS(View v) {
 		Toast.makeText(getApplicationContext(), "Sms button Touched",
 				Toast.LENGTH_SHORT).show();
+		callCalender(v);
+	}
+
+	private void showDateTimeDialog(String dateTime) {
+		// Create the dialog
+		final Dialog mDateTimeDialog = new Dialog(this);
+		// Inflate the root layout
+		final RelativeLayout mDateTimeDialogView = (RelativeLayout) getLayoutInflater()
+				.inflate(R.layout.date_time_dialog, null);
+		// Grab widget instance
+		final DateTimePicker mDateTimePicker = (DateTimePicker) mDateTimeDialogView
+				.findViewById(R.id.DateTimePicker);
+		// Check is system is set to use 24h time (this doesn't seem to work as
+		// expected though)
+		final String timeS = android.provider.Settings.System.getString(
+				getContentResolver(),
+				android.provider.Settings.System.TIME_12_24);
+		final boolean is24h = !(timeS == null || timeS.equals("12"));
+
+		// Update demo TextViews when the "OK" button is clicked
+		((Button) mDateTimeDialogView.findViewById(R.id.SetDateTime))
+				.setOnClickListener(new OnClickListener() {
+
+					public void onClick(View v) {
+						mDateTimePicker.clearFocus();
+						// TODO Auto-generated method stub
+						StringBuilder builderDate = new StringBuilder();
+						String date = (mDateTimePicker.get(Calendar.YEAR) + "/"
+								+ (mDateTimePicker.get(Calendar.MONTH) + 1)
+								+ "/" + mDateTimePicker
+								.get(Calendar.DAY_OF_MONTH));
+						builderDate.append(date).append(" ");
+						if (mDateTimePicker.is24HourView()) {
+							String time = (mDateTimePicker
+									.get(Calendar.HOUR_OF_DAY) + ":" + mDateTimePicker
+									.get(Calendar.MINUTE));
+							builderDate.append(time).append(" ");
+						} else {
+							String timePM = (mDateTimePicker.get(Calendar.HOUR)
+									+ ":"
+									+ mDateTimePicker.get(Calendar.MINUTE)
+									+ ":" + (mDateTimePicker
+									.get(Calendar.AM_PM) == Calendar.AM ? "AM"
+									: "PM"));
+							builderDate.append(timePM).append(" ");
+						}
+						// butDep.setText(builder.toString());
+						// textViewDate.setText(builderDate.toString());
+						// textViewTime.setText("");
+						mDateTimeDialog.dismiss();
+					}
+				});
+
+		// Cancel the dialog when the "Cancel" button is clicked
+		((Button) mDateTimeDialogView.findViewById(R.id.CancelDialog))
+				.setOnClickListener(new OnClickListener() {
+
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						mDateTimeDialog.cancel();
+					}
+				});
+
+		// Reset Date and Time pickers when the "Reset" button is clicked
+		((Button) mDateTimeDialogView.findViewById(R.id.ResetDateTime))
+				.setOnClickListener(new OnClickListener() {
+
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						mDateTimePicker.reset();
+					}
+				});
+
+		// Setup TimePicker
+		mDateTimePicker.setIs24HourView(is24h);
+		if (dateTime.length() != 0) {
+			String[] valTime = dateTime.split(" ");
+			String[] valDate = valTime[0].split("/");
+			String[] valTimeVal = valTime[1].split(":");
+
+			mDateTimePicker.updateDate(Integer.valueOf(valDate[0]),
+					Integer.valueOf(valDate[1]) - 1,
+					Integer.valueOf(valDate[2]));
+
+			mDateTimePicker.updateTime(Integer.valueOf(valTimeVal[0]),
+					Integer.valueOf(valTimeVal[1]));
+		}
+
+		// No title on the dialog window
+		mDateTimeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		// Set the dialog content view
+		mDateTimeDialog.setContentView(mDateTimeDialogView);
+		// Display the dialog
+		mDateTimeDialog.show();
+	}
+
+	public void callCalender(View view) {
+		showDateTimeDialog("");
 	}
 
 	public void callAlert(View v) {

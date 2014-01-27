@@ -21,8 +21,7 @@ public class HomeActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		BugSenseHandler.initAndStartSession(HomeActivity.this,
-				BaseActivity.BUG_SENSE_KEY);
+		BugSenseHandler.startSession(this);
 		setContentView(R.layout.layout_home);
 	}
 
