@@ -20,6 +20,16 @@
     <color name="image_border_end">#FF660000</color>
     <color name="image_border_center">#FFFF3333</color>
     <color name="theme_color">#5A9AA8</color>
-    
+    <color name="custom_text_color_normal">#ffffffff</color>
+    <color name="custom_text_color_disabled">#ffb2b2b2</color>
+    <color name="custom_divider_color">#ffffffff</color>
+    <color name="custom_button_background">#00000000</color>
+    <color name="custom_button_background_pressed">#ffcc6600</color>
+    <color name="custom_key_background">#00000000</color>
+    <color name="custom_key_background_pressed">#ffcc6600</color>
+    <color name="custom_keyboard_indicator_color">#ffcc6600</color>
+    <color name="alert">#CC0000</color>
+    <color name="confirm">#FF8800</color>
+    <color name="info">#669900</color>
 
 </resources>

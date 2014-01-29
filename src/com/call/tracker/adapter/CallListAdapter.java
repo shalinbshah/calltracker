@@ -71,7 +71,7 @@ public class CallListAdapter extends BaseAdapter {
         try {
             InputStream input = ContactsContract.Contacts
                     .openContactPhotoInputStream(activity.getContentResolver(),
-                            callListModels.get(position).getUri());
+                            callListModels.get(position).getContactUri());
             holder.uri_badge.setImageBitmap(BitmapFactory.decodeStream(input));
         } catch (Exception e) {
             e.printStackTrace();

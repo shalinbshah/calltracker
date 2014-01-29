@@ -5,9 +5,10 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="17" />
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
@@ -116,8 +117,20 @@
         <activity
             android:name="com.call.tracker.contactmanager.AlbumsListPopUp"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Dialog" >
-        </activity>
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name="com.call.tracker.calllist.SampleTimeDefault"
+            android:screenOrientation="portrait" />
+
+        <receiver
+            android:name="com.call.tracker.alarm.AlarmReceiver"
+            android:process=":remote" >
+        </receiver>
+
+        <service
+            android:name="com.call.tracker.alarm.MyAlarmService"
+            android:enabled="true" >
+        </service>
     </application>
 
 </manifest>

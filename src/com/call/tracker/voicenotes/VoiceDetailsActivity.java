@@ -1,10 +1,13 @@
 package com.call.tracker.voicenotes;
 
+import java.io.File;
+
 import android.content.ContentValues;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -15,8 +18,7 @@ import com.call.tracker.R;
 import com.call.tracker.customview.ButtonRoboto;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.VoiceNotesModel;
-
-import java.io.File;
+import com.devspark.appmsg.AppMsg;
 
 public class VoiceDetailsActivity extends BaseActivity {
 	String voiceTime = "", path = "";
@@ -68,9 +70,20 @@ public class VoiceDetailsActivity extends BaseActivity {
 					butUrgent.setTag("2");
 					textViewUr
 							.setText(R.string.this_voice_note_is_marked_as_urgent);
+					AppMsg appMsg = AppMsg
+							.makeText(VoiceDetailsActivity.this,
+									"This Voice Note is Now Urgent",
+									AppMsg.STYLE_ALERT);
+					appMsg.setLayoutGravity(Gravity.BOTTOM);
+					appMsg.show();
 				} else {
 					butUrgent.setTag("1");
 					butUrgent.setBackgroundResource(R.drawable.icon_alert_grey);
+					AppMsg appMsg = AppMsg.makeText(VoiceDetailsActivity.this,
+							"This Voice Note is Now Not Urgent",
+							AppMsg.STYLE_ALERT);
+					appMsg.setLayoutGravity(Gravity.BOTTOM);
+					appMsg.show();
 					textViewUr
 							.setText(R.string.this_voice_note_has_not_been_marked_as_urgent);
 				}
