@@ -1,5 +1,7 @@
 package com.call.tracker.contactmanager;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,8 +18,6 @@ import android.widget.Toast;
 import com.call.tracker.R;
 import com.call.tracker.listmanager.ListManagerDetails;
 import com.call.tracker.model.ListManagerModel;
-
-import java.util.ArrayList;
 
 public class CollectionListAdapter extends BaseAdapter {
 

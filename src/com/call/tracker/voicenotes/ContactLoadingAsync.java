@@ -1,11 +1,11 @@
 package com.call.tracker.voicenotes;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.os.AsyncTask;
 
 import com.call.tracker.model.ContactModel;
-
-import java.util.ArrayList;
 
 public class ContactLoadingAsync extends
         AsyncTask<String, String, ArrayList<ContactModel>> {

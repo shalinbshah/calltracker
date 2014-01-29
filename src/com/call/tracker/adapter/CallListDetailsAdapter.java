@@ -1,5 +1,7 @@
 package com.call.tracker.adapter;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,8 +16,6 @@ import android.widget.TextView;
 import com.call.tracker.R;
 import com.call.tracker.calllist.DetailActivity;
 import com.call.tracker.model.CallNumberModel;
-
-import java.util.ArrayList;
 
 public class CallListDetailsAdapter extends BaseAdapter {
 

@@ -1,5 +1,7 @@
 package com.call.tracker;
 
+import java.util.Calendar;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -12,8 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
 import android.widget.ViewSwitcher;
-
-import java.util.Calendar;
 
 public class DateTimePicker extends RelativeLayout implements
         View.OnClickListener, OnDateChangedListener, OnTimeChangedListener {

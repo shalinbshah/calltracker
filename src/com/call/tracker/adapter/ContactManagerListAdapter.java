@@ -1,5 +1,8 @@
 package com.call.tracker.adapter;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -14,9 +17,6 @@ import android.widget.TextView;
 import com.call.tracker.R;
 import com.call.tracker.contactmanager.ContactManagerLandingActivity;
 import com.call.tracker.model.ContactModel;
-
-import java.io.InputStream;
-import java.util.ArrayList;
 
 public class ContactManagerListAdapter extends BaseAdapter {
 

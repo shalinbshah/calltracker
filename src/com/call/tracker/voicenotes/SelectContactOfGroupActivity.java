@@ -1,5 +1,8 @@
 package com.call.tracker.voicenotes;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,9 +19,6 @@ import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ContactModel;
 import com.call.tracker.model.ListManagerModel;
 import com.call.tracker.model.VoiceNotesModel;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class SelectContactOfGroupActivity extends BaseActivity {
 

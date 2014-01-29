@@ -1,5 +1,7 @@
 package com.call.tracker.contactmanager;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,8 +14,6 @@ import com.call.tracker.adapter.ContactManagerListAdapter;
 import com.call.tracker.adapter.MyProgressDialog;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ContactModel;
-
-import java.util.ArrayList;
 
 public class ContactManagerLandingActivity extends BaseActivity {
     protected static final String TAG = "CallListActivity";

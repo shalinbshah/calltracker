@@ -1,5 +1,8 @@
 package com.call.tracker.listmanager;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -17,9 +20,6 @@ import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ListManagerModel;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class ListManagerDetails extends BaseActivity {
     private ListView listViewContactsAndGroup;

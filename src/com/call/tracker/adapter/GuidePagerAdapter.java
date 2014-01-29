@@ -1,5 +1,7 @@
 package com.call.tracker.adapter;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -12,8 +14,6 @@ import android.widget.TextView;
 import com.call.tracker.GuideActivity;
 import com.call.tracker.R;
 import com.call.tracker.interfaces.Constants;
-
-import java.util.ArrayList;
 
 public class GuidePagerAdapter extends PagerAdapter implements Constants {
 

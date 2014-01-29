@@ -1,5 +1,7 @@
 package com.call.tracker.adapter;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +13,6 @@ import android.widget.TextView;
 import com.call.tracker.R;
 import com.call.tracker.model.VoiceNotesModel;
 import com.call.tracker.voicenotes.VoiceListActivity;
-
-import java.util.ArrayList;
 
 public class VoiceNotesMainAdapter extends BaseAdapter {
 

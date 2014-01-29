@@ -1,5 +1,8 @@
 package com.call.tracker.voicenotes;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -15,9 +18,6 @@ import com.call.tracker.R;
 import com.call.tracker.adapter.ListAdapterView;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ListManagerModel;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class AssignContactToVoiceNoteActivity extends BaseActivity {
     private ListView listManager;

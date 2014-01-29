@@ -1,5 +1,8 @@
 package com.call.tracker.contactmanager;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentProviderOperation;
@@ -22,9 +25,6 @@ import android.widget.Toast;
 import com.call.tracker.BaseActivity;
 import com.call.tracker.DateTimePicker;
 import com.call.tracker.R;
-
-import java.util.ArrayList;
-import java.util.Calendar;
 
 public class NewContactActivity extends BaseActivity {
     String[] items = {"Mobile", "Home", "Work", "Main", "Other"};

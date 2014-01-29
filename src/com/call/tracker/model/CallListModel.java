@@ -1,8 +1,8 @@
 package com.call.tracker.model;
 
-import android.net.Uri;
-
 import java.io.Serializable;
+
+import android.net.Uri;
 
 @SuppressWarnings("serial")
 public class CallListModel implements Serializable {

@@ -1,12 +1,12 @@
 package com.call.tracker;
 
-import com.bugsense.trace.BugSenseHandler;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+
+import com.bugsense.trace.BugSenseHandler;
 
 public class SplashActivity extends BaseActivity {
 

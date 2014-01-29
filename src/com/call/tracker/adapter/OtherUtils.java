@@ -1,5 +1,7 @@
 package com.call.tracker.adapter;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -9,8 +11,6 @@ import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 public class OtherUtils {
 

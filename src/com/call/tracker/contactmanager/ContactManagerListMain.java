@@ -1,5 +1,8 @@
 package com.call.tracker.contactmanager;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,9 +14,6 @@ import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ListManagerModel;
 import com.call.tracker.voicenotes.AssignContactToVoiceNoteActivity;
 import com.call.tracker.voicenotes.SelectContactOfGroupActivity;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class ContactManagerListMain extends BaseActivity {
 	private DBAdapter dbAdapter;

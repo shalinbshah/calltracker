@@ -1,5 +1,7 @@
 package com.call.tracker.contactmanager;
 
+import java.io.IOException;
+
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,8 +12,6 @@ import android.provider.ContactsContract;
 
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ContactModel;
-
-import java.io.IOException;
 
 public class ContactManagerUtility {
 

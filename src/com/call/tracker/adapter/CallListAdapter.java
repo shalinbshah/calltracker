@@ -1,5 +1,8 @@
 package com.call.tracker.adapter;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.provider.ContactsContract;
@@ -13,9 +16,6 @@ import android.widget.TextView;
 import com.call.tracker.R;
 import com.call.tracker.calllist.CallListActivity;
 import com.call.tracker.model.CallListModel;
-
-import java.io.InputStream;
-import java.util.ArrayList;
 
 public class CallListAdapter extends BaseAdapter {
 

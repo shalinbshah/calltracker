@@ -1,5 +1,8 @@
 package com.call.tracker.contactmanager;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -14,9 +17,6 @@ import com.call.tracker.R;
 import com.call.tracker.adapter.MyProgressDialog;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ListManagerModel;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class AlbumsListPopUp extends BaseActivity {
 

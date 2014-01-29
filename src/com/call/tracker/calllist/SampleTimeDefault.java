@@ -157,14 +157,11 @@ public class SampleTimeDefault extends FragmentActivity implements
 	}
 
 	private void cancelAlarm(int requestCode) {
-
 		alarmText.setText("\n\n***\n" + "Alarm Cancelled! \n" + "***\n");
-
 		Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(
 				getBaseContext(), requestCode, intent, 0);
 		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		alarmManager.cancel(pendingIntent);
-
 	}
 }

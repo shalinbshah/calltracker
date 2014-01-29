@@ -1,8 +1,8 @@
 package com.call.tracker.model;
 
-import android.net.Uri;
-
 import java.util.ArrayList;
+
+import android.net.Uri;
 
 public class ContactModel implements Comparable<ContactModel> {
 

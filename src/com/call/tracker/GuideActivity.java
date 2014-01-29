@@ -1,5 +1,7 @@
 package com.call.tracker;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -9,8 +11,6 @@ import android.widget.CheckBox;
 
 import com.bugsense.trace.BugSenseHandler;
 import com.call.tracker.adapter.GuidePagerAdapter;
-
-import java.util.ArrayList;
 
 public class GuideActivity extends BaseActivity {
 	// private static final String TAG = "GuideAtivity";

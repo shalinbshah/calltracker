@@ -1,5 +1,7 @@
 package com.call.tracker.setting;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -11,8 +13,6 @@ import com.call.tracker.BaseActivity;
 import com.call.tracker.HomeActivity;
 import com.call.tracker.R;
 import com.call.tracker.adapter.SyncPagerAdapter;
-
-import java.util.ArrayList;
 
 public class SyncActivity extends BaseActivity {
     private ViewPager myPager;

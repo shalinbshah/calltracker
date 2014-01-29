@@ -1,5 +1,8 @@
 package com.call.tracker.voicenotes;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,9 +17,6 @@ import com.call.tracker.R;
 import com.call.tracker.adapter.VoiceNotesMainAdapter;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.VoiceNotesModel;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class VoiceListActivity extends BaseActivity {
 
