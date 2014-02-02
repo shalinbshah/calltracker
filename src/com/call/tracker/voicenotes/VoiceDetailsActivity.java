@@ -70,18 +70,15 @@ public class VoiceDetailsActivity extends BaseActivity {
 					butUrgent.setTag(1);
 					textViewUr
 							.setText(R.string.this_voice_note_is_marked_as_urgent);
-					AppMsg appMsg = AppMsg
-							.makeText(VoiceDetailsActivity.this,
-									"This Voice Note is Now Urgent",
-									AppMsg.STYLE_ALERT);
+					AppMsg appMsg = AppMsg.makeText(VoiceDetailsActivity.this,
+							"This Voice Note is Urgent", AppMsg.STYLE_ALERT);
 					appMsg.setLayoutGravity(Gravity.BOTTOM);
 					appMsg.show();
 				} else {
 					butUrgent.setTag(0);
 					butUrgent.setBackgroundResource(R.drawable.icon_alert_grey);
 					AppMsg appMsg = AppMsg.makeText(VoiceDetailsActivity.this,
-							"This Voice Note is Now Not Urgent",
-							AppMsg.STYLE_INFO);
+							"This Voice Note is Not Urgent", AppMsg.STYLE_INFO);
 					appMsg.setLayoutGravity(Gravity.BOTTOM);
 					appMsg.show();
 					textViewUr
