@@ -9,12 +9,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Vibrator;
 import android.widget.Toast;
 
 import com.call.tracker.R;
-import com.call.tracker.calllist.SampleTimeDefault;
+import com.call.tracker.calllist.ContactFollowUpDetailsActivity;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class AlarmReceiver extends BroadcastReceiver {
@@ -26,6 +27,20 @@ public class AlarmReceiver extends BroadcastReceiver {
 		showNotification(intent, context, "Call to : " + name);
 	}
 
+	private void playSound(Context context) {
+		try {
+			MediaPlayer player = MediaPlayer.create(context, R.raw.tone);
+			// player.prepare();
+			player.start();
+			// player.stop();
+			// player.reset();
+			// player.release();
+			// player = null;
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void showNotification(Intent recIntent, Context paramContext,
 			String message) {
 		try {
@@ -33,9 +48,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 			Vibrator v = (Vibrator) paramContext
 					.getSystemService(Context.VIBRATOR_SERVICE);
 			// Vibrate for 500 milliseconds
-			v.vibrate(2000);
+			v.vibrate(500);
 
-			Intent intent = new Intent(paramContext, SampleTimeDefault.class);
+			Intent intent = new Intent(paramContext, ContactFollowUpDetailsActivity.class);
 			intent.putExtras(recIntent.getExtras());
 
 			NotificationManager nm = (NotificationManager) paramContext
@@ -48,16 +63,16 @@ public class AlarmReceiver extends BroadcastReceiver {
 					paramContext, contact_id, intent, 0);
 
 			builder.setContentIntent(localPendingIntent)
-					.setSmallIcon(R.drawable.icon)
+					.setSmallIcon(R.drawable.notification_small_icon)
 					.setLargeIcon(
 							BitmapFactory.decodeResource(res, R.drawable.icon))
-					.setTicker("Ticker").setWhen(System.currentTimeMillis())
+					.setTicker(message).setWhen(System.currentTimeMillis())
 					.setAutoCancel(true)
 					.setContentTitle(res.getString(R.string.app_name))
-					.setContentText("Call To : " + message);
+					.setContentText(message);
 			Notification n = builder.build();
 			nm.notify(contact_id, n);
-
+			playSound(paramContext);
 			// OLDER IMPLEMENTATION
 			// Notification localNotification = new
 			// Notification(R.drawable.icon,

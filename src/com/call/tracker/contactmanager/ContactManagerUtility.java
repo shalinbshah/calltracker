@@ -46,7 +46,7 @@ public class ContactManagerUtility {
                 contactModel.setContactId(id);
                 contactModel.setName(nameContact);
                 contactModel.setNumber1(cNumber);
-                contactModel.addGroup(TempHolder.selectedGroup);
+                contactModel.addGroup(TempHolder.selectedGroupId);
                 contactModel.setUri(contactData.getData());
                 openDB(context);
                 insertNewContact(contactModel);

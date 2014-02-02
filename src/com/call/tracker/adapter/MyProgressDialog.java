@@ -19,6 +19,7 @@ public class MyProgressDialog extends ProgressDialog {
 	public void dismiss() {
 		super.dismiss();
 		getMyProgressDialog().dismiss();
+		progressDialog.dismiss();
 	}
 
 	public ProgressDialog getMyProgressDialog() {

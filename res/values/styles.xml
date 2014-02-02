@@ -20,4 +20,8 @@
         <!-- <item name="bpKeyboardIndicatorColor">@color/custom_keyboard_indicator_color</item> -->
     </style>
 
+    <style name="date_picker_style" parent="@android:style/Widget.DeviceDefault.DatePicker">
+        <item name="android:divider">#FF0000</item>
+    </style>
+
 </resources>

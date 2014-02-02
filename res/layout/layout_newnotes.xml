@@ -84,7 +84,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:src="@drawable/media_record" />
+            android:src="@drawable/record_record" />
 
         <TextView
             android:id="@+id/ImageView01"

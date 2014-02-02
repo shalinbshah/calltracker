@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 
@@ -15,6 +17,7 @@ public class NewNotesActivity extends BaseActivity {
 	private ImageView mediaRecordStop;
 	private Chronometer chronometerTime;
 	private AudioRecorder audioRecorder;
+	Animation rotation;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +25,9 @@ public class NewNotesActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.layout_newnotes);
-
+		rotation = AnimationUtils.loadAnimation(getApplicationContext(),
+				R.anim.my_voice_indeterminate);
+		rotation.setRepeatCount(Animation.INFINITE);
 		initControl();
 	}
 
@@ -40,7 +45,6 @@ public class NewNotesActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				if (v.getTag().toString().equals("1")) {
 					startRecording();
 				} else {
@@ -63,14 +67,22 @@ public class NewNotesActivity extends BaseActivity {
 		intent.putExtra("time", val);
 		intent.putExtra("filepath", audioRecorder.getPath());
 		startActivity(intent);
+		mediaRecordStop.clearAnimation();
+
 		finish();
 	}
 
 	protected void startRecording() {
 		chronometerTime.setBase(SystemClock.elapsedRealtime());
 		chronometerTime.start();
-		mediaRecordStop.setImageResource(R.drawable.media_stop);
+		// mediaRecordStop.setImageResource(R.drawable.media_stop);
 		mediaRecordStop.setTag(2);
 		audioRecorder.start();
+		/* Get ImageView Object */
+
+		/* Create Animation */
+
+		/* start Animation */
+		mediaRecordStop.startAnimation(rotation);
 	}
 }

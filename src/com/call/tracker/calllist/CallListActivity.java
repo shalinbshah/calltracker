@@ -3,11 +3,9 @@ package com.call.tracker.calllist;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -17,9 +15,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
-import android.provider.ContactsContract.PhoneLookup;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,38 +27,55 @@ import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
 import com.call.tracker.adapter.CallListAdapter;
 import com.call.tracker.adapter.MyProgressDialog;
-import com.call.tracker.contactmanager.AlbumsListPopUp;
+import com.call.tracker.contactmanager.TempHolder;
+import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.CallListModel;
+import com.call.tracker.model.ContactModel;
 
 public class CallListActivity extends BaseActivity {
 	protected static final String TAG = "CallListActivity";
 	private ListView listContact;
 	private CallListAdapter adapter;
-	private ArrayList<CallListModel> arrayList = new ArrayList<CallListModel>();
+	private ArrayList<CallListModel> arrayList;
 	private EditText editTextSearch;
-	private Button butAdd;
 	private Button butContactList;
-	MyProgressDialog progressDialog;
+	DBAdapter dbAdapter;
+	final int SELECT_GROUP_REQUEST_CODE = 1001;
+	String selectedGroupId = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_call_list);
-
+		dbAdapter = new DBAdapter(getApplicationContext());
+		arrayList = new ArrayList<CallListModel>();
+		adapter = new CallListAdapter(CallListActivity.this, arrayList);
 		initControl();
+		listContact.setAdapter(adapter);
+		new GetCallListFromWebService().execute();
 		Bundle bundle = getIntent().getExtras();
-		if (bundle != null) {
-			int val = bundle.getInt("key");
-			if (val == 1) {
-				butAdd.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+			if (requestCode == SELECT_GROUP_REQUEST_CODE) {
+				selectedGroupId = TempHolder.selectedGroupId;
+				butContactList.setText(TempHolder.selectedGroupName);
+				new GetCallListFromWebService().execute();
 			}
+		} else {
+			selectedGroupId = "";
+			butContactList.setText("All Contacts");
+			new GetCallListFromWebService().execute();
 		}
 	}
 
 	public void callContactList(View v) {
 		Intent intent = new Intent(getApplicationContext(),
-				AlbumsListPopUp.class);
-		startActivity(intent);
+				SelectGroupPopUp.class);
+		startActivityForResult(intent, SELECT_GROUP_REQUEST_CODE);
 	}
 
 	private void initControl() {
@@ -71,48 +83,77 @@ public class CallListActivity extends BaseActivity {
 
 		butContactList = (Button) findViewById(R.id.butContactList);
 		butContactList.setText("All contacts");
-		butAdd = (Button) findViewById(R.id.butAdd);
 
 		listContact = (ListView) findViewById(R.id.listContact);
+		listContact.isTextFilterEnabled();
 		listContact.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view,
 					int arg2, long arg3) {
 
+				CallListModel callListModel = (CallListModel) view.getTag();
 				Intent intent = new Intent(getApplicationContext(),
-						SampleTimeDefault.class);
+						ContactFollowUpDetailsActivity.class);
+				// intent.putExtra("CallListModel", callListModel);
 				intent.putExtra("contact_name", arrayList.get(arg2).getName());
 				intent.putExtra("contact_uri", arrayList.get(arg2)
 						.getContactUri());
+				intent.putExtra("contact_number", arrayList.get(arg2)
+						.getNumber());
+				// intent.putExtra("contact", arrayList.get(arg2));
 				startActivity(intent);
 			}
 		});
-		new GetCallListFromWebService().execute();
 		editTextSearch = (EditText) findViewById(R.id.editTextSearch);
-		editTextSearch.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void onTextChanged(CharSequence cs, int arg1, int arg2,
-					int arg3) {
-				generateCallList();
-			}
+	}
 
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-			}
-
-			@Override
-			public void afterTextChanged(Editable arg0) {
-			}
-		});
+	public void callButSearch(View v) {
+		// arrayList.clear();
+		// adapter.notifyDataSetChanged();
+		new GetCallListFromWebService().execute(editTextSearch.getText()
+				.toString());
 	}
 
 	@SuppressLint("SimpleDateFormat")
-	private void generateCallList() {
+	private void generateCallList(String groupName, String filter) {
+		ArrayList<ContactModel> contactsOfSelectedGroup = null;
+		if (groupName.length() > 0) {
+			dbAdapter.openDataBase();
+			contactsOfSelectedGroup = dbAdapter.getContactsOfGroup(groupName);
+			dbAdapter.close();
+		}
+		Cursor managedCursor;
+		if (filter.length() > 0)
+			managedCursor = getContentResolver().query(
+					CallLog.Calls.CONTENT_URI, null,
+					CallLog.Calls.CACHED_NAME + " LIKE ?",
+					new String[] { "%" + filter + "%" },
+					CallLog.Calls.DEFAULT_SORT_ORDER);
+		else if (null != contactsOfSelectedGroup
+				&& contactsOfSelectedGroup.size() > 0) {
+			String selection = "";
+			ArrayList<String> list = new ArrayList<String>();
 
-		Cursor managedCursor = getContentResolver().query(
-				CallLog.Calls.CONTENT_URI, null, null, null, null);
+			for (int i = 0; i < contactsOfSelectedGroup.size(); i++) {
+				if (i != 0)
+					selection = selection + " or " + CallLog.Calls.CACHED_NAME
+							+ " LIKE ?";
+				else
+					selection = CallLog.Calls.CACHED_NAME + " LIKE ?";
+				list.add(contactsOfSelectedGroup.get(i).getName());
+				// selectionArgs[i] = contactsOfSelectedGroup.get(i).getName();
+			}
+			String[] selectionArgs = new String[list.size()];
+
+			managedCursor = getContentResolver().query(
+					CallLog.Calls.CONTENT_URI, null, selection,
+					list.toArray(selectionArgs),
+					CallLog.Calls.DEFAULT_SORT_ORDER);
+		} else
+			managedCursor = getContentResolver().query(
+					CallLog.Calls.CONTENT_URI, null, null, null,
+					CallLog.Calls.DEFAULT_SORT_ORDER);
 		int numberIndex = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
 		int typeIndex = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
 		int dateIndex = managedCursor.getColumnIndex(CallLog.Calls.DATE);
@@ -147,59 +188,40 @@ public class CallListActivity extends BaseActivity {
 			arrayList.add(callListModel);
 		}
 		managedCursor.close();
-		Collections.reverse(arrayList);
 	}
 
 	public class GetCallListFromWebService extends
-			AsyncTask<Void, Void, String[]> {
+			AsyncTask<String, Void, String[]> {
+		MyProgressDialog progressDialog;
 
 		@Override
 		protected void onPreExecute() {
 			arrayList.clear();
+			adapter.notifyDataSetChanged();
 			progressDialog = new MyProgressDialog(CallListActivity.this);
 			progressDialog.show();
-			// progressDialog.setCancelable(true);
+			progressDialog.setCancelable(true);
 		}
 
 		@Override
-		protected String[] doInBackground(Void... params) {
-			generateCallList();
+		protected String[] doInBackground(String... params) {
+			if (null != params && params.length > 0)
+				generateCallList(selectedGroupId, params[0]);
+			else
+				generateCallList(selectedGroupId, "");
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(String[] result) {
-			super.onPostExecute(result);
-			adapter = new CallListAdapter(CallListActivity.this, arrayList);
-			listContact.setAdapter(adapter);
-			adapter.notifyDataSetChanged();
 			progressDialog.dismiss();
+			adapter.setCallListModels(arrayList);
+			adapter.notifyDataSetChanged();
+			super.onPostExecute(result);
 		}
 	}
 
-	public static String getContactName(Context context, String phoneNumber) {
-		ContentResolver cr = context.getContentResolver();
-		Uri uri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI,
-				Uri.encode(phoneNumber));
-		Log.d("callTracker", "Found uri of contact by new method: " + uri);
-		Cursor cursor = cr.query(uri,
-				new String[] { PhoneLookup.DISPLAY_NAME }, null, null, null);
-		if (cursor == null) {
-			return null;
-		}
-		String contactName = null;
-		if (cursor.moveToFirst()) {
-			contactName = cursor.getString(cursor
-					.getColumnIndex(PhoneLookup.DISPLAY_NAME));
-		}
-		if (cursor != null && !cursor.isClosed()) {
-			cursor.close();
-		}
-
-		return contactName;
-	}
-
-	private Uri getContactUri(Context context, String number) {
+	public static Uri getContactUri(Context context, String number) {
 
 		String name = null;
 		String contactId = null;
@@ -259,7 +281,6 @@ public class CallListActivity extends BaseActivity {
 					+ contactId);
 			cursor.close();
 			return uri;
-			// no photo
 		} else {
 			Log.v("CallTracker", "Started listing: Photo found, id = "
 					+ contactId + " name = " + name);

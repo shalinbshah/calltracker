@@ -92,6 +92,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingLeft="10dp"
             android:text="Name"
             android:textColor="@color/black"
             android:textSize="18sp" />
@@ -99,7 +100,7 @@
         <com.call.tracker.customview.TextViewRoboto
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
+            android:layout_weight="0.35"
             android:text="Group(s)"
             android:textColor="@color/black"
             android:textSize="18sp" />

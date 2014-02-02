@@ -7,9 +7,16 @@ public class VoiceNotesModel implements Serializable {
 
 	// dbAdapter.insertVoiceNote(voice_path, group_name, contact_name,
 	// contact_number, contact_id, urgent);
-	private String voice_path, group_name, contact_name, contact_number,
-			contact_id, urgent, groupId, dateTime, isVisible, voice_time;
-	private int id;
+	private String voice_path, dateTime, isVisible, voice_time;
+	private int id, contact_id, urgent, groupId, alarm_id;
+
+	public int getAlarm_id() {
+		return alarm_id;
+	}
+
+	public void setAlarm_id(int alarm_id) {
+		this.alarm_id = alarm_id;
+	}
 
 	public String getVoice_path() {
 		return voice_path;
@@ -19,51 +26,27 @@ public class VoiceNotesModel implements Serializable {
 		this.voice_path = voice_path;
 	}
 
-	public String getGroup_name() {
-		return group_name;
-	}
-
-	public void setGroup_name(String group_name) {
-		this.group_name = group_name;
-	}
-
-	public String getContact_name() {
-		return contact_name;
-	}
-
-	public void setContact_name(String contact_name) {
-		this.contact_name = contact_name;
-	}
-
-	public String getContact_number() {
-		return contact_number;
-	}
-
-	public void setContact_number(String contact_number) {
-		this.contact_number = contact_number;
-	}
-
-	public String getContact_id() {
+	public int getContact_id() {
 		return contact_id;
 	}
 
-	public void setContact_id(String contact_id) {
+	public void setContact_id(int contact_id) {
 		this.contact_id = contact_id;
 	}
 
-	public String getUrgent() {
+	public int getUrgent() {
 		return urgent;
 	}
 
-	public void setUrgent(String urgent) {
+	public void setUrgent(int urgent) {
 		this.urgent = urgent;
 	}
 
-	public void setGroupId(String groupId) {
+	public void setGroupId(int groupId) {
 		this.groupId = groupId;
 	}
 
-	public String getGroupId() {
+	public int getGroupId() {
 		return groupId;
 	}
 

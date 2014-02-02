@@ -90,7 +90,7 @@ public class CollectionListAdapter extends BaseAdapter {
                         Intent intent = new Intent();
                         intent.putExtra(ListManagerDetails.GROUP_ID_KEY, view
                                 .getTag().toString());
-                        TempHolder.selectedGroup = view.getTag().toString();
+                        TempHolder.selectedGroupId = view.getTag().toString();
                         // case GRP_PICKER_RESULT:
                         ContactManagerUtility utility = new ContactManagerUtility();
                         if (utility.addContactInDB(activity,

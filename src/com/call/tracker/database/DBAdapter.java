@@ -367,17 +367,14 @@ public class DBAdapter extends SQLiteOpenHelper {
 		for (int i = 0; i < notesModels.size(); i++) {
 			ContentValues values = new ContentValues();
 			values.put("voice_path", notesModels.get(i).getVoice_path());
-			values.put("group_id", notesModels.get(i).getGroupId());
-			values.put("group_name", notesModels.get(i).getGroup_name());
-			values.put("contact_name", notesModels.get(i).getContact_name());
-			values.put("contact_number", notesModels.get(i).getContact_number());
+			values.put("list_id", notesModels.get(i).getGroupId());
 			values.put("contact_id", notesModels.get(i).getContact_id());
 			values.put("urgent", notesModels.get(i).getUrgent());
-			values.put("datetime", currentDateTimeString);
-			values.put("voice_time", notesModels.get(i).getVoice_time());
+			values.put("record_datetime", currentDateTimeString);
+			values.put("record_duration", notesModels.get(i).getVoice_time());
 			values.put("isVis", "1");
 
-			myDataBase.insert("tbl_voice_note", null, values);
+			myDataBase.insert("tbl_voice_notes", null, values);
 		}
 		close();
 
@@ -390,25 +387,23 @@ public class DBAdapter extends SQLiteOpenHelper {
 	}
 
 	public ArrayList<VoiceNotesModel> getVoiceData() {
-		String query = "select * from tbl_voice_note";
+		String query = "select * from tbl_voice_notes";
 		Cursor cursor = selectRecordsFromDB(query, null);
 		ArrayList<VoiceNotesModel> arrayList = new ArrayList<VoiceNotesModel>();
 		arrayList.clear();
 		if (cursor.moveToFirst()) {
 			do {
-				VoiceNotesModel model = new VoiceNotesModel();
-				model.setId(cursor.getInt(0));
-				model.setVoice_path(cursor.getString(1));
-				model.setGroupId(cursor.getString(2));
-				model.setGroup_name(cursor.getString(3));
-				model.setContact_name(cursor.getString(4));
-				model.setContact_number(cursor.getString(5));
-				model.setContact_id(cursor.getString(6));
-				model.setUrgent(cursor.getString(7));
-				model.setDateTime(cursor.getString(8));
-				model.setIsVisible(cursor.getString(9));
-				model.setVoice_time(cursor.getString(10));
-				arrayList.add(model);
+				VoiceNotesModel modelNotes = new VoiceNotesModel();
+				modelNotes.setId(cursor.getInt(0));
+				modelNotes.setVoice_path(cursor.getString(1));
+				modelNotes.setUrgent(cursor.getInt(2));
+				modelNotes.setDateTime(cursor.getString(3));
+				modelNotes.setIsVisible(cursor.getString(4));
+				modelNotes.setVoice_time(cursor.getString(5));
+				modelNotes.setGroupId(cursor.getInt(6));
+				modelNotes.setContact_id(cursor.getInt(7));
+				modelNotes.setAlarm_id(cursor.getInt(8));
+				arrayList.add(modelNotes);
 			} while (cursor.moveToNext());
 		}
 		cursor.close();

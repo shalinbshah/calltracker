@@ -28,6 +28,8 @@ public class BaseActivity extends Activity implements Constants {
 				.getDefaultSharedPreferences(getApplicationContext());
 		BugSenseHandler.initAndStartSession(BaseActivity.this, BUG_SENSE_KEY);
 	}
+	
+	
 
 	public String getStringFromXml(int actionSettings) {
 		return getResources().getString(actionSettings);

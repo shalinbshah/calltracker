@@ -65,9 +65,9 @@ public class VoiceDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (v.getTag().toString().equals("1")) {
+				if (v.getTag().toString().equals("0")) {
 					butUrgent.setBackgroundResource(R.drawable.icon_alert_red);
-					butUrgent.setTag("2");
+					butUrgent.setTag(1);
 					textViewUr
 							.setText(R.string.this_voice_note_is_marked_as_urgent);
 					AppMsg appMsg = AppMsg
@@ -77,11 +77,11 @@ public class VoiceDetailsActivity extends BaseActivity {
 					appMsg.setLayoutGravity(Gravity.BOTTOM);
 					appMsg.show();
 				} else {
-					butUrgent.setTag("1");
+					butUrgent.setTag(0);
 					butUrgent.setBackgroundResource(R.drawable.icon_alert_grey);
 					AppMsg appMsg = AppMsg.makeText(VoiceDetailsActivity.this,
 							"This Voice Note is Now Not Urgent",
-							AppMsg.STYLE_ALERT);
+							AppMsg.STYLE_INFO);
 					appMsg.setLayoutGravity(Gravity.BOTTOM);
 					appMsg.show();
 					textViewUr
@@ -96,13 +96,13 @@ public class VoiceDetailsActivity extends BaseActivity {
 
 	private void updateView() {
 		butAssigncontact.setVisibility(View.INVISIBLE);
-		String tag = modelNotes.getUrgent();
-		if (tag.equals("2")) {
+		int tag = modelNotes.getUrgent();
+		if (tag == 1) {
 			butUrgent.setBackgroundResource(R.drawable.icon_alert_red);
-			butUrgent.setTag("2");
+			butUrgent.setTag(1);
 			textViewUr.setText(R.string.this_voice_note_is_marked_as_urgent);
 		} else {
-			butUrgent.setTag("1");
+			butUrgent.setTag(0);
 			butUrgent.setBackgroundResource(R.drawable.icon_alert_grey);
 			textViewUr
 					.setText(R.string.this_voice_note_has_not_been_marked_as_urgent);
@@ -134,10 +134,9 @@ public class VoiceDetailsActivity extends BaseActivity {
 		adapter.openDB(getApplicationContext());
 		adapter.openDataBase();
 		ContentValues values = new ContentValues();
-		values.put("urgent", butUrgent.getTag().toString());
 		Bundle bundle = getIntent().getExtras();
 		VoiceNotesModel note = (VoiceNotesModel) bundle.get("data");
-		adapter.getMyDatabase().delete("tbl_voice_note", "id=?",
+		adapter.getMyDatabase().delete("tbl_voice_notes", "id=?",
 				new String[] { Integer.toString(note.getId()) });
 		adapter.close();
 		finish();
@@ -149,10 +148,10 @@ public class VoiceDetailsActivity extends BaseActivity {
 		adapter.openDB(getApplicationContext());
 		adapter.openDataBase();
 		ContentValues values = new ContentValues();
-		values.put("urgent", butUrgent.getTag().toString());
+		values.put("urgent", Integer.parseInt(butUrgent.getTag().toString()));
 		Bundle bundle = getIntent().getExtras();
 		VoiceNotesModel note = (VoiceNotesModel) bundle.get("data");
-		adapter.getMyDatabase().update("tbl_voice_note", values,
+		adapter.getMyDatabase().update("tbl_voice_notes", values,
 				"id='" + note.getId() + "'", null);
 		adapter.close();
 		finish();
