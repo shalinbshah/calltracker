@@ -58,16 +58,11 @@
             android:text="New" />
     </LinearLayout>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="#666666" />
-
     <ListView
         android:id="@+id/listVoiceList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_margin="5dp"
         android:layout_marginTop="10dp"
         android:cacheColorHint="#00000000"
         android:fadeScrollbars="false"
@@ -78,7 +73,7 @@
     <com.call.tracker.customview.TextViewRoboto
         android:id="@+id/textNodata"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/no_data_found"

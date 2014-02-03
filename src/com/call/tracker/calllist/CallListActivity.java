@@ -50,7 +50,6 @@ public class CallListActivity extends BaseActivity {
 		arrayList = new ArrayList<CallListModel>();
 		adapter = new CallListAdapter(CallListActivity.this, arrayList);
 		initControl();
-		listContact.setAdapter(adapter);
 		addedContactsIDs = dbAdapter.getContactsIDs();
 		new GetCallListFromWebService().execute();
 	}
@@ -219,6 +218,7 @@ public class CallListActivity extends BaseActivity {
 		protected void onPostExecute(String[] result) {
 			progressDialog.dismiss();
 			adapter.setCallListModels(arrayList);
+			listContact.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
 			super.onPostExecute(result);
 		}
