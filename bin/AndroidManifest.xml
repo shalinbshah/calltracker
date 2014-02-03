@@ -84,7 +84,7 @@
             android:name="com.call.tracker.voicenotes.VoiceNotesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.call.tracker.voicenotes.NewNotesActivity"
+            android:name="com.call.tracker.voicenotes.NewVoiceNoteActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.call.tracker.voicenotes.VoiceDetailsActivity"
@@ -102,7 +102,7 @@
             android:name="com.call.tracker.contactmanager.SelectExistingContact"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.call.tracker.voicenotes.AssignContactToVoiceNoteActivity"
+            android:name="com.call.tracker.voicenotes.SelectGroupVoiceNoteActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.call.tracker.voicenotes.SelectContactOfGroupActivity"

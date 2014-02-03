@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import android.app.AlarmManager;
-import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -15,17 +14,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import com.call.tracker.HomeActivity;
 import com.call.tracker.R;
 import com.call.tracker.alarm.AlarmReceiver;
+import com.call.tracker.database.DBAdapter;
+import com.call.tracker.voicenotes.VoiceListActivity;
 import com.doomonafireball.betterpickers.recurrencepicker.EventRecurrence;
 import com.doomonafireball.betterpickers.recurrencepicker.EventRecurrenceFormatter;
 import com.doomonafireball.betterpickers.recurrencepicker.RecurrencePickerDialog;
@@ -54,15 +57,18 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 	private String mRrule;
 	QuickContactBadge contactBadge;
 	TextView tvContactName;
-	TextView textAlarmRepeat;
+	DBAdapter adapter;
+	EditText etFollowUpnotes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_foolowup_activity);
-
+		adapter = new DBAdapter(getApplicationContext());
 		tvContactName = (TextView) findViewById(R.id.tvContactName);
-		textAlarmRepeat = (TextView) findViewById(R.id.textAlarmRepeat);
+		etFollowUpnotes = (EditText) findViewById(R.id.eTFollowUpNotes);
+		etFollowUpnotes.setInputType(InputType.TYPE_NULL);
+
 		if (getIntent().getExtras().containsKey("contact_name")) {
 			String name = (String) getIntent().getExtras().get("contact_name");
 			tvContactName.setText(name);
@@ -71,8 +77,6 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 		if (getIntent().getExtras().containsKey("contact_uri")
 				&& null != getIntent().getExtras().get("contact_uri")) {
 			Uri uri = (Uri) getIntent().getExtras().get("contact_uri");
-			String contactNumber = getIntent().getExtras().getString(
-					"contact_number");
 			contactBadge.assignContactUri(uri);
 			if (ContactsContract.Contacts.openContactPhotoInputStream(
 					getContentResolver(), uri) != null) {
@@ -160,7 +164,6 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 		calNow.set(Calendar.MINUTE, minute);
 		calNow.set(Calendar.SECOND, 0);
 		calNow.set(Calendar.MILLISECOND, 0);
-		setAlarm(calNow, false);
 	}
 
 	private void setAlarm(Calendar targetCal, boolean repeat) {
@@ -179,38 +182,51 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 				pendingIntent);
 
 		if (repeat) {
+			Resources r = getResources();
+			String repeatString = EventRecurrenceFormatter.getRepeatString(
+					this, r, mEventRecurrence, true);
 			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
 					targetCal.getTimeInMillis(), TimeUnit.MINUTES.toMillis(5),
 					pendingIntent);
-
-			alarmText.setText("\n\n***\n" + "Alarm is set@ "
-					+ targetCal.getTime() + "\n" + "Repeat every 5 minutes\n"
-					+ "***\n");
+			alarmText.setText("Follow Up is set @ " + targetCal.getTime()
+					+ " and then " + repeatString + "\n");
+			adapter.updateContactFrequency(Integer.toString(contact_id), mRrule);
 		} else {
 			alarmManager.set(AlarmManager.RTC_WAKEUP,
 					targetCal.getTimeInMillis(), pendingIntent);
-			alarmText.setText("\n\n***\n" + "Alarm is set@ "
-					+ targetCal.getTime() + "\n" + "One shot\n" + "***\n");
+			alarmText
+					.setText("Follow Up is set@ " + targetCal.getTime() + "\n");
 		}
 
 	}
 
-	public void showTimePickerDialog(View v) {
-
-		Dialog dialog = new Dialog(this);
-
-		dialog.setContentView(R.layout.date_time_layout);
-
-		dialog.setTitle("Choix de l'horaire");
-
-		dialog.show();
+	public void toggleEditable(View v) {
+		etFollowUpnotes.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 	}
 
-	private void cancelAlarm(int requestCode) {
-		alarmText.setText("\n\n***\n" + "Alarm Cancelled! \n" + "***\n");
+	public void updateFollowUpNotes(View v) {
+		Object uri = (Uri) getIntent().getExtras().get("contact_uri");
+		int contact_id = Integer.parseInt(uri.toString().replace(
+				"content://com.android.contacts/contacts/", ""));
+		adapter.updateContactFollowUpNotes(Integer.toString(contact_id),
+				etFollowUpnotes.getText().toString());
+		etFollowUpnotes.setInputType(InputType.TYPE_NULL);
+
+	}
+
+	public void openVoiceNotes(View v) {
+		Intent intent = new Intent(getBaseContext(), VoiceListActivity.class);
+		startActivity(intent);
+	}
+
+	public void cancelAlarms(View v) {
+		alarmText.setText("\n" + "FollowUp Cancelled! \n");
+		Object uri = (Uri) getIntent().getExtras().get("contact_uri");
+		int contact_id = Integer.parseInt(uri.toString().replace(
+				"content://com.android.contacts/contacts/", ""));
 		Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(
-				getBaseContext(), requestCode, intent, 0);
+				getBaseContext(), contact_id, intent, 0);
 		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		alarmManager.cancel(pendingIntent);
 	}
@@ -226,13 +242,13 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 
 	private void populateRepeats() {
 		Resources r = getResources();
+		@SuppressWarnings("unused")
 		String repeatString = "";
-		boolean enabled;
 		if (!TextUtils.isEmpty(mRrule)) {
 			repeatString = EventRecurrenceFormatter.getRepeatString(this, r,
 					mEventRecurrence, true);
-		}
-
-		textAlarmRepeat.setText(mRrule + "\n" + repeatString);
+			setAlarm(calNow, true);
+		} else
+			setAlarm(calNow, false);
 	}
 }

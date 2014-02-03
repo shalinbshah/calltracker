@@ -1,12 +1,10 @@
 package com.call.tracker.calllist;
 
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -42,6 +40,7 @@ public class CallListActivity extends BaseActivity {
 	DBAdapter dbAdapter;
 	final int SELECT_GROUP_REQUEST_CODE = 1001;
 	String selectedGroupId = "";
+	ArrayList<String> addedContactsIDs = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +51,8 @@ public class CallListActivity extends BaseActivity {
 		adapter = new CallListAdapter(CallListActivity.this, arrayList);
 		initControl();
 		listContact.setAdapter(adapter);
+		addedContactsIDs = dbAdapter.getContactsIDs();
 		new GetCallListFromWebService().execute();
-		Bundle bundle = getIntent().getExtras();
 	}
 
 	@Override
@@ -81,7 +80,7 @@ public class CallListActivity extends BaseActivity {
 	private void initControl() {
 		// updatePref(CURRENT_LIST, "0");
 
-		butContactList = (Button) findViewById(R.id.butContactList);
+		butContactList = (Button) findViewById(R.id.butContactLista);
 		butContactList.setText("All contacts");
 
 		listContact = (ListView) findViewById(R.id.listContact);
@@ -92,7 +91,6 @@ public class CallListActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> adapterView, View view,
 					int arg2, long arg3) {
 
-				CallListModel callListModel = (CallListModel) view.getTag();
 				Intent intent = new Intent(getApplicationContext(),
 						ContactFollowUpDetailsActivity.class);
 				// intent.putExtra("CallListModel", callListModel);
@@ -183,9 +181,14 @@ public class CallListActivity extends BaseActivity {
 			callListModel.setDuration(callDuration);
 			callListModel.setNumber(phoneNumber);
 			callListModel.setType(callType);
-			callListModel.setContactUri(getContactUri(getApplicationContext(),
-					phoneNumber));
-			arrayList.add(callListModel);
+			String contactID = getContactID(getApplicationContext(),
+					phoneNumber);
+			Uri uri = Uri.withAppendedPath(
+					ContactsContract.Contacts.CONTENT_URI,
+					String.valueOf(contactID));
+			callListModel.setContactUri(uri);
+			if (addedContactsIDs.contains(contactID))
+				arrayList.add(callListModel);
 		}
 		managedCursor.close();
 	}
@@ -221,75 +224,38 @@ public class CallListActivity extends BaseActivity {
 		}
 	}
 
-	public static Uri getContactUri(Context context, String number) {
+	public static String getContactID(Context context, String number) {
 
 		String name = null;
 		String contactId = null;
-		InputStream input = null;
-
 		// define the columns I want the query to return
 		String[] projection = new String[] {
 				ContactsContract.PhoneLookup.DISPLAY_NAME,
 				ContactsContract.PhoneLookup._ID };
-
 		// encode the phone number and build the filter URI
 		Uri contactUri = Uri.withAppendedPath(
 				ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
 				Uri.encode(number));
-
 		// query time
 		Cursor cursor = context.getContentResolver().query(contactUri,
 				projection, null, null, null);
 
 		if (cursor.moveToFirst()) {
-
 			// Get values from contacts database:
 			contactId = cursor.getString(cursor
 					.getColumnIndex(ContactsContract.PhoneLookup._ID));
 			name = cursor.getString(cursor
 					.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
-
-			// Get photo of contactId as input stream:
-			Uri uri = ContentUris.withAppendedId(
-					ContactsContract.Contacts.CONTENT_URI,
-					Long.parseLong(contactId));
-			input = ContactsContract.Contacts.openContactPhotoInputStream(
-					context.getContentResolver(), uri);
-
-			Log.v("CallTracker", "Started listing: Contact Found @ " + number);
-			Log.v("CallTracker", "Started listing: Contact name  = " + name);
-			Log.v("CallTracker", "Started listing: Contact id    = "
-					+ contactId);
-
+			Log.v("CallTracker", "Contact Found @ " + number);
+			Log.v("CallTracker", "Contact name  = " + name);
+			Log.v("CallTracker", "Contact id    = " + contactId);
 		} else {
-
-			Log.v("CallTracker", "Started listing: Contact Not Found @ "
-					+ number);
+			Log.v("CallTracker", "Contact Not Found @ " + number);
 			cursor.close();
-			return null; // contact not found
-
+			return null;
 		}
 
-		// Only continue if we found a valid contact photo:
-		if (input == null) {
-			Log.v("CallTracker", "Started listing: No photo found, id = "
-					+ contactId + " name = " + name);
-			Uri uri = Uri.withAppendedPath(
-					ContactsContract.Contacts.CONTENT_URI,
-					String.valueOf(contactId));
-			Log.v("CallTracker", "found uri : " + uri + " for contact id : "
-					+ contactId);
-			cursor.close();
-			return uri;
-		} else {
-			Log.v("CallTracker", "Started listing: Photo found, id = "
-					+ contactId + " name = " + name);
-		}
-		Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI,
-				String.valueOf(contactId));
-		Log.v("CallTracker", "found uri : " + uri + " for contact id : "
-				+ contactId);
 		cursor.close();
-		return uri;
+		return contactId;
 	}
 }

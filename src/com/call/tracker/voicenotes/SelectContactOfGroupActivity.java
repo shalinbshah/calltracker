@@ -1,7 +1,6 @@
 package com.call.tracker.voicenotes;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -61,20 +60,6 @@ public class SelectContactOfGroupActivity extends BaseActivity {
 
 		startDialogBar();
 		getNumbers(modelList);
-
-		ContactLoadingAsync loadingAsync = new ContactLoadingAsync(
-				getApplicationContext(), new ContactLoadingCompletedListener() {
-					public void onCompleted(
-							ArrayList<ContactModel> contactDatas1) {
-						Collections.sort(arrayListContactDatas);
-						assignSeparatorPositions(arrayListContactDatas);
-						Collections.sort(mainListContactDatas);
-						assignSeparatorPositions(mainListContactDatas);
-						setdataToAdapter("");
-					}
-				});
-		loadingAsync.execute("");
-
 		// Collections.sort(arrayListContactDatas);
 		// assignSeparatorPositions(arrayListContactDatas);
 
@@ -96,6 +81,8 @@ public class SelectContactOfGroupActivity extends BaseActivity {
 			public void afterTextChanged(Editable arg0) {
 			}
 		});
+		setdataToAdapter("");
+
 	}
 
 	protected void setdataToAdapter(String val) {
@@ -116,26 +103,10 @@ public class SelectContactOfGroupActivity extends BaseActivity {
 			String name = mainListContactDatas.get(i).getName();
 			if (name.toUpperCase().contains(string.toUpperCase()))
 				backupArray.add(mainListContactDatas.get(i));
-			// }
 		}
 		arrayListContactDatas.clear();
 
 		arrayListContactDatas.addAll(backupArray);
-	}
-
-	private void assignSeparatorPositions(ArrayList<ContactModel> items) {
-		boolean[] separatorAtIndex = new boolean[items.size()];
-		char currentChar = 0;
-		for (int i = 0; i < items.size(); i++) {
-			char c = Character.toUpperCase(items.get(i).getName().charAt(0));
-			if (c != currentChar) {
-				separatorAtIndex[i] = true;
-			} else {
-				separatorAtIndex[i] = false;
-			}
-			char temp = items.get(i).getName().charAt(0);
-			currentChar = Character.toUpperCase(temp);
-		}
 	}
 
 	public void getNumbers(ArrayList<ListManagerModel> modelList2) {

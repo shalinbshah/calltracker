@@ -118,7 +118,7 @@ public class VoiceDetailsActivity extends BaseActivity {
 
 	public void callAssigncontact(View v) {
 		Intent intent = new Intent(getApplicationContext(),
-				AssignContactToVoiceNoteActivity.class);
+				SelectGroupVoiceNoteActivity.class);
 		intent.putExtra("type", "voice");
 		updatePref(FILEPATH, path);
 		updatePref(VOICE_TIME, voiceTime);

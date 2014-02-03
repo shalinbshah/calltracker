@@ -329,6 +329,16 @@ public class DBAdapter extends SQLiteOpenHelper {
 		return myDataBase.update("tbl_notification", cv, "0 = 0", null);
 	}
 
+	public long updateContactFrequency(String contctID, String freq) {
+		openDataBase();
+		ContentValues cv = new ContentValues();
+		cv.put("freq", freq);
+		long l = myDataBase.update("tbl_contacts", cv, "contact_id = ?",
+				new String[] { contctID });
+		close();
+		return l;
+	}
+
 	public long updateUserContact(String id, String name, String image_uri) {
 		// TODO Auto-generated method stub
 		ContentValues values = new ContentValues();
@@ -448,6 +458,23 @@ public class DBAdapter extends SQLiteOpenHelper {
 		return arrayList;
 	}
 
+	public ArrayList<String> getContactsIDs() {
+		openDataBase();
+		String query = "select * from tbl_contacts";
+		Cursor cursor = selectRecordsFromDB(query, null);
+		ArrayList<String> arrayList = new ArrayList<String>();
+		arrayList.clear();
+		if (cursor.moveToFirst()) {
+			do {
+				arrayList.add(cursor.getString(cursor
+						.getColumnIndex("contact_id")));
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		close();
+		return arrayList;
+	}
+
 	public void openDB(Context mContext) {
 		DBAdapter dbAdapter = DBAdapter.getDBAdapterInstance(mContext);
 		try {
@@ -542,5 +569,14 @@ public class DBAdapter extends SQLiteOpenHelper {
 		}
 		cursor.close();
 		return arrayList;
+	}
+
+	public void updateContactFollowUpNotes(String contact_id, String followNotes) {
+		openDataBase();
+		ContentValues cv = new ContentValues();
+		cv.put("followup_notes", followNotes);
+		long l = myDataBase.update("tbl_contacts", cv, "contact_id = ?",
+				new String[] { contact_id });
+		close();
 	}
 }

@@ -43,7 +43,7 @@ public class VoiceListActivity extends BaseActivity {
 
 	public void callNewNote(View v) {
 		startActivity(new Intent(getApplicationContext(),
-				NewNotesActivity.class));
+				NewVoiceNoteActivity.class));
 	}
 
 	private void initControl() {

@@ -9,9 +9,7 @@ import com.call.tracker.R;
 public class SalesMissionActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.layout_sales_mission);
 
 	}

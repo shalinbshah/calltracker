@@ -33,19 +33,36 @@
             android:textSize="24dp" />
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/tvContactName"
+    <LinearLayout
+        android:id="@+id/aaa"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_height="wrap_content" >
 
-    <QuickContactBadge
-        android:id="@+id/quickContactBadgeContactDateTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/man" />
+        <QuickContactBadge
+            android:id="@+id/quickContactBadgeContactDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/man" />
+
+        <TextView
+            android:id="@+id/tvContactName"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="top|left"
+            android:padding="5dp"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageView
+            android:id="@+id/ImageView1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:onClick="openVoiceNotes"
+            android:padding="10dp"
+            android:src="@drawable/ic_red" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,6 +70,15 @@
         android:gravity="center"
         android:orientation="horizontal"
         tools:context=".MainActivity" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Follow Up : "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/dateButton"
@@ -67,6 +93,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Repeat" />
+
+        <ImageView
+            android:id="@+id/ivCLoseFollowUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="cancelAlarms"
+            android:src="@drawable/ic_clear_search_holo_light" />
     </LinearLayout>
 
     <TextView
@@ -78,11 +112,29 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textAlarmRepeat"
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Follow up Notes: "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/eTFollowUpNotes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Next Call/Alarm Repeat Pattern"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:onClick="toggleEditable" >        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="updateFollowUpNotes"
+        android:text="Save" />
 
 </LinearLayout>

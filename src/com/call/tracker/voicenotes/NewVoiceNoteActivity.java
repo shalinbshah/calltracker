@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
 
-public class NewNotesActivity extends BaseActivity {
+public class NewVoiceNoteActivity extends BaseActivity {
 	private ImageView mediaRecordStop;
 	private Chronometer chronometerTime;
 	private AudioRecorder audioRecorder;
@@ -24,7 +24,7 @@ public class NewNotesActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.layout_newnotes);
+		setContentView(R.layout.layout_new_voicenotes);
 		rotation = AnimationUtils.loadAnimation(getApplicationContext(),
 				R.anim.my_voice_indeterminate);
 		rotation.setRepeatCount(Animation.INFINITE);
