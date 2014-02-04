@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -29,6 +30,7 @@ import com.call.tracker.contactmanager.TempHolder;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.CallListModel;
 import com.call.tracker.model.ContactModel;
+import com.devspark.appmsg.AppMsg;
 
 public class CallListActivity extends BaseActivity {
 	protected static final String TAG = "CallListActivity";
@@ -50,8 +52,17 @@ public class CallListActivity extends BaseActivity {
 		arrayList = new ArrayList<CallListModel>();
 		adapter = new CallListAdapter(CallListActivity.this, arrayList);
 		initControl();
-		addedContactsIDs = dbAdapter.getContactsIDs();
-		new GetCallListFromWebService().execute();
+		try {
+			addedContactsIDs = dbAdapter.getContactsIDs();
+			new GetCallListFromWebService().execute();
+
+		} catch (Exception e) {
+			AppMsg appMsg = AppMsg.makeText(CallListActivity.this,
+					"Please add contacts from Contact Manager",
+					AppMsg.STYLE_ALERT);
+			appMsg.setLayoutGravity(Gravity.BOTTOM);
+			appMsg.show();
+		}
 	}
 
 	@Override

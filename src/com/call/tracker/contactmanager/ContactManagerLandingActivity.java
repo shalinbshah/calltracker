@@ -3,15 +3,20 @@ package com.call.tracker.contactmanager;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
 import com.call.tracker.adapter.ContactManagerListAdapter;
 import com.call.tracker.adapter.MyProgressDialog;
+import com.call.tracker.calllist.ContactFollowUpDetailsActivity;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ContactModel;
 
@@ -35,6 +40,26 @@ public class ContactManagerLandingActivity extends BaseActivity {
 		adapter = new ContactManagerListAdapter(this, arrayList);
 		listContact = (ListView) findViewById(R.id.listContactManagerContacts);
 		listContact.setAdapter(adapter);
+		listContact.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view,
+					int arg2, long arg3) {
+
+				Intent intent = new Intent(getApplicationContext(),
+						ContactFollowUpDetailsActivity.class);
+				// intent.putExtra("CallListModel", callListModel);
+				intent.putExtra("contact_name", arrayList.get(arg2).getName());
+				String contactID = arrayList.get(arg2).getContactId();
+				Uri uri = Uri.withAppendedPath(
+						ContactsContract.Contacts.CONTENT_URI,
+						String.valueOf(contactID));
+				intent.putExtra("contact_uri", uri);
+				intent.putExtra("contact_number", arrayList.get(arg2)
+						.getNumber1());
+				startActivity(intent);
+			}
+		});
 	}
 
 	private void getdataFromDb() {

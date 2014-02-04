@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
+import com.devspark.appmsg.AppMsg;
 
 public class SelectExistingContact extends BaseActivity {
 
@@ -85,10 +87,11 @@ public class SelectExistingContact extends BaseActivity {
 					// break;
 			}
 		} else {
-			Toast.makeText(getApplicationContext(),
-					"Warning: activity result not ok", Toast.LENGTH_SHORT)
-					.show();
-			finish();
+			AppMsg appMsg = AppMsg.makeText(SelectExistingContact.this,
+					"Import Contact Not Successful...", AppMsg.STYLE_ALERT);
+			appMsg.setLayoutGravity(Gravity.BOTTOM);
+			appMsg.show();
+			// finish();
 			Log.w("CallTracker", "Warning: activity result not ok");
 		}
 	}

@@ -22,224 +22,219 @@ import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ListManagerModel;
 
 public class ListManagerDetails extends BaseActivity {
-    private ListView listViewContactsAndGroup;
-    private DBAdapter dbAdapter;
-    public final static String GROUP_ID_KEY = "contactGrpID";
-    private ArrayList<ListManagerModel> arrayList = new ArrayList<ListManagerModel>();
+	private ListView listViewContactsAndGroup;
+	private DBAdapter dbAdapter;
+	public final static String GROUP_ID_KEY = "contactGrpID";
+	private ArrayList<ListManagerModel> arrayList = new ArrayList<ListManagerModel>();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_list_manager_details);
-        openDB();
-        initControl();
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.layout_list_manager_details);
+		openDB();
+		initControl();
+	}
 
-    private void initControl() {
-        // TODO Auto-generated method stub
+	private void initControl() {
+		listViewContactsAndGroup = (ListView) findViewById(R.id.listviewList);
+		listViewContactsAndGroup.setAdapter(null);
+		final Button btnAddMore = new Button(this);
+		btnAddMore.setBackgroundColor(getResources().getColor(
+				R.color.theme_color));
+		btnAddMore.setTextColor(getResources().getColor(R.color.white));
+		btnAddMore.setText("Add New List");
+		listViewContactsAndGroup.addFooterView(btnAddMore);
+		btnAddMore.setOnClickListener(new OnClickListener() {
 
-        listViewContactsAndGroup = (ListView) findViewById(R.id.listviewList);
-        // listViewContactsAndGroup.setAdapter( new ListManagerAdapter(this,
-        // listCollectionDetails);
-        listViewContactsAndGroup.setAdapter(null);
-        final Button btnAddMore = new Button(this);
-        btnAddMore.setText("Add New List");
-        listViewContactsAndGroup.addFooterView(btnAddMore);
-        btnAddMore.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				openDialog("Add New List", 0, "", 0);
+			}
+		});
+		loadDatabase();
+	}
 
-            @Override
-            public void onClick(View v) {
-                openDialog("Add New Group", 0, "", 0);
-            }
-        });
+	private void loadDatabase() {
+		dbAdapter.openDataBase();
 
-        loadDatabase();
-    }
+		String query = "select * from list_manager where isVis =1";
+		Cursor cursor = dbAdapter.selectRecordsFromDB(query, null);
+		arrayList.clear();
 
-    private void loadDatabase() {
-        // TODO Auto-generated method stub
-        dbAdapter.openDataBase();
+		if (cursor.moveToFirst()) {
+			do {
+				ListManagerModel listManagerModel = new ListManagerModel();
+				listManagerModel.setId(String.valueOf(cursor.getInt(0)));
+				listManagerModel.setName(cursor.getString(1));
+				listManagerModel.setIsVis(cursor.getString(2));
+				arrayList.add(listManagerModel);
+			} while (cursor.moveToNext());
+		}
 
-        String query = "select * from list_manager where isVis =1";
-        Cursor cursor = dbAdapter.selectRecordsFromDB(query, null);
-        arrayList.clear();
+		dbAdapter.close();
 
-        // int mCount = cursor.getCount();
-        if (cursor.moveToFirst()) {
-            do {
-                ListManagerModel listManagerModel = new ListManagerModel();
-                listManagerModel.setId(String.valueOf(cursor.getInt(0)));
-                listManagerModel.setName(cursor.getString(1));
-                listManagerModel.setIsVis(cursor.getString(2));
-                arrayList.add(listManagerModel);
-            } while (cursor.moveToNext());
-        }
+		ListManagerAdapter adapter = new ListManagerAdapter(this, arrayList);
+		listViewContactsAndGroup.setAdapter(adapter);
 
-        dbAdapter.close();
+		listViewContactsAndGroup
+				.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-        ListManagerAdapter adapter = new ListManagerAdapter(this, arrayList);
-        listViewContactsAndGroup.setAdapter(adapter);
+					@Override
+					public boolean onItemLongClick(AdapterView<?> arg0,
+							View arg1, int arg2, long arg3) {
+						deleteUpdateListItem(Integer.parseInt(arg1.getTag()
+								.toString()));
+						return false;
+					}
+				});
+		listViewContactsAndGroup
+				.setOnLongClickListener(new OnLongClickListener() {
 
-        listViewContactsAndGroup
-                .setOnItemLongClickListener(new OnItemLongClickListener() {
+					@Override
+					public boolean onLongClick(View v) {
+						deleteUpdateListItem(Integer.parseInt(v.getTag()
+								.toString()));
+						return false;
+					}
+				});
+	}
 
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> arg0,
-                                                   View arg1, int arg2, long arg3) {
-                        deleteUpdateListItem(Integer.parseInt(arg1.getTag()
-                                .toString()));
-                        return false;
-                    }
-                });
-        listViewContactsAndGroup
-                .setOnLongClickListener(new OnLongClickListener() {
+	protected void deleteUpdateListItem(final int pos) {
+		// TODO Auto-generated method stub
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-                    @Override
-                    public boolean onLongClick(View v) {
-                        deleteUpdateListItem(Integer.parseInt(v.getTag()
-                                .toString()));
-                        return false;
-                    }
-                });
-    }
+		alert.setTitle("Choose Option");
+		alert.setMessage("Select any 1");
 
-    protected void deleteUpdateListItem(final int pos) {
-        // TODO Auto-generated method stub
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		// Set an EditText view to get user input
+		alert.setPositiveButton("Rename",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						openDialog("Update value", 1, arrayList.get(pos)
+								.getName(), Integer.valueOf(arrayList.get(pos)
+								.getId()));
+					}
+				});
 
-        alert.setTitle("Choose Option");
-        alert.setMessage("Select any 1");
+		alert.setNegativeButton("Delete",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						openDeleteDialog(arrayList.get(pos).getId(), arrayList
+								.get(pos).getName());
+					}
+				});
 
-        // Set an EditText view to get user input
-        alert.setPositiveButton("Rename",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        openDialog("Update value", 1, arrayList.get(pos)
-                                .getName(), Integer.valueOf(arrayList.get(pos)
-                                .getId()));
-                    }
-                });
+		alert.show();
+	}
 
-        alert.setNegativeButton("Delete",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        openDeleteDialog(arrayList.get(pos).getId(), arrayList
-                                .get(pos).getName());
-                    }
-                });
+	protected void openDeleteDialog(final String id, String name) {
+		// TODO Auto-generated method stub
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        alert.show();
-    }
+		alert.setTitle("Erase List");
+		alert.setMessage("Want to erase " + name);
 
-    protected void openDeleteDialog(final String id, String name) {
-        // TODO Auto-generated method stub
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		// Set an EditText view to get user input
+		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				deleteList(id);
+			}
+		});
 
-        alert.setTitle("Erase List");
-        alert.setMessage("Want to erase " + name);
+		alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
 
-        // Set an EditText view to get user input
-        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                deleteList(id);
-            }
-        });
+			}
+		});
 
-        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
+		alert.show();
+	}
 
-            }
-        });
+	protected void deleteList(String id) {
+		// TODO Auto-generated method stub
+		dbAdapter.openDataBase();
 
-        alert.show();
-    }
+		// String query = "select * from tbl_group";
+		dbAdapter.deleteList(Integer.valueOf(id));
+		// dbAdapter.insertList(value);
 
-    protected void deleteList(String id) {
-        // TODO Auto-generated method stub
-        dbAdapter.openDataBase();
+		dbAdapter.close();
 
-        // String query = "select * from tbl_group";
-        dbAdapter.deleteList(Integer.valueOf(id));
-        // dbAdapter.insertList(value);
+		loadDatabase();
+	}
 
-        dbAdapter.close();
+	protected void openDialog(String message, final int val, String edittext,
+			final int id) {
+		// TODO Auto-generated method stub
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        loadDatabase();
-    }
+		alert.setTitle("List Manager");
+		alert.setMessage(message);
 
-    protected void openDialog(String message, final int val, String edittext,
-                              final int id) {
-        // TODO Auto-generated method stub
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		// Set an EditText view to get user input
+		final EditText input = new EditText(this);
+		alert.setView(input);
+		input.setText(edittext);
 
-        alert.setTitle("List Manager");
-        alert.setMessage(message);
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				String value = input.getText().toString();
+				// Do something with value!
+				if (val == 0) {
+					if (value.trim().length() == 0) {
+					} else {
+						saveToDb(value);
+					}
+				} else {
+					updateInDb(id, value);
+				}
+			}
 
-        // Set an EditText view to get user input
-        final EditText input = new EditText(this);
-        alert.setView(input);
-        input.setText(edittext);
+		});
 
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                String value = input.getText().toString();
-                // Do something with value!
-                if (val == 0) {
-                    if (value.trim().length() == 0) {
-                    } else {
-                        saveToDb(value);
-                    }
-                } else {
-                    updateInDb(id, value);
-                }
-            }
+		alert.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						// Canceled.
+					}
+				});
 
-        });
+		alert.show();
+	}
 
-        alert.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // Canceled.
-                    }
-                });
+	protected void updateInDb(int id, String value) {
+		// TODO Auto-generated method stub
+		dbAdapter.openDataBase();
 
-        alert.show();
-    }
+		// String query = "select * from tbl_group";
+		dbAdapter.updateList(id, value);
+		// dbAdapter.insertList(value);
 
-    protected void updateInDb(int id, String value) {
-        // TODO Auto-generated method stub
-        dbAdapter.openDataBase();
+		dbAdapter.close();
 
-        // String query = "select * from tbl_group";
-        dbAdapter.updateList(id, value);
-        // dbAdapter.insertList(value);
+		loadDatabase();
+	}
 
-        dbAdapter.close();
+	protected void saveToDb(String value) {
+		// TODO Auto-generated method stub
+		dbAdapter.openDataBase();
 
-        loadDatabase();
-    }
+		// String query = "select * from tbl_group";
+		dbAdapter.insertList(value);
 
-    protected void saveToDb(String value) {
-        // TODO Auto-generated method stub
-        dbAdapter.openDataBase();
+		dbAdapter.close();
 
-        // String query = "select * from tbl_group";
-        dbAdapter.insertList(value);
+		loadDatabase();
+	}
 
-        dbAdapter.close();
+	public void openDB() {
+		// dbAdapter =
 
-        loadDatabase();
-    }
+		dbAdapter = DBAdapter.getDBAdapterInstance(this);
+		try {
+			dbAdapter.createDataBase();
+		} catch (IOException e) {
+		}
 
-    public void openDB() {
-        // dbAdapter =
-
-        dbAdapter = DBAdapter.getDBAdapterInstance(this);
-        try {
-            dbAdapter.createDataBase();
-        } catch (IOException e) {
-        }
-
-    }
+	}
 }

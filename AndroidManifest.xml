@@ -129,6 +129,12 @@
         <activity
             android:name="com.call.tracker.calllist.SelectGroupPopUp"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.call.tracker.reports.ReportsActivity0"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.call.tracker.reports.ReportsActivity1"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name="com.call.tracker.alarm.AlarmReceiver"
@@ -143,6 +149,11 @@
         <receiver android:name="com.call.tracker.calllist.CallHangUpReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.call.tracker.calllist.MyPhoneStateListener" >
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
     </application>

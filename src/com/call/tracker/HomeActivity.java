@@ -13,6 +13,7 @@ import com.call.tracker.help.HelpActivity;
 import com.call.tracker.listmanager.ListManagerDetails;
 import com.call.tracker.listmanager.ListmanagerActivity;
 import com.call.tracker.pro.ProActivity;
+import com.call.tracker.reports.ReportsActivity0;
 import com.call.tracker.setting.SettingActivity;
 import com.call.tracker.voicenotes.VoiceListActivity;
 
@@ -60,7 +61,8 @@ public class HomeActivity extends BaseActivity {
 	}
 
 	public void callReport(View view) {
-		preToast("Coming Soon Report");
+		startActivity(new Intent(getApplicationContext(),
+				ReportsActivity0.class));
 	}
 
 	public void callVoice(View view) {

@@ -19,8 +19,8 @@ import android.text.TextUtils;
 import android.text.format.Time;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
@@ -48,8 +48,8 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 	Calendar calNow = Calendar.getInstance();
 	private EventRecurrence mEventRecurrence = new EventRecurrence();
 
-	Button setDate;
-	Button setRepeat;
+	ImageView setDate;
+	ImageView setRepeat;
 	TextView alarmText;
 	TimePickerDialog timePickerDialog;
 	DatePickerDialog datePickerDialog;
@@ -95,8 +95,8 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 				calendar.get(Calendar.HOUR_OF_DAY),
 				calendar.get(Calendar.MINUTE), false, false);
 
-		setDate = (Button) findViewById(R.id.dateButton);
-		setRepeat = (Button) findViewById(R.id.repeatButton);
+		setDate = (ImageView) findViewById(R.id.dateButton);
+		setRepeat = (ImageView) findViewById(R.id.repeatButton);
 		alarmText = (TextView) findViewById(R.id.textAlarmTime);
 		setDate.setOnClickListener(new OnClickListener() {
 
