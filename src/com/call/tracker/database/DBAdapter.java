@@ -579,4 +579,23 @@ public class DBAdapter extends SQLiteOpenHelper {
 				new String[] { contact_id });
 		close();
 	}
+
+	public String getContactFollowUpNotes(String contact_id, String followNotes) {
+		openDataBase();
+		String notes = null;
+		String query = "select * from tbl_contacts where contact_id = '"
+				+ contact_id + "'";
+		Cursor cursor = selectRecordsFromDB(query, null);
+		ArrayList<ListManagerModel> arrayList = new ArrayList<ListManagerModel>();
+		arrayList.clear();
+		if (cursor.moveToFirst()) {
+			do {
+				notes = cursor.getString(cursor
+						.getColumnIndex("followup_notes"));
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		close();
+		return notes;
+	}
 }

@@ -8,7 +8,6 @@
         android:id="@+id/FrameLayout1"
         android:layout_width="fill_parent"
         android:layout_height="44dp"
-        android:layout_marginBottom="25dp"
         android:background="@drawable/menu_bg" >
 
         <ImageButton
@@ -33,44 +32,216 @@
             android:textSize="24dp" />
     </FrameLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:text="Based on my sales goals, over the next 12 months, I will help my clients purchase or sell a total of"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:id="@+id/ab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView1"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/etHomesNumber"
+                android:text=" homes."
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etHomesNumber"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:ems="10"
+                android:textSize="12sp" >
+
+                <requestFocus />
+            </EditText>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/ab"
+            android:layout_marginLeft="5dp"
+            android:text="I will perform "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/TextView02" >
+
+            <TextView
+                android:id="@+id/TextView011"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:text="for an average of "
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editText33"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@+id/TextView011"
+                android:ems="10"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@+id/editText33"
+                android:text="each month"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/TextView03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/RelativeLayout01"
+            android:layout_toRightOf="@+id/editText2"
+            android:text="appointments"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RelativeLayout01"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="62dp"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="I will time block and lead generate "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/TextView01"
+                    android:layout_marginTop="5dp"
+                    android:text="an average of"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/TextView04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView4"
+                    android:layout_alignBottom="@+id/textView4"
+                    android:layout_toRightOf="@+id/EditText02"
+                    android:text="hours per day, "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/EditText02"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_alignTop="@+id/TextView04"
+                    android:layout_toRightOf="@+id/textView4"
+                    android:ems="10"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/linearLayout1"
+            android:ems="10"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/TextView02"
+            android:layout_toRightOf="@+id/TextView02"
+            android:ems="10"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/editText3"
+            android:layout_toRightOf="@+id/editText3"
+            android:text="days per week"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/TextView03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Based on my sales goals "
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <EditText
-                android:id="@+id/EditText03"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="number" />
+                android:layout_margin="10dp"
+                android:background="@color/theme_color"
+                android:text="Save"
+                android:textColor="@color/white" />
         </LinearLayout>
-    </LinearLayout>
-
-    <com.call.tracker.customview.ButtonRoboto
-        android:id="@+id/butOk"
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:background="@color/theme_color"
-        android:onClick="callMission"
-        android:text="Ok"
-        android:textColor="#fff" />
+    </RelativeLayout>
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.call.tracker.calllist;
 
 import java.io.InputStream;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import android.app.AlarmManager;
@@ -59,15 +60,21 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 	TextView tvContactName;
 	DBAdapter adapter;
 	EditText etFollowUpnotes;
+	int contact_id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_foolowup_activity);
+		Object uri2 = (Uri) getIntent().getExtras().get("contact_uri");
+		contact_id = Integer.parseInt(uri2.toString().replace(
+				"content://com.android.contacts/contacts/", ""));
 		adapter = new DBAdapter(getApplicationContext());
 		tvContactName = (TextView) findViewById(R.id.tvContactName);
 		etFollowUpnotes = (EditText) findViewById(R.id.eTFollowUpNotes);
-		etFollowUpnotes.setInputType(InputType.TYPE_NULL);
+		String notes = adapter.getContactFollowUpNotes(Integer
+				.toString(contact_id), etFollowUpnotes.getText().toString());
+		etFollowUpnotes.setText(notes);
 
 		if (getIntent().getExtras().containsKey("contact_name")) {
 			String name = (String) getIntent().getExtras().get("contact_name");
@@ -185,9 +192,11 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 			Resources r = getResources();
 			String repeatString = EventRecurrenceFormatter.getRepeatString(
 					this, r, mEventRecurrence, true);
+			long interval = getMinutesInterval(mRrule);
+			// long start = getMinutesStart(mRrule);
 			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-					targetCal.getTimeInMillis(), TimeUnit.MINUTES.toMillis(5),
-					pendingIntent);
+					targetCal.getTimeInMillis(),
+					TimeUnit.MINUTES.toMillis(interval), pendingIntent);
 			alarmText.setText("Follow Up is set @ " + targetCal.getTime()
 					+ " and then " + repeatString + "\n");
 			adapter.updateContactFrequency(Integer.toString(contact_id), mRrule);
@@ -200,18 +209,59 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 
 	}
 
-	public void toggleEditable(View v) {
-		etFollowUpnotes.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+	private long getMinutesStart(String mRrule2) {
+		HashMap<String, String> hashMap = getHashMap(mRrule2);
+
+		String freq = hashMap.get("FREQ");
+
+		if (freq.equalsIgnoreCase("weekly"))
+			return 7 * AlarmManager.INTERVAL_DAY;
+		else if (freq.equalsIgnoreCase("daily"))
+			return 1 * AlarmManager.INTERVAL_DAY;
+		else if (freq.equalsIgnoreCase("monthly"))
+			return 30 * AlarmManager.INTERVAL_DAY;
+		else if (freq.equalsIgnoreCase("yearly"))
+			return 365 * AlarmManager.INTERVAL_DAY;
+		else
+			return 1 * AlarmManager.INTERVAL_DAY;
+
+	}
+
+	private long getMinutesInterval(String mRrule2) {
+		// FREQ=DAILY;WKST=SU
+		// FREQ=WEEKLY;INTERVAL=2;WKST=SU;BYDAY=TH
+		// FREQ=WEEKLY;INTERVAL=2;WKST=SU;BYDAY=TU,TH,SA
+
+		HashMap<String, String> hashMap = getHashMap(mRrule2);
+		String interval = hashMap.containsKey("INTERVAL") ? hashMap
+				.get("INTERVAL") : "1";
+		String freq = hashMap.get("FREQ");
+		if (freq.equalsIgnoreCase("weekly"))
+			return 7 * AlarmManager.INTERVAL_DAY * Integer.parseInt(interval);
+		else if (freq.equalsIgnoreCase("daily"))
+			return 1 * AlarmManager.INTERVAL_DAY * Integer.parseInt(interval);
+		else if (freq.equalsIgnoreCase("monthly"))
+			return 30 * AlarmManager.INTERVAL_DAY * Integer.parseInt(interval);
+		else if (freq.equalsIgnoreCase("yearly"))
+			return 365 * AlarmManager.INTERVAL_DAY * Integer.parseInt(interval);
+		else
+			return 1 * AlarmManager.INTERVAL_DAY * Integer.parseInt(interval);
+	}
+
+	private HashMap<String, String> getHashMap(String mRrule2) {
+		String[] params = mRrule2.split(";");
+		HashMap<String, String> hashMap = new HashMap<String, String>();
+		for (int i = 0; i < params.length; i++) {
+			hashMap.put(params[i].split("=", 2)[0], params[i].split("=", 2)[1]);
+		}
+		return hashMap;
 	}
 
 	public void updateFollowUpNotes(View v) {
-		Object uri = (Uri) getIntent().getExtras().get("contact_uri");
-		int contact_id = Integer.parseInt(uri.toString().replace(
-				"content://com.android.contacts/contacts/", ""));
+
 		adapter.updateContactFollowUpNotes(Integer.toString(contact_id),
 				etFollowUpnotes.getText().toString());
 		etFollowUpnotes.setInputType(InputType.TYPE_NULL);
-
 	}
 
 	public void openVoiceNotes(View v) {

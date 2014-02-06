@@ -104,20 +104,14 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="bold" />
 
-        <ScrollView
-            android:id="@+id/as"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textAlarmTime"
+            android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
-
-            <TextView
-                android:id="@+id/textAlarmTime"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:gravity="top"
-                android:text="Next Call/Alarm Time"
-                android:textSize="14sp" />
-        </ScrollView>
+            android:layout_weight="1"
+            android:gravity="top"
+            android:text="Next Call/Alarm Time"
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/ivCLoseFollowUp"
@@ -143,8 +137,7 @@
         android:layout_margin="10dp"
         android:ems="10"
         android:gravity="top"
-        android:inputType="textMultiLine"
-        android:onClick="toggleEditable" >
+        android:inputType="textMultiLine">
 
         <requestFocus />
     </EditText>

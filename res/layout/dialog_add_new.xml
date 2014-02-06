@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <com.call.tracker.customview.EditTextRoboto
-        android:id="@+id/editText1"
+        android:id="@+id/etHomesNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />

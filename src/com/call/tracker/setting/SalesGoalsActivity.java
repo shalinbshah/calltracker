@@ -19,7 +19,7 @@ public class SalesGoalsActivity extends BaseActivity {
 
 	}
 
-	public void callGot(View v) {
+	public void callNext(View v) {
 		updatePref(IS_SALES_GOALS, String.valueOf(checkdontshow.isChecked()));
 		startActivity(new Intent(getApplicationContext(),
 				SalesMissionActivity.class));
