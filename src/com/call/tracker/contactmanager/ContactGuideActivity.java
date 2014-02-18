@@ -30,5 +30,6 @@ public class ContactGuideActivity extends BaseActivity {
 		Intent intent = new Intent(getApplicationContext(),
 				ContactManagerLandingActivity.class);
 		startActivity(intent);
+		finish();
 	}
 }

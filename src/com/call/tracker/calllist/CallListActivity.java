@@ -54,8 +54,14 @@ public class CallListActivity extends BaseActivity {
 		initControl();
 		try {
 			addedContactsIDs = dbAdapter.getContactsIDs();
+			if (addedContactsIDs == null || addedContactsIDs.size() == 0) {
+				AppMsg appMsg = AppMsg.makeText(CallListActivity.this,
+						"Please add contacts from Contact Manager",
+						AppMsg.STYLE_ALERT);
+				appMsg.setLayoutGravity(Gravity.BOTTOM);
+				appMsg.show();
+			}
 			new GetCallListFromWebService().execute();
-
 		} catch (Exception e) {
 			AppMsg appMsg = AppMsg.makeText(CallListActivity.this,
 					"Please add contacts from Contact Manager",

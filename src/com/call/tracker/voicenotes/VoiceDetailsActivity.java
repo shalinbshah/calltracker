@@ -26,7 +26,7 @@ public class VoiceDetailsActivity extends BaseActivity {
 	TextView textViewTime, textViewUr;
 
 	MediaPlayer mPlayer = new MediaPlayer();
-	Button butUrgent, butAssigncontact;
+	Button butUrgent, butAssigncontact, butSave;
 	ButtonRoboto buttonPlaySound;
 	private VoiceNotesModel modelNotes;
 
@@ -42,6 +42,7 @@ public class VoiceDetailsActivity extends BaseActivity {
 
 		butAssigncontact = (Button) findViewById(R.id.butAssigncontact);
 		buttonPlaySound = (ButtonRoboto) findViewById(R.id.buttonPlaySound);
+		butSave = (ButtonRoboto) findViewById(R.id.btnSave);
 		if (bundle != null) {
 			if (bundle.containsKey("data")) {
 				modelNotes = (VoiceNotesModel) bundle.getSerializable("data");
@@ -87,8 +88,11 @@ public class VoiceDetailsActivity extends BaseActivity {
 			}
 		});
 
-		if (getIntent().getExtras().containsKey("data"))
+		if (getIntent().getExtras().containsKey("data")) {
 			updateView();
+		} else {
+			butSave.setEnabled(false);
+		}
 	}
 
 	private void updateView() {

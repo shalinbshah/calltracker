@@ -29,7 +29,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:text="Preferences"
+            android:text="Contact Manager"
             android:textColor="@color/white"
             android:textSize="24dp" />
     </FrameLayout>

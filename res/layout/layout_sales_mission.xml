@@ -58,26 +58,28 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" >
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/etHomesNumber"
-                android:text=" homes."
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="18sp" />
-
             <EditText
-                android:id="@+id/etHomesNumber"
+                android:id="@+id/etHomes"
                 android:layout_width="50dp"
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
                 android:ems="10"
+                android:inputType="number"
                 android:textSize="12sp" >
 
                 <requestFocus />
             </EditText>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/etHomes"
+                android:layout_alignBottom="@+id/etHomes"
+                android:layout_toRightOf="@+id/etHomes"
+                android:text=" homes."
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <TextView
@@ -111,13 +113,14 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editText33"
+                android:id="@+id/etAvgAppointments"
                 android:layout_width="50dp"
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="3dp"
                 android:layout_toRightOf="@+id/TextView011"
                 android:ems="10"
+                android:inputType="number"
                 android:textSize="12sp" />
 
             <TextView
@@ -126,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="3dp"
-                android:layout_toRightOf="@+id/editText33"
+                android:layout_toRightOf="@+id/etAvgAppointments"
                 android:text="each month"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="18sp" />
@@ -137,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/RelativeLayout01"
-            android:layout_toRightOf="@+id/editText2"
+            android:layout_toRightOf="@+id/etAppointments"
             android:text="appointments"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="18sp" />
@@ -182,46 +185,49 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/textView4"
                     android:layout_alignBottom="@+id/textView4"
-                    android:layout_toRightOf="@+id/EditText02"
+                    android:layout_toRightOf="@+id/etHoursPerDay"
                     android:text="hours per day, "
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/EditText02"
+                    android:id="@+id/etHoursPerDay"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:layout_alignTop="@+id/TextView04"
                     android:layout_toRightOf="@+id/textView4"
                     android:ems="10"
+                    android:inputType="number"
                     android:textSize="12sp" />
             </RelativeLayout>
         </LinearLayout>
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/etDaysPerWeek"
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/linearLayout1"
             android:ems="10"
+            android:inputType="number"
             android:textSize="12sp" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/etAppointments"
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_alignTop="@+id/TextView02"
             android:layout_toRightOf="@+id/TextView02"
             android:ems="10"
+            android:inputType="number"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/editText3"
-            android:layout_toRightOf="@+id/editText3"
+            android:layout_alignTop="@+id/etDaysPerWeek"
+            android:layout_toRightOf="@+id/etDaysPerWeek"
             android:text="days per week"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="18sp" />
@@ -237,8 +243,11 @@
                 android:id="@+id/button1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/theme_color"
+                android:onClick="saveSalesMission"
                 android:text="Save"
                 android:textColor="@color/white" />
         </LinearLayout>

@@ -9,10 +9,12 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
@@ -44,8 +46,10 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 
 	public static final String DATEPICKER_TAG = "datepicker";
 	public static final String TIMEPICKER_TAG = "timepicker";
+	public static final String ALARM_TEXT = "alarm.text.key";
 	private static final String FRAG_TAG_RECUR_PICKER = "recurrencePickerDialogFragment";
-
+	public SharedPreferences preferences;
+	public SharedPreferences.Editor editor;
 	Calendar calNow = Calendar.getInstance();
 	private EventRecurrence mEventRecurrence = new EventRecurrence();
 
@@ -66,6 +70,8 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_foolowup_activity);
+		preferences = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
 		Object uri2 = (Uri) getIntent().getExtras().get("contact_uri");
 		contact_id = Integer.parseInt(uri2.toString().replace(
 				"content://com.android.contacts/contacts/", ""));
@@ -105,6 +111,8 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 		setDate = (ImageView) findViewById(R.id.dateButton);
 		setRepeat = (ImageView) findViewById(R.id.repeatButton);
 		alarmText = (TextView) findViewById(R.id.textAlarmTime);
+		alarmText.setText(preferences.getString(ALARM_TEXT + contact_id,
+				"No Follow Up is Set"));
 		setDate.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -200,11 +208,19 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 			alarmText.setText("Follow Up is set @ " + targetCal.getTime()
 					+ " and then " + repeatString + "\n");
 			adapter.updateContactFrequency(Integer.toString(contact_id), mRrule);
+			editor = preferences.edit();
+			editor.putString(ALARM_TEXT + contact_id, "Follow Up is set @ "
+					+ targetCal.getTime() + " and then " + repeatString + "\n");
+			editor.commit();
 		} else {
 			alarmManager.set(AlarmManager.RTC_WAKEUP,
 					targetCal.getTimeInMillis(), pendingIntent);
 			alarmText
 					.setText("Follow Up is set@ " + targetCal.getTime() + "\n");
+			editor = preferences.edit();
+			editor.putString(ALARM_TEXT + contact_id, "Follow Up is set@ "
+					+ targetCal.getTime() + "\n");
+			editor.commit();
 		}
 
 	}
@@ -257,11 +273,11 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 		return hashMap;
 	}
 
-	public void updateFollowUpNotes(View v) {
-
+	public void callSave(View v) {
 		adapter.updateContactFollowUpNotes(Integer.toString(contact_id),
 				etFollowUpnotes.getText().toString());
 		etFollowUpnotes.setInputType(InputType.TYPE_NULL);
+		finish();
 	}
 
 	public void openVoiceNotes(View v) {

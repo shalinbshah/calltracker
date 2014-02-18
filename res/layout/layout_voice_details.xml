@@ -80,9 +80,14 @@
     <com.call.tracker.customview.ButtonRoboto
         android:id="@+id/butAssigncontact"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@color/theme_color"
         android:onClick="callAssigncontact"
-        android:text="@string/assign_to_contact" />
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/assign_to_contact"
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,23 +98,38 @@
         <com.call.tracker.customview.ButtonRoboto
             android:id="@+id/butMail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@color/theme_color"
             android:onClick="callShare"
-            android:text="Share" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Share"
+            android:textColor="@color/white" />
 
         <com.call.tracker.customview.ButtonRoboto
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@color/theme_color"
             android:onClick="callSave"
-            android:text="Save" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Save"
+            android:textColor="@color/white" />
 
         <com.call.tracker.customview.ButtonRoboto
             android:id="@+id/butDelete"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@color/theme_color"
             android:onClick="callDelete"
-            android:text="Delete" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Delete"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

@@ -38,19 +38,21 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <com.call.tracker.customview.TextViewRoboto
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/sync_contacts"
             android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="@color/theme_color" />
+            android:textColor="@color/theme_color"
+            android:visibility="gone" />
 
         <com.call.tracker.customview.TextViewRoboto
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/_wait_what_does_as_this_do_" />
+            android:text="@string/_wait_what_does_as_this_do_"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -77,12 +79,14 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
         <com.call.tracker.customview.TextViewRoboto
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:gravity="center_vertical"
             android:text="@string/sales_goals"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@color/theme_color" />
@@ -90,6 +94,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/setting_switch_off" />
     </LinearLayout>
 

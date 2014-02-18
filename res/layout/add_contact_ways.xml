@@ -43,22 +43,29 @@
         <com.call.tracker.customview.TextViewRoboto
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/how_would_you_like_to_add_contacts_" />
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/how_would_you_like_to_add_contacts_"
+            android:textStyle="bold" />
 
         <com.call.tracker.customview.ButtonRoboto
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_margin="20dp"
+            android:background="@color/theme_color"
             android:onClick="callAddExisting"
-            android:text="@string/add_existing_contact_s_from_my_phone" />
+            android:text="@string/add_existing_contact_s_from_my_phone"
+            android:textColor="@color/white" />
 
         <com.call.tracker.customview.ButtonRoboto
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_margin="20dp"
             android:layout_marginRight="10dp"
+            android:background="@color/theme_color"
             android:onClick="callAddNew"
-            android:text="@string/add_a_new_contact" />
+            android:text="@string/add_a_new_contact"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

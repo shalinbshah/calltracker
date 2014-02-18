@@ -148,7 +148,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:background="@color/theme_color"
-        android:onClick="updateFollowUpNotes"
+        android:onClick="callSave"
         android:text="Save" />
 
 </LinearLayout>

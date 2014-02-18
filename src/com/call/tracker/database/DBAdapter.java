@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.content.ContentResolver;
@@ -543,8 +544,12 @@ public class DBAdapter extends SQLiteOpenHelper {
 				model.setNumber1(cursor.getString(cursor
 						.getColumnIndex("contact_number")));
 				String grps = cursor.getString(cursor.getColumnIndex("grp_id"));
-				for (String grp : grps.split(";"))
+				for (String grp : grps.split(";")) {
 					model.addGroup(grp);
+				}
+				Uri uri = getContactUriWithPhoneNumber(cursor.getString(cursor
+						.getColumnIndex("contact_number")));
+				model.setUri(uri);
 				arrayList.add(model);
 			} while (cursor.moveToNext());
 		}
@@ -575,7 +580,7 @@ public class DBAdapter extends SQLiteOpenHelper {
 		openDataBase();
 		ContentValues cv = new ContentValues();
 		cv.put("followup_notes", followNotes);
-		long l = myDataBase.update("tbl_contacts", cv, "contact_id = ?",
+		myDataBase.update("tbl_contacts", cv, "contact_id = ?",
 				new String[] { contact_id });
 		close();
 	}
@@ -598,4 +603,55 @@ public class DBAdapter extends SQLiteOpenHelper {
 		close();
 		return notes;
 	}
+
+	/**
+	 * CREATE TABLE "tbl_sales_goals_mission" ("id" INTEGER PRIMARY KEY NOT NULL
+	 * , "mission_month" INTEGER, "mission_year" INTEGER, "mission_homes"
+	 * INTEGER, "mission_appointments" INTEGER, "mission_avg_hoursperday"
+	 * INTEGER, "mission_avg_dayperweek" INTEGER)
+	 * 
+	 * @param mission_homes
+	 * @param mission_appointments
+	 * @param mission_avg_hoursperday
+	 * @param mission_avg_dayperweek
+	 * @return
+	 */
+	public long addUpdateSalesMission(int i, int j, int k, int l) {
+		openDataBase();
+		ContentValues values = new ContentValues();
+		Calendar calendar = Calendar.getInstance();
+		values.put("mission_month", calendar.get(Calendar.MONTH) + 1);
+		values.put("mission_year", calendar.get(Calendar.YEAR));
+		values.put("mission_homes", i);
+		values.put("mission_appointments", j);
+		values.put("mission_avg_hoursperday", k);
+		values.put("mission_avg_dayperweek", l);
+
+		// check for already existence
+		boolean alreadyExist = false;
+		String query = "select * from tbl_sales_goals_mission where mission_month = '"
+				+ (calendar.get(Calendar.MONTH) + 1)
+				+ "' AND mission_year = '"
+				+ calendar.get(Calendar.YEAR) + "'";
+		Log.d("callTracker", query);
+		Cursor cursor = selectRecordsFromDB(query, null);
+		if (cursor.getCount() > 0) {
+			alreadyExist = true;
+		}
+		if (alreadyExist) {
+			long result = myDataBase.update("tbl_sales_goals_mission", values,
+					"mission_month = ? AND mission_year = ?", new String[] {
+							Integer.toString(calendar.get(Calendar.MONTH) + 1),
+							Integer.toString(calendar.get(Calendar.YEAR)) });
+			close();
+			return result;
+
+		} else {
+			long result = myDataBase.insert("tbl_sales_goals_mission", null,
+					values);
+			return result;
+
+		}
+	}
+
 }
