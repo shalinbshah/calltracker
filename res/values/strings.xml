@@ -8,9 +8,9 @@
     <string name="app_name">Call Journal</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="splash_screen">Splash screen of Call Tracker Android app</string>
+    <string name="splash_screen">Splash screen of Call Journal Android app</string>
     <string name="don_t_show_again">Don\'t show again</string>
-    <string name="guide_1">Welcome to the Agent Call Tracker! This app is purposed in helping you become a top producer, by removing any barriers between you and the calls you must make - the calls that make your business the envy of other agents in your region.</string>
+    <string name="guide_1">Welcome to the Agent Call Journal! This app is purposed in helping you become a top producer, by removing any barriers between you and the calls you must make - the calls that make your business the envy of other agents in your region.</string>
     <string name="guide_2">It\'s the digital equivalent of a box of index cards with your contacts\' name on them, that you move to the back of the pile each time you contact them... \n\n... except that it\'s awesome,and a box of index cards isn\'t. Neither is writing updates on them.</string>
     <string name="guide_3">Get contacts from your phone, or enter manually, and organize them into lists .... FSBO,Open House Guest,Expireds,or make your own list to suite your needs. The Lite Version of the app affords you up to 25 contacts. The Pro version gives you unlimited contacts.</string>
     <string name="guide_4">After each call, recode a Voice Note for yourself - brief audio recordings that keep you hand free to \"put out fires\" or \"juggle cats\" or whatever other business jargon you might have to attend to.</string>
