@@ -3,6 +3,7 @@
     android:id="@+id/a"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_main_background"
     android:orientation="vertical" >
 
     <FrameLayout
@@ -28,7 +29,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:text="Contact"
+            android:text="What happened?"
             android:textColor="@color/white"
             android:textSize="24dp" />
     </FrameLayout>
@@ -44,7 +45,7 @@
     <QuickContactBadge
         android:id="@+id/quickContactBadgeContactDateTime"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:layout_weight="0.23"
         android:src="@drawable/man" />
 
@@ -67,7 +68,7 @@
         tools:context=".MainActivity" >
     </LinearLayout>
 
-    <TextView
+    <Button
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -75,12 +76,13 @@
         android:layout_margin="10dp"
         android:background="@color/theme_color"
         android:gravity="center"
+        android:onClick="callAppointMentalMode"
         android:text="Appoinmental Mode"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"
         android:textStyle="bold" />
 
-    <TextView
+    <Button
         android:id="@+id/textViewContactMode"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -88,12 +90,13 @@
         android:layout_margin="10dp"
         android:background="@color/theme_color"
         android:gravity="center"
+        android:onClick="callContactMode"
         android:text="Contact Mode"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"
         android:textStyle="bold" />
 
-    <TextView
+    <Button
         android:id="@+id/textViewShotDown"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -101,12 +104,13 @@
         android:layout_margin="10dp"
         android:background="@color/theme_color"
         android:gravity="center"
+        android:onClick="callShotDown"
         android:text="Shot Down"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"
         android:textStyle="bold" />
 
-    <TextView
+    <Button
         android:id="@+id/textViewMessageLeft"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -114,12 +118,13 @@
         android:layout_margin="10dp"
         android:background="@color/theme_color"
         android:gravity="center"
+        android:onClick="callMessageLeft"
         android:text="Message Left"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"
         android:textStyle="bold" />
 
-    <TextView
+    <Button
         android:id="@+id/textViewNoContact"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -127,6 +132,7 @@
         android:layout_margin="10dp"
         android:background="@color/theme_color"
         android:gravity="center"
+        android:onClick="callNoContact"
         android:text="No Contact"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"

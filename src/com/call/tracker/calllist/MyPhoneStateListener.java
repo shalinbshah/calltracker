@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ContactModel;
@@ -44,21 +45,27 @@ public class MyPhoneStateListener extends BroadcastReceiver {
 			ArrayList<ContactModel> contacts = adapter.getContacts();
 			adapter.close();
 			for (ContactModel model : contacts) {
+				Log.d("callTracker", "Comparing : "
+						+ model.getNumber1().trim().replaceAll(" ", "")
+								.replaceAll("-", "") + " with " + contactNumber);
 				if (model.getNumber1().trim().replaceAll(" ", "")
 						.replaceAll("-", "").contains(contactNumber)) {
 					isContactValid = true;
+					break;
 				}
-				break;
 			}
 		} catch (Exception e) {
 
 		}
-		if (isContactValid) {
+		if (isContactValid && CallHangUpActivity.calledFromApp) {
 			Intent callHangUpActivityIntent = new Intent(context,
 					CallHangUpActivity.class);
 			callHangUpActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			callHangUpActivityIntent.putExtra("contact_number", contactNumber);
 			context.startActivity(callHangUpActivityIntent);
+		} else {
+			Log.d("callTracker", "last called number is not valid "
+					+ contactNumber);
 		}
 	}
 }

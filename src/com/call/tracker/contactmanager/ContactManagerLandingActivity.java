@@ -85,6 +85,7 @@ public class ContactManagerLandingActivity extends BaseActivity {
 				arrayList.addAll(dbAdapter.getContacts());
 			dbAdapter.close();
 		} catch (IOException e) {
+			dbAdapter.close();
 			e.printStackTrace();
 		}
 

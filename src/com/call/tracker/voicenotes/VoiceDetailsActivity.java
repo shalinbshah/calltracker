@@ -1,6 +1,8 @@
 package com.call.tracker.voicenotes;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -50,6 +52,9 @@ public class VoiceDetailsActivity extends BaseActivity {
 				voiceTime = modelNotes.getVoice_time();
 				path = modelNotes.getVoice_path();
 			} else {
+				String currentDateTimeString = DateFormat.getDateTimeInstance()
+						.format(new Date());
+				buttonPlaySound.setText(currentDateTimeString);
 				voiceTime = bundle.getString("time");
 				path = bundle.getString("filepath");
 			}

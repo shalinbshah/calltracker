@@ -154,7 +154,7 @@ public class SelectContactOfGroupActivity extends BaseActivity {
 								.get(i).getContactId()));
 						voiceModel.setUrgent(Integer.parseInt(preferences
 								.getString(URGENT, "0")));
-						voiceModel.setVoice_time(preferences.getString(
+						voiceModel.setVoice_Duration(preferences.getString(
 								VOICE_TIME, ""));
 						voiceModel.setVoice_path(preferences.getString(
 								FILEPATH, ""));

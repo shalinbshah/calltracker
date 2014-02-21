@@ -75,7 +75,7 @@ public class VoiceListActivity extends BaseActivity {
 					modelNotes.setUrgent(cursor.getInt(2));
 					modelNotes.setDateTime(cursor.getString(3));
 					modelNotes.setIsVisible(cursor.getString(4));
-					modelNotes.setVoice_time(cursor.getString(5));
+					modelNotes.setVoice_Duration(cursor.getString(5));
 					modelNotes.setGroupId(cursor.getInt(6));
 					modelNotes.setContact_id(cursor.getInt(7));
 					modelNotes.setAlarm_id(cursor.getInt(8));

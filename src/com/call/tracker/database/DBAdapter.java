@@ -310,6 +310,27 @@ public class DBAdapter extends SQLiteOpenHelper {
 		return myDataBase.update("list_manager", cv, "id = " + id, null);
 	}
 
+	public void deleteContact(String contact_id) {
+		openDataBase();
+		myDataBase.delete("tbl_contacts", "contact_id = ?",
+				new String[] { contact_id });
+		close();
+	}
+
+	public void updateOrAddStats(String contact_id, String status) {
+		openDataBase();
+		ContentValues cv = new ContentValues();
+		cv.put("contact_id", contact_id);
+		cv.put("tracking_status", status);
+		int i = myDataBase.update("tbl_stats", cv, "contact_id = ?",
+				new String[] { contact_id });
+		if (i <= 0) {
+			myDataBase.insert("tbl_stats", null, cv);
+		}
+		close();
+
+	}
+
 	public long updateNotificationClick(int id) {
 		// TODO Auto-generated method stub
 		ContentValues cv = new ContentValues();
@@ -410,7 +431,7 @@ public class DBAdapter extends SQLiteOpenHelper {
 				modelNotes.setUrgent(cursor.getInt(2));
 				modelNotes.setDateTime(cursor.getString(3));
 				modelNotes.setIsVisible(cursor.getString(4));
-				modelNotes.setVoice_time(cursor.getString(5));
+				modelNotes.setVoice_Duration(cursor.getString(5));
 				modelNotes.setGroupId(cursor.getInt(6));
 				modelNotes.setContact_id(cursor.getInt(7));
 				modelNotes.setAlarm_id(cursor.getInt(8));

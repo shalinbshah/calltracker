@@ -103,8 +103,9 @@ public class ListManagerDetails extends BaseActivity {
 		// TODO Auto-generated method stub
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-		alert.setTitle("Choose Option");
-		alert.setMessage("Select any 1");
+		alert.setTitle("Do you want to Rename or Delete "
+				+ arrayList.get(pos).getName() + " ?");
+		alert.setMessage("");
 
 		// Set an EditText view to get user input
 		alert.setPositiveButton("Rename",
@@ -116,7 +117,7 @@ public class ListManagerDetails extends BaseActivity {
 					}
 				});
 
-		alert.setNegativeButton("Delete",
+		alert.setNegativeButton("Remove11286?",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						openDeleteDialog(arrayList.get(pos).getId(), arrayList
@@ -132,7 +133,7 @@ public class ListManagerDetails extends BaseActivity {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 		alert.setTitle("Erase List");
-		alert.setMessage("Want to erase " + name);
+		alert.setMessage("Want to Remove " + name + " ?");
 
 		// Set an EditText view to get user input
 		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

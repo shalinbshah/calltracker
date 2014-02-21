@@ -74,7 +74,7 @@ public class VoiceNotesModel implements Serializable {
 		return isVisible;
 	}
 
-	public void setVoice_time(String voice_time) {
+	public void setVoice_Duration(String voice_time) {
 		this.voice_time = voice_time;
 	}
 

@@ -17,7 +17,7 @@ public class ReportsActivity0 extends BaseActivity {
 		setContentView(R.layout.layout_reports_activity0);
 	}
 
-	public void callReports(View v) {
+	public void callStatistics(View v) {
 		// startActivity(new Intent(getApplicationContext(),
 		// ReportsActivity1.class));
 		AppMsg appMsg = AppMsg.makeText(ReportsActivity0.this, "Coming Soon",
@@ -26,7 +26,7 @@ public class ReportsActivity0 extends BaseActivity {
 		appMsg.show();
 	}
 
-	public void callStatisctics(View v) {
+	public void callReports(View v) {
 		startActivity(new Intent(getApplicationContext(),
 				ReportsActivity1.class));
 	}

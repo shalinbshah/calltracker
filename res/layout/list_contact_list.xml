@@ -16,12 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="66dp" >
 
-            <QuickContactBadge
+            <ImageView
                 android:id="@+id/quickContactBadge2"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:src="@drawable/man" />
+                android:src="@drawable/call" />
 
             <LinearLayout
                 android:id="@+id/CallInfo"

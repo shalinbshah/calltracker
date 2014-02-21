@@ -1,20 +1,21 @@
 package com.call.tracker.adapter;
 
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.net.Uri;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.QuickContactBadge;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.call.tracker.R;
+import com.call.tracker.calllist.CallHangUpActivity;
 import com.call.tracker.contactmanager.ContactManagerLandingActivity;
 import com.call.tracker.model.ContactModel;
 
@@ -57,24 +58,36 @@ public class ContactManagerListAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.textName = (TextView) mView.findViewById(R.id.textName);
 			holder.textGroup = (TextView) mView.findViewById(R.id.textGroup);
-			holder.uri_badge = (QuickContactBadge) mView
+			holder.uri_badge = (ImageView) mView
 					.findViewById(R.id.quickContactBadge2);
-			holder.uri_badge.setMode(ContactsContract.QuickContact.MODE_LARGE);
 			mView.setTag(holder);
 		}
 
 		String name = contactListModels.get(position).getName();
 		ArrayList<String> grp = contactListModels.get(position).getGroup();
-		Uri uri = (contactListModels.get(position).getUri());
+		// Uri uri = (contactListModels.get(position).getUri());
 		try {
-			holder.uri_badge.assignContactFromPhone(
-					contactListModels.get(position).getNumber1(), true);
-			InputStream input = ContactsContract.Contacts
-					.openContactPhotoInputStream(activity.getContentResolver(),
-							uri);
-			if (null != input)
-				holder.uri_badge.setImageBitmap(BitmapFactory
-						.decodeStream(input));
+			holder.uri_badge.setTag(contactListModels.get(position)
+					.getNumber1());
+			holder.uri_badge.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					CallHangUpActivity.calledFromApp = true;
+					CallHangUpActivity.callStartTime = new Date();
+					Intent callIntent = new Intent(Intent.ACTION_CALL);
+					callIntent.setData(Uri
+							.parse("tel:" + v.getTag().toString()));
+					activity.startActivity(callIntent);
+				}
+			});
+
+			// InputStream input = ContactsContract.Contacts
+			// .openContactPhotoInputStream(activity.getContentResolver(),
+			// uri);
+			// if (null != input)
+			// holder.uri_badge.setImageBitmap(BitmapFactory
+			// .decodeStream(input));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -88,6 +101,6 @@ public class ContactManagerListAdapter extends BaseAdapter {
 	public class ViewHolder {
 		private TextView textName;
 		private TextView textGroup;
-		private QuickContactBadge uri_badge;
+		private ImageView uri_badge;
 	}
 }
