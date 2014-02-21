@@ -29,14 +29,14 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:text="Reports"
+            android:text="Statistics"
             android:textColor="@color/white"
             android:textSize="24dp" />
     </FrameLayout>
 
     <com.inqbarna.tablefixheaders.TableFixHeaders
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/tblReports"
+        android:id="@+id/tblStatisctics"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

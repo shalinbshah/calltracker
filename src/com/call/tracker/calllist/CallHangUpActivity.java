@@ -54,6 +54,7 @@ public class CallHangUpActivity extends BaseActivity {
 
 		updateDBWithCallInfo(contactID,
 				(new Date().getTime() - callStartTime.getTime()) / 1000);
+		calledFromApp = false;
 	}
 
 	private void updateDBWithCallInfo(String contactID2, long l) {
@@ -63,7 +64,9 @@ public class CallHangUpActivity extends BaseActivity {
 		values.put("contact_id", contactID2);
 		values.put("call_duration_Seconds", l);
 		adapter.getMyDatabase().insert("tbl_calls_track", null, values);
+		adapter.getMyDatabase().close();
 		adapter.close();
+
 	}
 
 	public void callAppointMentalMode(View v) {

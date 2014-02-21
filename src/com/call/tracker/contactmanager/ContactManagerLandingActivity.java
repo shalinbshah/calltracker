@@ -83,8 +83,10 @@ public class ContactManagerLandingActivity extends BaseActivity {
 				arrayList.addAll(dbAdapter.getContactsOfGroup(selectedGroupId));
 			else
 				arrayList.addAll(dbAdapter.getContacts());
+			dbAdapter.getMyDatabase().close();
 			dbAdapter.close();
 		} catch (IOException e) {
+			dbAdapter.getMyDatabase().close();
 			dbAdapter.close();
 			e.printStackTrace();
 		}

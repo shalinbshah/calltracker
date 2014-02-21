@@ -2,12 +2,10 @@ package com.call.tracker.reports;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
-import com.devspark.appmsg.AppMsg;
 
 public class ReportsActivity0 extends BaseActivity {
 
@@ -20,10 +18,13 @@ public class ReportsActivity0 extends BaseActivity {
 	public void callStatistics(View v) {
 		// startActivity(new Intent(getApplicationContext(),
 		// ReportsActivity1.class));
-		AppMsg appMsg = AppMsg.makeText(ReportsActivity0.this, "Coming Soon",
-				AppMsg.STYLE_ALERT);
-		appMsg.setLayoutGravity(Gravity.BOTTOM);
-		appMsg.show();
+		// AppMsg appMsg = AppMsg.makeText(ReportsActivity0.this, "Coming Soon",
+		// AppMsg.STYLE_ALERT);
+		// appMsg.setLayoutGravity(Gravity.BOTTOM);
+		// appMsg.show();
+		startActivity(new Intent(getApplicationContext(),
+				ReportsActivity2.class));
+
 	}
 
 	public void callReports(View v) {

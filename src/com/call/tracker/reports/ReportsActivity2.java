@@ -13,7 +13,7 @@ import com.call.tracker.database.DBAdapter;
 import com.inqbarna.tablefixheaders.MyAdapter;
 import com.inqbarna.tablefixheaders.TableFixHeaders;
 
-public class ReportsActivity1 extends BaseActivity {
+public class ReportsActivity2 extends BaseActivity {
 	ArrayList<String> addedContactIDs;
 	TextView tvEvalTotalTimeOnCalls;
 	TextView tvEvalTotalCalls;
@@ -27,13 +27,13 @@ public class ReportsActivity1 extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_reports_activity1);
+		setContentView(R.layout.layout_reports_activity2);
 		processCallList();
 		updateTable();
 	}
 
 	private void updateTable() {
-		TableFixHeaders tableFixHeaders = (TableFixHeaders) findViewById(R.id.tblReports);
+		TableFixHeaders tableFixHeaders = (TableFixHeaders) findViewById(R.id.tblStatisctics);
 
 		String[][] a = new String[5][3];
 		a[0][0] = "Stats";
@@ -56,7 +56,7 @@ public class ReportsActivity1 extends BaseActivity {
 		a[3][2] = min + ":" + sec + "";
 		a[4][2] = totalClosings + "";
 
-		MyAdapter matrixTableAdapter = new MyAdapter(ReportsActivity1.this, a);
+		MyAdapter matrixTableAdapter = new MyAdapter(ReportsActivity2.this, a);
 		tableFixHeaders.setAdapter(matrixTableAdapter);
 	}
 

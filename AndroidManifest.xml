@@ -135,6 +135,9 @@
         <activity
             android:name="com.call.tracker.reports.ReportsActivity1"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.call.tracker.reports.ReportsActivity2"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name="com.call.tracker.alarm.AlarmReceiver"

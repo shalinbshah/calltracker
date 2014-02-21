@@ -38,22 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal" >
-
-        <com.call.tracker.customview.EditTextRoboto
-            android:id="@+id/editTextSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            android:hint="Search Contact/Group" />
-
-        <com.call.tracker.customview.ButtonRoboto
-            android:id="@+id/butSearch"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/icon_search" />
     </LinearLayout>
 
     <LinearLayout
@@ -70,7 +54,8 @@
             android:layout_weight="1"
             android:background="@color/theme_color"
             android:onClick="callContactList"
-            android:text="Contact List" />
+            android:text="Contact List"
+            android:textColor="@color/white" />
 
         <com.call.tracker.customview.ButtonRoboto
             android:id="@+id/butAdd"
@@ -79,8 +64,8 @@
             android:layout_marginRight="10dp"
             android:background="@color/theme_color"
             android:onClick="callAdd"
-            android:text="Add" />
-
+            android:text="Add"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <View
