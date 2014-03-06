@@ -6,7 +6,7 @@
     <color name="tabDark">#000000</color>
     <color name="tabTransparent">#20ffffff</color>
     <color name="transparent">#00ffffff</color>
-    <color name="semiTransparent">#ACACACAC</color>
+    <color name="semiTransparent">#33ACACAC</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#D00A0A</color>
     <color name="shadow_start">#80000000</color>
@@ -28,8 +28,8 @@
     <color name="custom_key_background">#00000000</color>
     <color name="custom_key_background_pressed">#ffcc6600</color>
     <color name="custom_keyboard_indicator_color">#ffcc6600</color>
-    <color name="alert">#CC0000</color>
+    <color name="alert">#FF5050</color>
     <color name="confirm">#FF8800</color>
-    <color name="info">#669900</color>
+    <color name="info">#5A9AA8</color>
 
 </resources>

@@ -8,13 +8,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Toast;
 
 import com.bugsense.trace.BugSenseHandler;
 import com.call.tracker.interfaces.Constants;
 
-public class BaseActivity extends Activity implements Constants {
+public class BaseActivity extends FragmentActivity implements Constants {
 	public SharedPreferences preferences;
 	public SharedPreferences.Editor editor;
 	public ProgressDialog progress;
@@ -28,8 +29,6 @@ public class BaseActivity extends Activity implements Constants {
 				.getDefaultSharedPreferences(getApplicationContext());
 		BugSenseHandler.initAndStartSession(BaseActivity.this, BUG_SENSE_KEY);
 	}
-	
-	
 
 	public String getStringFromXml(int actionSettings) {
 		return getResources().getString(actionSettings);
@@ -41,6 +40,20 @@ public class BaseActivity extends Activity implements Constants {
 		editor = preferences.edit();
 		editor.putString(key, value);
 		editor.commit();
+	}
+
+	public void updatePref(String key, Boolean value) {
+		preferences = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
+		editor = preferences.edit();
+		editor.putBoolean(key, value);
+		editor.commit();
+	}
+
+	public boolean getPref(String key, Boolean defaultValue) {
+		preferences = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
+		return preferences.getBoolean(key, defaultValue);
 	}
 
 	public void callHome(View v) {

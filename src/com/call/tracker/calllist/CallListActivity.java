@@ -1,17 +1,13 @@
 package com.call.tracker.calllist;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,7 +25,6 @@ import com.call.tracker.adapter.MyProgressDialog;
 import com.call.tracker.contactmanager.TempHolder;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.CallListModel;
-import com.call.tracker.model.ContactModel;
 import com.devspark.appmsg.AppMsg;
 
 public class CallListActivity extends BaseActivity {
@@ -129,84 +124,61 @@ public class CallListActivity extends BaseActivity {
 				.toString());
 	}
 
-	@SuppressLint("SimpleDateFormat")
-	private void generateCallList(String groupName, String filter) {
-		ArrayList<ContactModel> contactsOfSelectedGroup = null;
-		if (groupName.length() > 0) {
+	private void generateCallList(String selectedGroupID, String filter) {
+		ArrayList<String> contactsOfSelectedGroup = new ArrayList<String>();
+		arrayList.clear();
+		if (selectedGroupID.length() > 0) {
 			dbAdapter.openDataBase();
-			contactsOfSelectedGroup = dbAdapter.getContactsOfGroup(groupName);
+			contactsOfSelectedGroup.clear();
+			contactsOfSelectedGroup = dbAdapter
+					.getContactsNamesOfGroup(selectedGroupID);
 			dbAdapter.close();
 		}
-		Cursor managedCursor;
-		if (filter.length() > 0)
-			managedCursor = getContentResolver().query(
-					CallLog.Calls.CONTENT_URI, null,
-					CallLog.Calls.CACHED_NAME + " LIKE ?",
-					new String[] { "%" + filter + "%" },
-					CallLog.Calls.DEFAULT_SORT_ORDER);
-		else if (null != contactsOfSelectedGroup
-				&& contactsOfSelectedGroup.size() > 0) {
-			String selection = "";
-			ArrayList<String> list = new ArrayList<String>();
+		String query = "select * from tbl_calls_track";
+		dbAdapter.openDataBase();
 
-			for (int i = 0; i < contactsOfSelectedGroup.size(); i++) {
-				if (i != 0)
-					selection = selection + " or " + CallLog.Calls.CACHED_NAME
-							+ " LIKE ?";
-				else
-					selection = CallLog.Calls.CACHED_NAME + " LIKE ?";
-				list.add(contactsOfSelectedGroup.get(i).getName());
-				// selectionArgs[i] = contactsOfSelectedGroup.get(i).getName();
-			}
-			String[] selectionArgs = new String[list.size()];
-
-			managedCursor = getContentResolver().query(
-					CallLog.Calls.CONTENT_URI, null, selection,
-					list.toArray(selectionArgs),
-					CallLog.Calls.DEFAULT_SORT_ORDER);
-		} else
-			managedCursor = getContentResolver().query(
-					CallLog.Calls.CONTENT_URI, null, null, null,
-					CallLog.Calls.DEFAULT_SORT_ORDER);
-		int numberIndex = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
-		int typeIndex = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
-		int dateIndex = managedCursor.getColumnIndex(CallLog.Calls.DATE);
-		int durationIndex = managedCursor
-				.getColumnIndex(CallLog.Calls.DURATION);
-		int nameValIndex = managedCursor
-				.getColumnIndex(CallLog.Calls.CACHED_NAME);
-		int callLogIdIndex = managedCursor.getColumnIndex(CallLog.Calls._ID);
+		Cursor managedCursor = dbAdapter.selectRecordsFromDB(query, null);
 
 		arrayList.clear();
-		while (managedCursor.moveToNext()) {
-			String phoneNumber = managedCursor.getString(numberIndex);
-			String callType = managedCursor.getString(typeIndex);
-			String timeMillis = managedCursor.getString(dateIndex);
-			String callDuration = managedCursor.getString(durationIndex);
-			String name = managedCursor.getString(nameValIndex);
-			String callLogId = managedCursor.getString(callLogIdIndex);
+		while (managedCursor != null && managedCursor.moveToNext()) {
+
+			int callDuration = managedCursor.getInt(managedCursor
+					.getColumnIndex("call_duration_seconds"));
+			String name = managedCursor.getString(managedCursor
+					.getColumnIndex("contact_name"));
+			String lastCallTime = managedCursor.getString(managedCursor
+					.getColumnIndex("call_time"));
 			if (name == null)
 				name = "";
 			CallListModel callListModel = new CallListModel();
-			callListModel.setId(callLogId);
 			callListModel.setName(name);
-			Date d = new Date(Long.parseLong(timeMillis));
-			SimpleDateFormat formatter = new SimpleDateFormat(
-					"dd/MM/yyyy HH:mm:ss");
-			callListModel.setDate(formatter.format(d));
-			callListModel.setDuration(callDuration);
-			callListModel.setNumber(phoneNumber);
-			callListModel.setType(callType);
-			String contactID = getContactID(getApplicationContext(),
-					phoneNumber);
+			int a = managedCursor.getColumnIndex("call_duration_seconds");
+
+			callListModel.setDate(lastCallTime);
+			callListModel.setDuration(Integer.toString(callDuration));
+			String contactID = managedCursor.getString(managedCursor
+					.getColumnIndex("contact_id"));
 			Uri uri = Uri.withAppendedPath(
 					ContactsContract.Contacts.CONTENT_URI,
 					String.valueOf(contactID));
 			callListModel.setContactUri(uri);
-			if (addedContactsIDs.contains(contactID))
-				arrayList.add(callListModel);
+			if (null == filter || filter.length() <= 0) {
+				if (selectedGroupID.length() > 0) {
+					if (contactsOfSelectedGroup.contains(name))
+						arrayList.add(callListModel);
+				} else
+					arrayList.add(callListModel);
+			} else if (name.contains(filter)) {
+				if (selectedGroupID.length() > 0) {
+					if (contactsOfSelectedGroup.contains(name))
+						arrayList.add(callListModel);
+				} else
+					arrayList.add(callListModel);
+			}
 		}
 		managedCursor.close();
+		dbAdapter.close();
+
 	}
 
 	public class GetCallListFromWebService extends

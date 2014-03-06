@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,6 +24,7 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import com.call.tracker.alarm.AlarmReceiver;
 import com.call.tracker.model.ContactModel;
 import com.call.tracker.model.ListManagerModel;
 import com.call.tracker.model.VoiceNotesModel;
@@ -135,6 +139,11 @@ public class DBAdapter extends SQLiteOpenHelper {
 	 * @throws SQLException
 	 */
 	public void openDataBase() throws SQLException {
+		try {
+			createDataBase();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String myPath = DB_PATH + DB_NAME;
 		myDataBase = SQLiteDatabase.openDatabase(myPath, null,
 				SQLiteDatabase.NO_LOCALIZED_COLLATORS);
@@ -306,8 +315,12 @@ public class DBAdapter extends SQLiteOpenHelper {
 	public long deleteList(int id) {
 		ContentValues cv = new ContentValues();
 		cv.put("isVis", "0");
+		myDataBase.update("list_manager", cv, "id = " + id, null);
+		myDataBase.delete("tbl_contacts", "grp_id = ?",
+				new String[] { Integer.toString(id) });
 
-		return myDataBase.update("list_manager", cv, "id = " + id, null);
+		return myDataBase.delete("list_manager", "id = ?",
+				new String[] { Integer.toString(id) });
 	}
 
 	public void deleteContact(String contact_id) {
@@ -497,6 +510,24 @@ public class DBAdapter extends SQLiteOpenHelper {
 		return arrayList;
 	}
 
+	public String getContactsNameFromID(String contact_id) {
+		openDataBase();
+		String name = "";
+		String query = "select contact_name from tbl_contacts where contact_id = '"
+				+ contact_id + "'";
+		Cursor cursor = selectRecordsFromDB(query, null);
+		ArrayList<String> arrayList = new ArrayList<String>();
+		arrayList.clear();
+		if (cursor.moveToFirst()) {
+			do {
+				name = cursor.getString(0);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		close();
+		return name;
+	}
+
 	public void openDB(Context mContext) {
 		DBAdapter dbAdapter = DBAdapter.getDBAdapterInstance(mContext);
 		try {
@@ -546,6 +577,40 @@ public class DBAdapter extends SQLiteOpenHelper {
 			cur.close();
 		}
 		return null;
+	}
+
+	public ArrayList<String> getContactsNamesOfGroup(String grpID) {
+		// TODO change query to include group name
+		String query = "select * from tbl_contacts where grp_id = '" + grpID
+				+ "'";
+		Cursor cursor = selectRecordsFromDB(query, null);
+		ArrayList<String> arrayList = new ArrayList<String>();
+		arrayList.clear();
+		if (cursor.moveToFirst()) {
+			do {
+				arrayList.add(cursor.getString(cursor
+						.getColumnIndex("contact_name")));
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return arrayList;
+	}
+
+	public ArrayList<String> getContactsIDsOfGroup(String grpID) {
+		// TODO change query to include group name
+		String query = "select * from tbl_contacts where grp_id = '" + grpID
+				+ "'";
+		Cursor cursor = selectRecordsFromDB(query, null);
+		ArrayList<String> arrayList = new ArrayList<String>();
+		arrayList.clear();
+		if (cursor.moveToFirst()) {
+			do {
+				arrayList.add(cursor.getString(cursor
+						.getColumnIndex("contact_id")));
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return arrayList;
 	}
 
 	public ArrayList<ContactModel> getContactsOfGroup(String grpID) {

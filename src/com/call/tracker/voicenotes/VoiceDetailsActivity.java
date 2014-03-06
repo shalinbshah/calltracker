@@ -7,12 +7,14 @@ import java.util.Date;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.call.tracker.BaseActivity;
@@ -29,7 +31,7 @@ public class VoiceDetailsActivity extends BaseActivity {
 
 	MediaPlayer mPlayer = new MediaPlayer();
 	Button butUrgent, butAssigncontact, butSave;
-	ButtonRoboto buttonPlaySound;
+	ImageView buttonPlaySound;
 	private VoiceNotesModel modelNotes;
 
 	@Override
@@ -43,19 +45,20 @@ public class VoiceDetailsActivity extends BaseActivity {
 		Bundle bundle = getIntent().getExtras();
 
 		butAssigncontact = (Button) findViewById(R.id.butAssigncontact);
-		buttonPlaySound = (ButtonRoboto) findViewById(R.id.buttonPlaySound);
+		buttonPlaySound = (ImageView) findViewById(R.id.buttonPlaySound);
 		butSave = (ButtonRoboto) findViewById(R.id.btnSave);
 		if (bundle != null) {
 			if (bundle.containsKey("data")) {
 				modelNotes = (VoiceNotesModel) bundle.getSerializable("data");
-				buttonPlaySound.setText(modelNotes.getDateTime());
-				voiceTime = modelNotes.getVoice_time();
+				voiceTime = modelNotes.getDateTime() + " / "
+						+ modelNotes.getVoice_time();
 				path = modelNotes.getVoice_path();
 			} else {
 				String currentDateTimeString = DateFormat.getDateTimeInstance()
 						.format(new Date());
-				buttonPlaySound.setText(currentDateTimeString);
-				voiceTime = bundle.getString("time");
+
+				voiceTime = currentDateTimeString + " / "
+						+ bundle.getString("time");
 				path = bundle.getString("filepath");
 			}
 		}
@@ -66,7 +69,7 @@ public class VoiceDetailsActivity extends BaseActivity {
 		textViewUr = (TextView) findViewById(R.id.textViewUr);
 
 		butUrgent = (Button) findViewById(R.id.butUrgent);
-		butUrgent.setTag("1");
+		butUrgent.setTag("0");
 		butUrgent.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -79,6 +82,7 @@ public class VoiceDetailsActivity extends BaseActivity {
 					AppMsg appMsg = AppMsg.makeText(VoiceDetailsActivity.this,
 							"This Voice Note is Urgent", AppMsg.STYLE_ALERT);
 					appMsg.setLayoutGravity(Gravity.BOTTOM);
+					appMsg.setDuration(AppMsg.LENGTH_SHORT);
 					appMsg.show();
 				} else {
 					butUrgent.setTag(0);
@@ -86,6 +90,7 @@ public class VoiceDetailsActivity extends BaseActivity {
 					AppMsg appMsg = AppMsg.makeText(VoiceDetailsActivity.this,
 							"This Voice Note is Not Urgent", AppMsg.STYLE_INFO);
 					appMsg.setLayoutGravity(Gravity.BOTTOM);
+					appMsg.setDuration(AppMsg.LENGTH_SHORT);
 					appMsg.show();
 					textViewUr
 							.setText(R.string.this_voice_note_has_not_been_marked_as_urgent);
@@ -139,11 +144,15 @@ public class VoiceDetailsActivity extends BaseActivity {
 		DBAdapter adapter = new DBAdapter(getApplicationContext());
 		adapter.openDB(getApplicationContext());
 		adapter.openDataBase();
-		ContentValues values = new ContentValues();
 		Bundle bundle = getIntent().getExtras();
 		VoiceNotesModel note = (VoiceNotesModel) bundle.get("data");
-		adapter.getMyDatabase().delete("tbl_voice_notes", "id=?",
-				new String[] { Integer.toString(note.getId()) });
+		if (null != note) {
+			try {
+				adapter.getMyDatabase().delete("tbl_voice_notes", "id=?",
+						new String[] { Integer.toString(note.getId()) });
+			} catch (Exception e) {
+			}
+		}
 		adapter.close();
 		finish();
 	}
@@ -164,16 +173,25 @@ public class VoiceDetailsActivity extends BaseActivity {
 	}
 
 	public void callPlaySound(View v) {
+		((ImageView) v).setImageResource(R.drawable.media_play);
 		if (mPlayer.isPlaying()) {
 			mPlayer.stop(); // stop recording
 			mPlayer.reset(); // set state to idle
+			((ImageView) v).setImageResource(R.drawable.media_play);
 		}
 		try {
+			((ImageView) v).setImageResource(R.drawable.media_stop);
 			mPlayer.reset();
 			mPlayer.setDataSource(path);
 			mPlayer.prepare();
 			mPlayer.start();
+			mPlayer.setOnCompletionListener(new OnCompletionListener() {
 
+				@Override
+				public void onCompletion(MediaPlayer mp) {
+					buttonPlaySound.setImageResource(R.drawable.media_play);
+				}
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

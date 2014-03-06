@@ -21,7 +21,7 @@ public class CallHangUpActivity extends BaseActivity {
 
 	public static boolean calledFromApp = false;
 	public static Date callStartTime;
-
+	public String contactName;
 	QuickContactBadge contactBadge;
 	TextView tvContactName;
 	String contactID;
@@ -36,12 +36,16 @@ public class CallHangUpActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_call_hang);
+		tvContactName = (TextView) findViewById(R.id.tvContactName);
 		contactBadge = (QuickContactBadge) findViewById(R.id.quickContactBadgeContactDateTime);
 		if (getIntent().getExtras().containsKey("contact_number")) {
 			contactNumber = getIntent().getExtras().getString("contact_number");
 			contactBadge.assignContactFromPhone(contactNumber, true);
 			contactID = CallListActivity.getContactID(getApplicationContext(),
 					contactNumber);
+			DBAdapter adapter = new DBAdapter(getApplicationContext());
+			contactName = adapter.getContactsNameFromID(contactID);
+			tvContactName.setText(contactName);
 			uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI,
 					String.valueOf(contactID));
 			if (ContactsContract.Contacts.openContactPhotoInputStream(
@@ -59,10 +63,11 @@ public class CallHangUpActivity extends BaseActivity {
 
 	private void updateDBWithCallInfo(String contactID2, long l) {
 		DBAdapter adapter = new DBAdapter(getApplicationContext());
-		adapter.openDataBase();
 		ContentValues values = new ContentValues();
 		values.put("contact_id", contactID2);
 		values.put("call_duration_Seconds", l);
+		values.put("contact_name", adapter.getContactsNameFromID(contactID2));
+		adapter.openDataBase();
 		adapter.getMyDatabase().insert("tbl_calls_track", null, values);
 		adapter.getMyDatabase().close();
 		adapter.close();
@@ -76,6 +81,7 @@ public class CallHangUpActivity extends BaseActivity {
 		intent.putExtra("contact_name", contactID);
 		intent.putExtra("contact_uri", uri);
 		intent.putExtra("contact_number", contactNumber);
+		intent.putExtra("contact_name", contactName);
 		// intent.putExtra("contact", arrayList.get(arg2));
 		startActivity(intent);
 	}

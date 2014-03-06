@@ -3,21 +3,27 @@ package com.call.tracker.listmanager;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.call.tracker.BaseActivity;
 import com.call.tracker.R;
+import com.call.tracker.alarm.AlarmReceiver;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.ListManagerModel;
 
@@ -77,35 +83,25 @@ public class ListManagerDetails extends BaseActivity {
 		listViewContactsAndGroup.setAdapter(adapter);
 
 		listViewContactsAndGroup
-				.setOnItemLongClickListener(new OnItemLongClickListener() {
+				.setOnItemClickListener(new OnItemClickListener() {
 
 					@Override
-					public boolean onItemLongClick(AdapterView<?> arg0,
-							View arg1, int arg2, long arg3) {
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
 						deleteUpdateListItem(Integer.parseInt(arg1.getTag()
 								.toString()));
-						return false;
 					}
 				});
-		listViewContactsAndGroup
-				.setOnLongClickListener(new OnLongClickListener() {
 
-					@Override
-					public boolean onLongClick(View v) {
-						deleteUpdateListItem(Integer.parseInt(v.getTag()
-								.toString()));
-						return false;
-					}
-				});
 	}
 
 	protected void deleteUpdateListItem(final int pos) {
 		// TODO Auto-generated method stub
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-		alert.setTitle("Do you want to Rename or Delete "
+		alert.setTitle("Select Action");
+		alert.setMessage("Do you want to Rename or Remove "
 				+ arrayList.get(pos).getName() + " ?");
-		alert.setMessage("");
 
 		// Set an EditText view to get user input
 		alert.setPositiveButton("Rename",
@@ -117,7 +113,7 @@ public class ListManagerDetails extends BaseActivity {
 					}
 				});
 
-		alert.setNegativeButton("Remove11286?",
+		alert.setNegativeButton("Remove?",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						openDeleteDialog(arrayList.get(pos).getId(), arrayList
@@ -156,6 +152,16 @@ public class ListManagerDetails extends BaseActivity {
 		dbAdapter.openDataBase();
 
 		// String query = "select * from tbl_group";
+
+		ArrayList<String> contacts = dbAdapter.getContactsIDsOfGroup(id);
+		for (String contact_id : contacts) {
+			Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+			PendingIntent pendingIntent = PendingIntent.getBroadcast(
+					getBaseContext(), Integer.parseInt(contact_id), intent, 0);
+			AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+			alarmManager.cancel(pendingIntent);
+		}
+
 		dbAdapter.deleteList(Integer.valueOf(id));
 		// dbAdapter.insertList(value);
 
@@ -175,6 +181,14 @@ public class ListManagerDetails extends BaseActivity {
 		// Set an EditText view to get user input
 		final EditText input = new EditText(this);
 		alert.setView(input);
+		input.setInputType(InputType.TYPE_CLASS_TEXT
+				| InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+		input.requestFocus();
+		InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (inputMethodManager != null) {
+			inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+					0);
+		}
 		input.setText(edittext);
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -196,7 +210,7 @@ public class ListManagerDetails extends BaseActivity {
 		alert.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						// Canceled.
+
 					}
 				});
 

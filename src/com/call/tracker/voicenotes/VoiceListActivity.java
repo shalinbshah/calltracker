@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,6 +18,7 @@ import com.call.tracker.R;
 import com.call.tracker.adapter.VoiceNotesMainAdapter;
 import com.call.tracker.database.DBAdapter;
 import com.call.tracker.model.VoiceNotesModel;
+import com.devspark.appmsg.AppMsg;
 
 public class VoiceListActivity extends BaseActivity {
 
@@ -42,8 +44,18 @@ public class VoiceListActivity extends BaseActivity {
 	}
 
 	public void callNewNote(View v) {
-		startActivity(new Intent(getApplicationContext(),
-				NewVoiceNoteActivity.class));
+		ArrayList<String> addedContactsIDs = new ArrayList<String>();
+		dbAdapter = new DBAdapter(getApplicationContext());
+		addedContactsIDs = dbAdapter.getContactsIDs();
+		if (addedContactsIDs == null || addedContactsIDs.size() == 0) {
+			AppMsg appMsg = AppMsg.makeText(this,
+					"Please add contacts from Contact Manager",
+					AppMsg.STYLE_ALERT);
+			appMsg.setLayoutGravity(Gravity.BOTTOM);
+			appMsg.show();
+		} else
+			startActivity(new Intent(getApplicationContext(),
+					NewVoiceNoteActivity.class));
 	}
 
 	private void initControl() {

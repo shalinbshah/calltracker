@@ -295,6 +295,8 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 				getBaseContext(), contact_id, intent, 0);
 		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		alarmManager.cancel(pendingIntent);
+		adapter.updateContactFollowUpNotes(Integer.toString(contact_id),
+				"No Followup Set");
 	}
 
 	@Override

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="66dp"
+    android:layout_height="40dp"
     android:layout_margin="3dp"
+    android:background="@color/semiTransparent"
     android:orientation="horizontal" >
 
     <LinearLayout
@@ -14,7 +15,7 @@
         <LinearLayout
             android:id="@+id/cellLayout"
             android:layout_width="match_parent"
-            android:layout_height="66dp" >
+            android:layout_height="40dp" >
 
             <ImageView
                 android:id="@+id/quickContactBadge2"
@@ -22,6 +23,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
                 android:src="@drawable/call" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/menu_bg" />
 
             <LinearLayout
                 android:id="@+id/CallInfo"
@@ -34,6 +44,7 @@
                     android:id="@+id/textName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:fadeScrollbars="true"
                     android:singleLine="true"
                     android:text="Name"
@@ -41,23 +52,29 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/menu_bg" />
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/grp"
-        android:layout_width="0dip"
+    <com.call.tracker.customview.TextViewRoboto
+        android:id="@+id/textGroup"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="0.25" >
-
-        <com.call.tracker.customview.TextViewRoboto
-            android:id="@+id/textGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="left"
-            android:singleLine="true"
-            android:text="Group"
-            android:textSize="18sp" />
-    </LinearLayout>
+        android:layout_gravity="center"
+        android:layout_weight="0.25"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="Group"
+        android:textColor="@color/theme_color"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

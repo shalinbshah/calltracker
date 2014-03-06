@@ -34,10 +34,75 @@
             android:textSize="24dp" />
     </FrameLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="selectDate"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="date" >
+
+                <requestFocus />
+            </EditText>
+
+            <ImageView
+                android:id="@+id/imgDatePicker1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:onClick="selectDate1"
+                android:src="@drawable/calendar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="date" >
+
+                <requestFocus />
+            </EditText>
+
+            <ImageView
+                android:id="@+id/imgDatePicker2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:onClick="selectDate2"
+                android:src="@drawable/calendar" />
+        </LinearLayout>
+    </LinearLayout>
+
     <com.inqbarna.tablefixheaders.TableFixHeaders
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/tblStatisctics"
+        android:id="@+id/tblReports"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+    </com.inqbarna.tablefixheaders.TableFixHeaders>
 
 </LinearLayout>

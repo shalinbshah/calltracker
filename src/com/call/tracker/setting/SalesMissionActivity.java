@@ -23,6 +23,7 @@ public class SalesMissionActivity extends BaseActivity {
 	EditText et_avg_mission_appointments;
 	EditText et_mission_avg_hoursperday;
 	EditText et_mission_avg_dayperweek;
+	static String IS_GOAL_SET = "SalesMissionActivity_IS_GOAL_SET";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,5 +81,8 @@ public class SalesMissionActivity extends BaseActivity {
 						.toString()), Integer
 						.parseInt(et_mission_avg_dayperweek.getText()
 								.toString()));
+
+		updatePref(IS_GOAL_SET, true);
+		finish();
 	}
 }

@@ -59,13 +59,13 @@ public class VoiceNotesMainAdapter extends BaseAdapter {
 		mView = null;
 		LayoutInflater inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mView = inflater.inflate(R.layout.list_voice_main_list, parent, false);
+		mView = inflater.inflate(R.layout.list_voice_notes, parent, false);
 		holder = new ViewHolder();
 
 		holder.textName = (TextView) mView.findViewById(R.id.textName);
 		holder.textUrgent = (ImageView) mView.findViewById(R.id.textUrgent);
 		holder.textDate = (TextView) mView.findViewById(R.id.textDate);
-		holder.quickContactBadgeVoiceList = (QuickContactBadge) mView
+		holder.quickContactBadgeVoiceList = (ImageView) mView
 				.findViewById(R.id.quickContactBadgeVoiceList);
 
 		mView.setTag(holder);
@@ -83,7 +83,6 @@ public class VoiceNotesMainAdapter extends BaseAdapter {
 		holder.textDate.setText(voiceNotesModels.get(position).getDateTime());
 		Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI,
 				String.valueOf(contactId));
-		holder.quickContactBadgeVoiceList.assignContactUri(uri);
 		try {
 			input = ContactsContract.Contacts.openContactPhotoInputStream(
 					activity.getContentResolver(), uri);
@@ -124,6 +123,6 @@ public class VoiceNotesMainAdapter extends BaseAdapter {
 		private TextView textName;
 		private ImageView textUrgent;
 		private TextView textDate;
-		private QuickContactBadge quickContactBadgeVoiceList;
+		private ImageView quickContactBadgeVoiceList;
 	}
 }

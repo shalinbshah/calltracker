@@ -2,14 +2,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_main_background"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <FrameLayout
         android:id="@+id/FrameLayout1"
         android:layout_width="fill_parent"
         android:layout_height="44dip"
         android:layout_marginBottom="25dp"
-        android:background="@drawable/menu_bg">
+        android:background="@drawable/menu_bg" >
 
         <ImageButton
             android:id="@+id/butHome"
@@ -60,7 +60,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <com.call.tracker.customview.TextViewRoboto
             android:layout_width="fill_parent"
@@ -68,7 +68,8 @@
             android:layout_marginTop="10dp"
             android:text="@string/export_contacts_as_csv"
             android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="@color/theme_color" />
+            android:textColor="@color/theme_color"
+            android:textSize="22sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -89,13 +90,14 @@
             android:gravity="center_vertical"
             android:text="@string/sales_goals"
             android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="@color/theme_color" />
+            android:textColor="@color/theme_color"
+            android:textSize="22sp" />
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/setting_switch_off" />
+        <CheckBox
+            android:id="@+id/mission_setting_switch"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
     </LinearLayout>
 
     <LinearLayout
@@ -103,7 +105,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <com.call.tracker.customview.TextViewRoboto
             android:layout_width="fill_parent"
@@ -111,27 +113,24 @@
             android:layout_marginTop="10dp"
             android:text="@string/facebook_contact_us"
             android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="@color/theme_color" />
+            android:textColor="@color/theme_color"
+            android:textSize="22sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:layout_margin="5dp"
         android:gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
-        <com.call.tracker.customview.TextViewRoboto
+        <ImageView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:background="@color/theme_color"
             android:gravity="center"
-            android:text="@string/you_have_everything_you_need_to_nbuild_something_for_bigger_than_nyourself_nseth_godin"
-            android:textAppearance="@android:style/TextAppearance.Small"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:src="@drawable/setting_thought" />
     </LinearLayout>
 
 </LinearLayout>
