@@ -66,15 +66,15 @@
 
     <com.call.tracker.customview.TextViewRoboto
         android:id="@+id/textGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_weight="0.25"
+        android:layout_weight="0.5"
         android:gravity="center"
         android:singleLine="true"
         android:text="Group"
         android:textColor="@color/theme_color"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
 </LinearLayout>

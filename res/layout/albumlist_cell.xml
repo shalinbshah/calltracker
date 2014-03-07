@@ -26,10 +26,9 @@
                 android:maxHeight="30dip"
                 android:paddingLeft="10dp"
                 android:singleLine="true"
-                android:text="Album Name"
+                android:text="List Name"
                 android:textColor="@color/theme_color"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="22sp" />
 
             <ImageView
                 android:id="@+id/ivInsideFolder"

@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.QuickContactBadge;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.call.tracker.R;
@@ -63,14 +63,11 @@ public class CallListAdapter extends BaseAdapter {
 			holder.textName = (TextView) mView.findViewById(R.id.textName);
 			holder.textLast = (TextView) mView.findViewById(R.id.textLast);
 			holder.textNext = (TextView) mView.findViewById(R.id.textNext);
-			holder.uri_badge = (QuickContactBadge) mView
+			holder.uri_badge = (ImageView) mView
 					.findViewById(R.id.quickContactBadge1);
-			holder.uri_badge.setMode(ContactsContract.QuickContact.MODE_SMALL);
 			mView.setTag(callListModels.get(position));
 		}
 		String name = callListModels.get(position).getName();
-		holder.uri_badge.assignContactFromPhone(callListModels.get(position)
-				.getNumber(), true);
 		try {
 			input = ContactsContract.Contacts.openContactPhotoInputStream(
 					activity.getContentResolver(), callListModels.get(position)
@@ -96,7 +93,7 @@ public class CallListAdapter extends BaseAdapter {
 	}
 
 	public class ViewHolder {
-		private QuickContactBadge uri_badge;
+		private ImageView uri_badge;
 		private TextView textName;
 		private TextView textLast;
 		private TextView textNext;

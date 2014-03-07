@@ -9,12 +9,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,7 +21,6 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-import com.call.tracker.alarm.AlarmReceiver;
 import com.call.tracker.model.ContactModel;
 import com.call.tracker.model.ListManagerModel;
 import com.call.tracker.model.VoiceNotesModel;

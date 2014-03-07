@@ -29,6 +29,8 @@ public final class R {
          */
         public static final int backup_country_names=0x7f06000b;
         /**  Recurrence picker: How events are to be repeated.  [CHAR LIMIT = 20] 
+ <item>REPEAT MONTHLY</item> 
+ <item>REPEAT YEARLY</item> 
          */
         public static final int recurrence_freq=0x7f060000;
         /**  Repeat a monthly event on the same nth day of every Friday. [CHAR LIMIT=30] 
@@ -40,11 +42,12 @@ public final class R {
         /**  Repeat a monthly event on the same nth day of every Saturday. [CHAR LIMIT=30] 
          */
         public static final int repeat_by_nth_sat=0x7f060007;
-        /**  The following sets of strings describe a monthly recurring event, which will repeat
+        /** 
+         The following sets of strings describe a monthly recurring event, which will repeat
          on the Nth WEEKDAY of every month. For example, the 3rd Monday of every month, or
          the last Sunday. These are set up like this to resolve any gender-matching issues
          that were present in some languages.
-     
+    
  Repeat a monthly event on the same nth day of every Sunday. [CHAR LIMIT=30] 
          */
         public static final int repeat_by_nth_sun=0x7f060001;

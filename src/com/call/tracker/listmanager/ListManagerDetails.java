@@ -99,7 +99,7 @@ public class ListManagerDetails extends BaseActivity {
 		// TODO Auto-generated method stub
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-		alert.setTitle("Select Action");
+		alert.setTitle("Select Action for " + arrayList.get(pos).getName());
 		alert.setMessage("Do you want to Rename or Remove "
 				+ arrayList.get(pos).getName() + " ?");
 
@@ -128,8 +128,8 @@ public class ListManagerDetails extends BaseActivity {
 		// TODO Auto-generated method stub
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-		alert.setTitle("Erase List");
-		alert.setMessage("Want to Remove " + name + " ?");
+		alert.setTitle("Remove List ?");
+		alert.setMessage("Sure Remove " + name + " ?");
 
 		// Set an EditText view to get user input
 		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -186,8 +186,8 @@ public class ListManagerDetails extends BaseActivity {
 		input.requestFocus();
 		InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		if (inputMethodManager != null) {
-			inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,
-					0);
+			inputMethodManager.toggleSoftInput(
+					InputMethodManager.SHOW_IMPLICIT, 0);
 		}
 		input.setText(edittext);
 

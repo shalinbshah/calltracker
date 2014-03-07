@@ -59,9 +59,12 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		if (getPref(SalesMissionActivity.IS_GOAL_SET, false)) {
 			mission_setting_switch.setSelected(true);
 			mission_setting_switch.setEnabled(true);
-		} else
-			mission_setting_switch.setSelected(false);
+			mission_setting_switch.setChecked(true);
 
+		} else {
+			mission_setting_switch.setChecked(false);
+			mission_setting_switch.setSelected(false);
+		}
 		layoutFeedbask = (LinearLayout) findViewById(R.id.layoutFeedback);
 		layoutFeedbask.setOnClickListener(this);
 

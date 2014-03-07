@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
@@ -102,6 +103,7 @@ public class AlbumsListPopUp extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         // requestWindowFeature(Window.FEATURE_NO_TITLE);
         setTitle("Select Group");

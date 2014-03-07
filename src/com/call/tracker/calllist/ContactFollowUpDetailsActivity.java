@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import com.call.tracker.HomeActivity;
@@ -60,7 +59,7 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 	DatePickerDialog datePickerDialog;
 	RecurrencePickerDialog recurrencePickerDialog;
 	private String mRrule;
-	QuickContactBadge contactBadge;
+	ImageView contactBadge;
 	TextView tvContactName;
 	DBAdapter adapter;
 	EditText etFollowUpnotes;
@@ -86,11 +85,10 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 			String name = (String) getIntent().getExtras().get("contact_name");
 			tvContactName.setText(name);
 		}
-		contactBadge = (QuickContactBadge) findViewById(R.id.quickContactBadgeContactDateTime);
+		contactBadge = (ImageView) findViewById(R.id.quickContactBadgeContactDateTime);
 		if (getIntent().getExtras().containsKey("contact_uri")
 				&& null != getIntent().getExtras().get("contact_uri")) {
 			Uri uri = (Uri) getIntent().getExtras().get("contact_uri");
-			contactBadge.assignContactUri(uri);
 			if (ContactsContract.Contacts.openContactPhotoInputStream(
 					getContentResolver(), uri) != null) {
 				InputStream input = ContactsContract.Contacts
@@ -128,24 +126,29 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 
 			@Override
 			public void onClick(View v) {
-				recurrencePickerDialog = new RecurrencePickerDialog();
-				Bundle b = new Bundle();
-				Time t = new Time();
-				t.setToNow();
-				b.putLong(RecurrencePickerDialog.BUNDLE_START_TIME_MILLIS,
-						t.toMillis(false));
-				b.putString(RecurrencePickerDialog.BUNDLE_TIME_ZONE, t.timezone);
-				// may be more efficient to serialize and pass in
-				// EventRecurrence
-				b.putString(RecurrencePickerDialog.BUNDLE_RRULE, mRrule);
-				recurrencePickerDialog.setArguments(b);
-				recurrencePickerDialog
-						.setOnRecurrenceSetListener(ContactFollowUpDetailsActivity.this);
-				recurrencePickerDialog.show(getSupportFragmentManager(),
-						FRAG_TAG_RECUR_PICKER);
+				repeatClickAction();
 			}
 		});
 
+	}
+
+	protected void repeatClickAction() {
+		recurrencePickerDialog = new RecurrencePickerDialog();
+		Bundle b = new Bundle();
+		Time t = new Time();
+		t.setToNow();
+		b.putLong(RecurrencePickerDialog.BUNDLE_START_TIME_MILLIS,
+				t.toMillis(false));
+		b.putString(RecurrencePickerDialog.BUNDLE_TIME_ZONE, t.timezone);
+		// may be more efficient to serialize and pass in
+		// EventRecurrence
+		b.putString(RecurrencePickerDialog.BUNDLE_RRULE, mRrule);
+
+		recurrencePickerDialog.setArguments(b);
+		recurrencePickerDialog
+				.setOnRecurrenceSetListener(ContactFollowUpDetailsActivity.this);
+		recurrencePickerDialog.show(getSupportFragmentManager(),
+				FRAG_TAG_RECUR_PICKER);
 	}
 
 	private boolean isVibrate() {
@@ -179,6 +182,7 @@ public class ContactFollowUpDetailsActivity extends FragmentActivity implements
 		calNow.set(Calendar.MINUTE, minute);
 		calNow.set(Calendar.SECOND, 0);
 		calNow.set(Calendar.MILLISECOND, 0);
+		repeatClickAction();
 	}
 
 	private void setAlarm(Calendar targetCal, boolean repeat) {

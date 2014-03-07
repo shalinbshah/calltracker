@@ -29,7 +29,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:text="Contact"
+            android:text="Contact Followup"
             android:textColor="@color/white"
             android:textSize="24dp" />
     </FrameLayout>
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <QuickContactBadge
+        <ImageView
             android:id="@+id/quickContactBadgeContactDateTime"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -61,7 +61,8 @@
                 android:gravity="top|left"
                 android:padding="5dp"
                 android:text="Large Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/datetimepicker"
@@ -83,7 +84,8 @@
                     android:layout_height="30dp"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:src="@drawable/repeat_icon_disable_dark" />
+                    android:src="@drawable/repeat_icon_disable_dark"
+                    android:visibility="invisible" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -127,8 +129,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Notes: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="Notes : "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/eTFollowUpNotes"
@@ -137,7 +140,7 @@
         android:layout_margin="10dp"
         android:ems="10"
         android:gravity="top"
-        android:inputType="textMultiLine">
+        android:inputType="textMultiLine" >
 
         <requestFocus />
     </EditText>
@@ -149,6 +152,7 @@
         android:layout_gravity="center"
         android:background="@color/theme_color"
         android:onClick="callSave"
-        android:text="Save" />
+        android:text="Save"
+        android:textColor="@color/white" />
 
 </LinearLayout>
